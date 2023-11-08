@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?php
 
-<head>
-    <title>Troc mon toit </title>
-</head>
+$request = $_SERVER['REQUEST_URI'];
+$viewDir = '/views/';
 
-<body>
+switch ($request) {
+    case '':
+    case '/':
+        require __DIR__ . $viewDir . 'home.php';
+        break;
 
-    <h1>Troc mon toit</h1>
-    <input type=button onClick="parent.location='connection.php'" value="Me connecter">
+    case '/connection':
+        require __DIR__ . $viewDir . 'connectionView.php';
+        break;
 
-</body>
+    case '/inscription':
+        require __DIR__ . $viewDir . 'inscriptionView.php';
+        break;
 
-</html>
+    default:
+        http_response_code(404);
+        require __DIR__ . $viewDir . '404.php';
+}
+?>
