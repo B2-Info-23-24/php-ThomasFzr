@@ -2,18 +2,19 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="connectionRegisterStyle.css">
     <link rel="stylesheet" href="style.css">
     <title>Troc mon toit </title>
 </head>
 
 <body>
-    <input type=button onClick="parent.location='/'" value="Retour">
+    <input type=button class="btn-retourHome" onClick="parent.location='/'" value="⬅ Retour">
 
     </br></br>
 
     <div id="register-form-wrap">
         <h2>Inscription</h2>
-        <form id="register-form">
+        <form id="register-form" action="?page=process_register" method="post">
             <p>
                 <input type="email" id="email" name="email" placeholder="Adresse mail" required><i class="validation"><span></span><span></span></i>
             </p>
