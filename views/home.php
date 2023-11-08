@@ -50,6 +50,9 @@
                 </div>
             </div>
 
+            Date début: <input type="date" id="dateDebut" min="2023-11-01" onchange="updateDateFinMin()">
+            Date fin: <input type="date" id="dateFin">
+
             Maison : <input type="checkbox">
             Appartement : <input type="checkbox">
             Chalet : <input type="checkbox">
@@ -70,7 +73,7 @@
         <img src="/src/assets/logement3.jpg" alt="img logement3"> -->
     </div>
 
-    <script src="sliderMoney.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
