@@ -34,7 +34,7 @@ body {
     transition: all 0.2s ease;
   }
   
-  #login-form-wrap {
+  #login-form-wrap, #register-form-wrap {
     background-color: #fff;
     width: 35%;
     margin: 30px auto;
@@ -44,7 +44,7 @@ body {
     box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
   }
   
-  #login-form {
+  #login-form, #register-form {
     padding: 0 60px;
   }
   

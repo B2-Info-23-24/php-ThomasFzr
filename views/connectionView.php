@@ -2,12 +2,12 @@
 <html>
 
 <head>
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Troc mon toit </title>
 </head>
 
 <body>
-    <input type=button onClick="parent.location='homepage.php'" value="Retour">
+    <input type=button onClick="parent.location='/'" value="Retour">
 
     </br></br>
     <div id="login-form-wrap">
@@ -20,11 +20,11 @@
                 <input type="text" id="password" name="password" placeholder="Mot de passe" required><i class="validation"><span></span><span></span></i>
             </p>
             <p>
-                <input type="submit" id="login" value="Login">
+                <input type="submit" id="login" value="SE CONNECTER">
             </p>
         </form>
         <div id="create-account-wrap">
-            <p>Not a member? <a href="/creationCompte.php">Create Account</a>
+            <p>Pas encore inscris? <a href="?page=inscription">M'inscrire</a>
             <p>
         </div>
     </div>

@@ -9,9 +9,13 @@
 <body>
 
     <h1>Troc mon toit</h1>
-    <input type=button onClick="parent.location='connection'" value="Me connecter">
+    <!-- <input type=button onClick="parent.location='/connection'" value="Me connecter"> -->
+
     
-<a href="/connection"> <button type="button" class="btn btn-outline-primary float-right">BUTTON_NAME</button></a>
+    <a href="?page=connection">
+        <button type="button" class="btn btn-outline-primary float-right">Me connecter</button>
+    </a> 
+ 
 
 </body>
 
