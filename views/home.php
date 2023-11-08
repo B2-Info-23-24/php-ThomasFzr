@@ -51,14 +51,17 @@
             </div>
 
             Date début: <input type="date" id="dateDebut" min="2023-11-01" onchange="updateDateFinMin()">
+            <br>
             Date fin: <input type="date" id="dateFin">
-
+            <br>
             Maison : <input type="checkbox">
             Appartement : <input type="checkbox">
             Chalet : <input type="checkbox">
+            <br>
             Villa : <input type="checkbox">
             Péniche : <input type="checkbox">
             Yourte : <input type="checkbox">
+            <br>
             Cabane : <input type="checkbox">
             Igloo : <input type="checkbox">
             Tente : <input type="checkbox">
@@ -66,11 +69,12 @@
 
         </div>
     </div>
-
+<br><br><br>
     <div class="annonces-logement">
         <!-- <img src="/src/assets/logement1.jpg" alt="img logement1">
         <img src="/src/assets/logement2.jpg" alt="img logement2">
         <img src="/src/assets/logement3.jpg" alt="img logement3"> -->
+        Logement 1: <br> <a href="?page=detailsLogement">Voir les détails du logement</a>
     </div>
 
     <script src="script.js"></script>

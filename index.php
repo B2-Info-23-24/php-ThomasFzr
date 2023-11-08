@@ -25,6 +25,16 @@ if (isset($_GET["page"])) {
             $controller->index();
             break;
 
+        case 'detailsLogement':
+            $controller = new DetailsLogementController();
+            $controller->index();
+            break;
+
+        case 'detailsCompte':
+            $controller = new DetailsCompteController();
+            $controller->index();
+            break;
+
         case 'process_login':
             $controller = new LoginController();
             $controller->processLogin();
@@ -44,4 +54,3 @@ if (isset($_GET["page"])) {
     $controller = new HomeController();
     $controller->index();
 }
-?>

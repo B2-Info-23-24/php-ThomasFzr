@@ -34,11 +34,7 @@ inputElements.forEach((element) => {
 // Initial call to validateRange
 validateRange();
 
-//date
-// const now = new Date();
-// const day = ("0" + now.getDate()).slice(-2);
-// const month = ("0" + (now.getMonth() + 1)).slice(-2);
-// const today = now.getFullYear() + "-" + (month) + "-" + (day);  
+// === DATE ===
 const today = new Date().toISOString().split('T')[0];
 
 const tomorrow = new Date();
