@@ -121,7 +121,7 @@ input[type="submit"]:hover {
 h4 {
     font-size: 18px;
     font-weight: 500;
-    color: #000;
+    color: #ffffff;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -186,4 +186,56 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .btn-retourHome {
     width: 10%;
+}
+
+
+/* === Logements === */
+
+.img {
+    display: inline-block;
+    margin: 30px 5px 0 5px;
+}
+
+.img:last-child {
+    margin-right: 0;
+}
+
+.img img {
+    width: 301px;
+    height: 206px;
+}
+
+.price-stamp {
+    margin: -200px 0 0 12px;
+    color: #fff;
+    font-weight: 900;
+    font-size: 22px;
+    text-shadow: 0 0 6px #615e61;
+}
+
+.description {
+    margin: 180px 0 0 0;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+/* === Details logement === */
+
+
+.flex-container-details-logement {
+    display: flex;
+}
+
+.flex-child-details-logement {
+    flex: 1;
+    /* border: 2px solid ; */
+}
+
+.flex-child-details-logement:first-child {
+    margin-right: 20px;
+    /* border: 2px solid ; */
+}
+
+.hidden {
+    display: none;
 }
