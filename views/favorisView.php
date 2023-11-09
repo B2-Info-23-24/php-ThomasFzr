@@ -12,7 +12,8 @@
 
     </br></br>
 
-    <div class="flex-container-details-logement">
+    Mes logements favoris:
+    <!-- <div class="flex-container-details-logement">
 
         <div class="flex-child-details-logement left">
             <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium">
@@ -28,9 +29,9 @@
                 <a href="#"> ⭐⭐⭐⭐⭐ 5,0 </a> <br>
                 <a href="#"> 33 commentaires</a>
             </div> <br>
-        </div>
+        </div> -->
 
-    </div>
+    <!-- </div> -->
 
 </body>
 

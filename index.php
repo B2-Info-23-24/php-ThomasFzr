@@ -35,6 +35,11 @@ if (isset($_GET["page"])) {
             $controller->index();
             break;
 
+        case 'favoris':
+            $controller = new FavorisController();
+            $controller->index();
+            break;
+
         case 'process_login':
             $controller = new LoginController();
             $controller->processLogin();

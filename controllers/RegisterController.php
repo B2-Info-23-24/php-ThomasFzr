@@ -9,7 +9,9 @@ class RegisterController
             $password = $_POST["password"];
         
             // Perform validation and authentication (you may check against a database)
-            require_once '/models/connectionBDD.php';
+            // require_once '/models/connectionBDD.php';
+            require_once __DIR__ . '/../models/connectionBDD.php';
+
 
             // Create an instance of the Database class
             $database = new Database();

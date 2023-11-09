@@ -239,3 +239,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 .hidden {
     display: none;
 }
+
+#imgIconeCompte {
+    height: 50px;
+}
+
+#imgIconeCoeur{
+    height: 50px;
+    margin-right: 15px;
+}
