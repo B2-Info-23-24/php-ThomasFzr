@@ -50,6 +50,11 @@ if (isset($_GET["page"])) {
             $controller->processRegister();
             break;
 
+        case 'process_getTable':
+            $controller = new GetTableController();
+            $controller->processGetTable();
+            break;
+
         default:
             http_response_code(404);
             include 'views/404.php';
