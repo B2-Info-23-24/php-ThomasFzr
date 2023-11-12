@@ -234,8 +234,10 @@ input[type="range"]::-webkit-slider-runnable-track {
     color: #ffffff;
 }
 
-#lien-annonce{
+#lien-annonce,
+#lien-logo-tmt{
     text-decoration: none; 
+    color: white;
 }
 
 

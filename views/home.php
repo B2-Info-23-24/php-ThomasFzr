@@ -14,7 +14,9 @@
         <div id="container-allheader">
             <div id="container-header">
                 <div id="container-leftheader">
+                    <a href="/" id="lien-logo-tmt">
                     <h1>TROC MON TOIT</h1>
+                    </a>
                 </div>
                 <div id="container-rightheader">
                     <a href="?page=favoris">

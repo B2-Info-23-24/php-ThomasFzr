@@ -36,12 +36,10 @@ class Database
     public function getTable()
     {
         try {
-            $sql = "SELECT * FROM USER";
-            $result = $this->conn->query($sql);
-
-            // Process the result, e.g., fetch and display data
-            foreach ($result as $row) {
-                echo "$row";
+            $data = $this->conn->query("SELECT * FROM User")->fetchAll();
+            // and somewhere later:
+            foreach ($data as $row) {
+                echo $row['name'] . "<br />\n";
             }
 
             echo 'Succès !';

@@ -51,6 +51,7 @@ if (isset($_GET["page"])) {
             break;
 
         case 'process_getTable':
+            echo 'je passe dans l"index';
             $controller = new GetTableController();
             $controller->processGetTable();
             break;
