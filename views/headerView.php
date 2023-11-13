@@ -23,9 +23,7 @@
                     <img src="/assets/iconeCoeur.png" alt="img icone coeur" id="imgIconeCoeur">
                 </a>
                 <a href="?page=connection">
-                    <!-- <button type="button" class="btn-connection-home">ME CONNECTER</button> -->
                     <img src="/assets/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
-
                 </a>
             </div>
         </div>

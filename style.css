@@ -3,6 +3,7 @@ body {
     font-size: 1.6rem;
     font-family: "Open Sans", sans-serif;
     color: rgb(255, 255, 255);
+    overflow: hidden;
 }
 
 h2 {
@@ -108,14 +109,12 @@ input[type="submit"]:hover {
 }
 
 
-/* === Slider price === */
+/* === Slider prix === */
 
 .card {
     width: 400px;
-    /* background-color: #0B162C; */
     border-radius: 5px;
     padding: 20px;
-    box-shadow: 0px 9px 20px 0px rgba(14, 88, 48, 0.1);
 }
 
 h4 {
@@ -203,7 +202,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 /* === Logements === */
 
-.logements{
+.zone-annonce{
     margin: auto;
     width: 85%;
     /* border: 5px solid; */

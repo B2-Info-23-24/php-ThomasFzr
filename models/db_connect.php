@@ -6,7 +6,8 @@ ini_set('display_errors', 1);
 
 class Database
 {
-    private $host = '172.17.61.133';
+    private $host = 'localhost';
+    // '172.17.61.133';
     private $dbname = 'my_database';
     private $username = 'my_user';
     private $password = 'my_password';

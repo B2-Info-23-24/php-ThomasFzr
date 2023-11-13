@@ -24,12 +24,14 @@
 
         <!-- A SUPPRIMER -->
 
+
+
         <div id="zone-recherche-et-filtre">
             <!-- <div id="zone-recherche">
                 <input type="text" id="barre-recherche-logement-home" placeholder="Rechercher un nom de logement">
             </div> -->
+
             <div id="zone-filtre">
-                Filtrer ma recherche: <br>
 
                 Maison : <input type="checkbox">
                 Appartement : <input type="checkbox">
@@ -44,13 +46,11 @@
 
 
                 <?php
-                // Check if the button is clicked
+
                 if (isset($_POST['toggleButton'])) {
-                    // Toggle the visibility status
                     $isVisible = !isset($_POST['isVisible']) || $_POST['isVisible'] == 'false';
                 } else {
-                    // Default to visible
-                    $isVisible = true;
+                    $isVisible = false;
                 }
                 ?>
 
@@ -91,7 +91,7 @@
 
         <br><br>
 
-        <div class="logements">
+        <div class="zone-annonce">
             <a href="?page=detailsLogement" id="lien-annonce">
                 <div class="annonce">
                     <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium">
