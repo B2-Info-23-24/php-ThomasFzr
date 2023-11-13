@@ -6,8 +6,7 @@ ini_set('display_errors', 1);
 
 class Database
 {
-    private $host = 'localhost';
-    // '172.17.61.133';
+    private $host = 'mysql';
     private $dbname = 'my_database';
     private $username = 'my_user';
     private $password = 'my_password';
@@ -17,8 +16,8 @@ class Database
     {
         try {
             $this->conn = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            // $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Connection failed (func construct): " . $e->getMessage());
         }
@@ -38,9 +37,8 @@ class Database
     {
         try {
             $data = $this->conn->query("SELECT * FROM User")->fetchAll();
-            // and somewhere later:
             foreach ($data as $row) {
-                echo $row['name'] . "<br />\n";
+                echo $row['nom'] . "<br />\n";
             }
 
             echo 'Succès !';
@@ -49,17 +47,21 @@ class Database
         }
     }
 
-    public function createTable()
+    public function createTables()
     {
         try {
-            $sql = "CREATE TABLE Test(
-                Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                Nom VARCHAR(30) NOT NULL,
-                Prenom VARCHAR(30) NOT NULL,
-                Adresse VARCHAR(70) NOT NULL,
-                Mail VARCHAR(50) NOT NULL,
-                DateInscription TIMESTAMP,
-                UNIQUE(Mail))";
+            $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, favoriteID INT, commentGradeID INT, reservationID INT, isAdmin BOOL);
+            CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dateDispo DATE, adresse VARCHAR(255), price INT, typeLogementAnnonceID INT, equipementAnnonceID INT, serviceAnnonceID INT, commentGradeID INT, reservationID INT, favoriteID INT);
+            CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, dateDebut DATE, dateFin DATE, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+            CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade FLOAT, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+            CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+            CREATE TABLE TypeLogement (typeLogementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
+            CREATE TABLE TypeLogementAnnonce (typeLogementAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, typeLogementID INT, annonceID INT, FOREIGN KEY (typeLogementID) REFERENCES TypeLogement(typeLogementID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+            CREATE TABLE Equipement (equipementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
+            CREATE TABLE EquipementAnnonce (equipementAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipementID INT, annonceID INT, FOREIGN KEY (equipementID) REFERENCES Equipement(equipementID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+            CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
+            CREATE TABLE ServiceAnnonce (serviceAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT, annonceID INT, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));            
+            ";
 
             $this->conn->exec($sql);
             echo 'Table bien créée !';
@@ -67,7 +69,28 @@ class Database
             echo "Erreur : " . $e->getMessage();
         }
     }
+
+    function insertIntoTable($table, $column, $value){
+        try {
+            $sql = "INSERT INTO $table ($column) VALUES ('$value')";
+            $this->conn->exec($sql);
+            echo 'Succès! <br>';
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
+
+    function insertIntoTableRegister($value1, $value2){
+        try {
+            $sql = "INSERT INTO User (mail, pwd) VALUES ('$value1', '$value2')";
+            $this->conn->exec($sql);
+            echo 'Succès! <br>';
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
+    }    
+
+
 }
 
-
-// phpinfo();
+?>

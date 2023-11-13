@@ -11,13 +11,8 @@ class RegisterController
 
             $database = new Database();
             
-            $conn = $database->getConnection();
-            
-            $sql = "INSERT INTO User (name) VALUES ('$email')";
-            $conn->query($sql);
-            echo "Register OK! <br>";
-            echo "Email: $email <br>";
-            echo "Password: $password <br>";
+          $database->insertIntoTableRegister($email, $password);
+          echo "Register ok! <br/>";
         } else {
         }
     }

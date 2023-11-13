@@ -1,12 +1,13 @@
+// === Slider prix ===
+
 let minValue = document.getElementById("min-value");
 let maxValue = document.getElementById("max-value");
 
 const rangeFill = document.querySelector(".range-fill");
 
-// Function to validate range and update the fill color on slider
 function validateRange() {
-  let minPrice = parseInt(inputElements[0].value);
-  let maxPrice = parseInt(inputElements[1].value);
+  let minPrice = parseInt(inputSliderElements[0].value);
+  let maxPrice = parseInt(inputSliderElements[1].value);
 
   if (minPrice > maxPrice) {
     let tempValue = maxPrice;
@@ -24,17 +25,17 @@ function validateRange() {
   maxValue.innerHTML = maxPrice + " €";
 }
 
-const inputElements = document.querySelectorAll("input");
+const inputSliderElements = document.getElementsByClassName("input-slider");
 
-// Add an event listener to each input element
-inputElements.forEach((element) => {
+Array.from(inputSliderElements).forEach(function(element) {
   element.addEventListener("input", validateRange);
 });
 
-// Initial call to validateRange
 validateRange();
 
+
 // === DATE ===
+
 const today = new Date().toISOString().split('T')[0];
 
 const tomorrow = new Date();
