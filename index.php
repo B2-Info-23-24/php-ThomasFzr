@@ -4,6 +4,7 @@ spl_autoload_register(function ($class) {
     include 'controllers/' . $class . '.php';
 });
 
+include "views/headerView.php";
 
 if (isset($_GET["page"])) {
     $page = $_GET["page"];

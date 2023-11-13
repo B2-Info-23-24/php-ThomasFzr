@@ -8,8 +8,6 @@
 </head>
 
 <body>
-    <input type=button class="btn-retourHome" onClick="parent.location='/'" value="⬅ Retour">
-
     </br></br>
 
     <div id="register-form-wrap">

@@ -11,25 +11,6 @@
 
     <body>
 
-        <div id="container-allheader">
-            <div id="container-header">
-                <div id="container-leftheader">
-                    <a href="/" id="lien-logo-tmt">
-                    <h1>TROC MON TOIT</h1>
-                    </a>
-                </div>
-                <div id="container-rightheader">
-                    <a href="?page=favoris">
-                        <img src="/assets/iconeCoeur.png" alt="img icone coeur" id="imgIconeCoeur">
-                    </a>
-                    <a href="?page=connection">
-                        <!-- <button type="button" class="btn-connection-home">ME CONNECTER</button> -->
-                        <img src="/assets/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
-
-                    </a>
-                </div>
-            </div>
-        </div>
 
 
         <!-- A SUPPRIMER -->

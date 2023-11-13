@@ -8,9 +8,8 @@
 </head>
 
 <body>
-    <input type=button class="btn-retourHome" onClick="parent.location='/'" value="⬅ Retour">
 
-    </br></br>
+    </br></br> 
     <div id="login-form-wrap">
         <h2>Connexion</h2>
         <form id="login-form" action="?page=process_login" method="post">
