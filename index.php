@@ -42,6 +42,7 @@ if (isset($_GET["page"])) {
             break;
 
         case 'process_login':
+            echo 'je passe dans login <br/>';
             $controller = new LoginController();
             $controller->processLogin();
             break;
@@ -52,7 +53,7 @@ if (isset($_GET["page"])) {
             break;
 
         case 'process_getTable':
-            echo 'je passe dans l"index';
+            echo "je passe dans l'index <br/>";
             $controller = new GetTableController();
             $controller->processGetTable();
             break;
