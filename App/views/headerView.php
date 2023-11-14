@@ -23,7 +23,10 @@
                 <div id="container-rightheader-top">
                     <div id="container-rightheader-topleft">
                         <?php
-                        if (isset($_SESSION['mail'])) {
+                        if (isset($_SESSION['surname'])) {
+                            echo "Bonjour, " . $_SESSION['surname'];
+                            echo "!";
+                        } elseif (isset($_SESSION['mail'])) {
                             echo "Bonjour, " . $_SESSION['mail'];
                             echo "!";
                         } else {
@@ -66,10 +69,10 @@
                             <a href="?page=detailsCompte" id="liens-profil-card">
                                 MON COMPTE</a><br>
 
-                                <a href="?page=reservation" id="liens-profil-card">
+                            <a href="?page=reservation" id="liens-profil-card">
                                 MES RESERVATIONS</a> <br>
 
-                                <a href="?page=avis" id="liens-profil-card">
+                            <a href="?page=avis" id="liens-profil-card">
                                 MES AVIS</a> <br>
 
                             <a href="?page=favoris" id="liens-profil-card">

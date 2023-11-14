@@ -7,7 +7,7 @@ class LoginController
             $email = $_POST["email"];
             $password = $_POST["password"];
         
-            require_once __DIR__ . '/../models/db_connect.php';
+            require_once __DIR__ . '/../models/DataBase.php';
             $database = new Database();
             $database->authenticateUser($email, $password);
         } else {

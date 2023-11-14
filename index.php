@@ -72,6 +72,11 @@ if (isset($_GET["page"])) {
             $controller->processGetTable();
             break;
 
+        case 'editInfoUser':
+            $controller = new EditInfoUserController();
+            $controller->processEditInfoUser();
+            break;
+
         default:
             http_response_code(404);
             include 'App/views/404.php';

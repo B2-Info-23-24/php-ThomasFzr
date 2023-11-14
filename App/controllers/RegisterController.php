@@ -7,7 +7,7 @@ class RegisterController
             $email = $_POST["email"];
             $password = $_POST["password"];
 
-            require_once __DIR__ . '/../models/db_connect.php';
+            require_once __DIR__ . '/../models/DataBase.php';
             $database = new Database();
             $database->insertIntoTableRegister($email, $password);
             echo "Register ok! <br/>";

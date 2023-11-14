@@ -108,16 +108,26 @@ class Database
     {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM User WHERE mail = :email AND pwd = :password");
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
                 $_SESSION['isConnected'] = true;
                 $_SESSION['mail'] = $email;
                 $_SESSION['pwd'] = $password;
+
+                $db = new Database();
+                $db->getUserInfo($email);
+
                 echo "Connexion réussie!<br>";
-                echo "Bonjour, $email!";
+                if (isset($_SESSION['surname'])) {
+                    echo "Bonjour, " . $_SESSION['surname'];
+                    echo "!";
+                } else {
+                    echo "Bonjour, " . $_SESSION['mail'];
+                    echo "!";
+                }
                 include 'App/views/home.php';
             } else {
                 echo "Mail ou mdp invalide";
@@ -128,6 +138,37 @@ class Database
         }
     }
 
+    public function getUserInfo($email)
+    {
+        $rqt = "SELECT * FROM User WHERE mail = :email";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
 
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if ($result && isset($result['name'])) {
+            $_SESSION['name'] = $result['name'];
+        }
+        if ($result && isset($result['surname'])) {
+            $_SESSION['surname'] = $result['surname'];
+        }
+        if ($result && isset($result['phoneNbr'])) {
+            $_SESSION['phoneNbr'] = $result['phoneNbr'];
+        }
+    }
+
+    public function updateTable($table, $column, $value, $email)
+    {
+        $rqt = "UPDATE $table SET $column = :value WHERE mail = :email";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':value', $value, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            echo "changement/ajout ok!";
+        } else {
+            echo "erreur changement/ajout!";
+        }
+    }
 }

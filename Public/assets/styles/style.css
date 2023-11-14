@@ -392,3 +392,13 @@ z-index: 9;
     transform: translate(-50%, -50%);
     background-color: #3B556D;
 }
+
+#profil-user-modif{
+    position: absolute;
+    left: 50%;
+    top: 110%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #3B556D;
+
+}
