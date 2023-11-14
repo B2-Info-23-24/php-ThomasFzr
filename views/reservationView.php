@@ -10,7 +10,11 @@
 <body>
     </br></br>
 
-    <h3> Mes logements favoris: </h3>
+    <h3> Réservations en cours: </h3>
+
+    ---------- <br>
+
+    <h3> Réservations passées: </h3>
 
     <div class="zone-annonce">
         <a href="?page=detailsLogement" id="lien-annonce">

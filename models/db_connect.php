@@ -113,10 +113,10 @@ class Database
             $stmt->bindParam(':password', $password);
             $stmt->execute();
 
-            // If a row is returned, the credentials are valid
             if ($stmt->rowCount() > 0) {
                 $_SESSION['isConnected'] = true;
                 $_SESSION['mail'] = $email;
+                $_SESSION['pwd'] = $password;
                 echo "Connexion réussie!<br>";
                 echo "Bonjour, $email!";
                 include 'views/home.php';

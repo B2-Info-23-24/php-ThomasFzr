@@ -65,10 +65,16 @@
                         <div class="profil-card">
                             <a href="?page=detailsCompte">
                                 MON COMPTE</a><br>
-                            MES RESERVATIONS <br>
-                            MES AVIS <br>
+
+                                <a href="?page=reservation">
+                                MES RESERVATIONS</a> <br>
+
+                                <a href="?page=avis">
+                                MES AVIS</a> <br>
+
                             <a href="?page=favoris">
                                 MES FAVORIS</a> <br>
+
                             <a href="?page=deconnection">
                                 DECONNEXION</a>
                         </div>

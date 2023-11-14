@@ -9,11 +9,33 @@
 
 <body>
     </br></br>
+    <p>
+    <h3>Mon profil: </h3>
 
-    Sur son espace, les
-informations dites basiques d’un utilisateur sont affichées : nom, prénom, numéro de téléphone,
-adresse mail, mot de passe, les logements qui ont été mis en favoris, un historique des avis laissés
-(nombre d’étoiles, nom du logement et texte de l’avis) et un historique des différentes réservations.
+
+    Nom: <?php if (isset($_SESSION['nom'])) {
+                echo $_SESSION['nom'];
+            } else {
+                echo "Pas encore définis";
+            }
+            ?>
+    <br>Prénom: <?php if (isset($_SESSION['prenom'])) {
+                    echo $_SESSION['prenom'];
+                } else {
+                    echo "Pas encore définis";
+                }
+                ?>
+    <br>Numéro de téléphone: <?php if (isset($_SESSION['numTel'])) {
+                                    echo $_SESSION['numTel'];
+                                } else {
+                                    echo "Pas encore définis";
+                                }
+                                ?>
+    <br>Mail : <?php echo $_SESSION['mail']; ?>
+
+
+    <br>mot de passe?? jsp
+
 
 
 </body>
