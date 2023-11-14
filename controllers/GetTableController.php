@@ -12,7 +12,7 @@ class GetTableController
         // } else {
         //     echo 'function getTable je ne suis pas un POST <br/>';
         // }
-        session_destroy();
+        // session_destroy();
     }
 }
 

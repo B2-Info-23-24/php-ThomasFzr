@@ -73,17 +73,13 @@ input[type="submit"]:hover {
     transition: all 0.2s ease;
 }
 
-/* .annonces-logement {
-    padding-top: 150px;
-
-} */
-
 #container-allheader {
     font-family: 'Oswald', sans-serif;
     background-color: #1C2942;
     color: white;
     padding-left: 15px;
     padding-right: 15px;
+    height: 140px;
 }
 
 #container-header {
@@ -190,19 +186,19 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 /* === Zone filtres === */
 
-#zone-filtre{
+#zone-filtre {
     margin: auto;
     width: 85%;
     /* border: 5px solid; */
 }
 
-#filtre-deroulant{
+#filtre-deroulant {
     /* background-color: red; */
 }
 
 /* === Logements === */
 
-.zone-annonce{
+.zone-annonce {
     margin: auto;
     width: 85%;
     /* border: 5px solid; */
@@ -211,7 +207,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 .annonce {
     display: inline-block;
     margin: 30px 5px 0 5px;
-    text-align: center; /* Center the content inside each .img */
+    text-align: center;
+    /* Center the content inside each .img */
 }
 
 .annonce img {
@@ -234,8 +231,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #lien-annonce,
-#lien-logo-tmt{
-    text-decoration: none; 
+#lien-logo-tmt {
+    text-decoration: none;
     color: white;
 }
 
@@ -265,11 +262,59 @@ input[type="range"]::-webkit-slider-runnable-track {
     height: 50px;
 }
 
-#imgIconeCoeur{
+#imgIconeCoeur {
     height: 50px;
     margin-right: 15px;
 }
 
-#imgIconeCoeur{
+#imgIconeCoeur {
     padding-left: 50px;
+}
+
+
+/* Profil */
+
+#btn-profil {
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#container-rightheader {
+    width: 210px;
+    height: 150px;
+    position: relative;
+    margin: 30px;
+}
+
+#container-rightheader-top {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.7;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#container-rightheader-topright,
+#container-rightheader-topleft {
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+
+#container-rightheader-topleft {
+    color: white;
+}
+
+#container-rightheader-bottom {
+    z-index: 9;
+    margin-top: 180px;
+    border-radius: 30px;
+    background: #3B556D;
+    opacity: 99%;
+    box-shadow: 6px 6px 12px #39526a,-6px -6px 12px #3d5870;
+    text-align: center;
+    font-weight: bold;
 }

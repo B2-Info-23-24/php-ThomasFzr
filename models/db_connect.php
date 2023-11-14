@@ -115,9 +115,10 @@ class Database
 
             // If a row is returned, the credentials are valid
             if ($stmt->rowCount() > 0) {
-                $_SESSION['mail'] = $email;
-                echo "Connexion réussie!";
                 $_SESSION['isConnected'] = true;
+                $_SESSION['mail'] = $email;
+                echo "Connexion réussie!<br>";
+                echo "Bonjour, $email!";
                 include 'views/home.php';
             } else {
                 echo "Mail ou mdp invalide";

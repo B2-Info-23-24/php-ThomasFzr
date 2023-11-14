@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['isConnected'] = false;
-
 
 spl_autoload_register(function ($class) {
     include 'controllers/' . $class . '.php';
@@ -27,6 +25,11 @@ if (isset($_GET["page"])) {
         case 'inscription':
             $controller = new InscriptionController();
             $controller->index();
+            break;
+
+        case 'deconnection':
+            $controller = new DeconnectionController();
+            $controller->processDeconnection();
             break;
 
         case 'detailsLogement':

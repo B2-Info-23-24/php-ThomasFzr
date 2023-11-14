@@ -18,7 +18,7 @@
         <form id="gettable-form" action="?page=process_getTable" method="post">
 
             <p>
-                <input type="submit" id="register" value="DECO">
+                <input type="submit" id="register" value="BTN FOR TESTS.">
             </p>
         </form>
 
