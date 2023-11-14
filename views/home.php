@@ -11,38 +11,27 @@
 
     <body>
 
-
-
-        <!-- A SUPPRIMER -->
-
-        <form id="gettable-form" action="?page=process_getTable" method="post">
-
-            <p>
-                <input type="submit" id="register" value="BTN FOR TESTS.">
-            </p>
-        </form>
-
-        <!-- A SUPPRIMER -->
-
-
-
         <div id="zone-recherche-et-filtre">
             <!-- <div id="zone-recherche">
                 <input type="text" id="barre-recherche-logement-home" placeholder="Rechercher un nom de logement">
             </div> -->
 
-            <div id="zone-filtre">
+            <div id="zone-filtre-container">
 
-                Maison : <input type="checkbox">
-                Appartement : <input type="checkbox">
-                Chalet : <input type="checkbox">
-                Villa : <input type="checkbox">
-                Péniche : <input type="checkbox">
-                Yourte : <input type="checkbox">
-                Cabane : <input type="checkbox">
-                Igloo : <input type="checkbox">
-                Tente : <input type="checkbox">
-                Car : <input type="checkbox">
+                <nav class="navigation">
+                    <ul>
+                        <li><a href="">Maisons</a></li>
+                        <li><a href="">Appartements</a></li>
+                        <li><a href="">Chalets</a></li>
+                        <li><a href="">Villas</a></li>
+                        <li><a href="">Péniches</a></li>
+                        <li><a href="">Yourtes</a></li>
+                        <li><a href="">Cabanes</a></li>
+                        <li><a href="">Igloos</a></li>
+                        <li><a href="">Tentes</a></li>
+                        <li><a href="">Cars</a></li>
+                    </ul>
+                </nav>
 
 
                 <?php
@@ -54,10 +43,15 @@
                 }
                 ?>
 
-                <form method="post" action="">
-                    <button type="submit" name="toggleButton">FILTRES</button>
-                    <input type="hidden" name="isVisible" value="<?php echo $isVisible ? 'true' : 'false'; ?>">
-                </form>
+                <div id="zone-filtre-rightcontainer">
+
+                    <!-- <div id="zone-filtre-rightcontainer-top"> -->
+                    <form method="post" action="">
+                        <button type="submit" name="toggleButton">FILTRES</button>
+                        <input type="hidden" name="isVisible" value="<?php echo $isVisible ? 'true' : 'false'; ?>">
+                    </form>
+                </div>
+                <!-- <div id="zone-filtre-rightcontainer-bottom"> -->
 
                 <div id="filtre-deroulant" class="<?php echo $isVisible ? '' : 'hidden'; ?>">
                     <div class="card">
@@ -84,9 +78,10 @@
                     Date fin: <input type="date" id="dateFin">
                     <br>
                 </div>
-
-
             </div>
+            <!-- </div> -->
+
+        </div>
         </div>
 
         <br><br>
@@ -163,7 +158,16 @@
 
         </div>
 
+        <!-- A SUPPRIMER -->
 
+        <form id="gettable-form" action="?page=process_getTable" method="post">
+
+            <p>
+                <input type="submit" id="register" value="BTN FOR TESTS.">
+            </p>
+        </form>
+
+        <!-- A SUPPRIMER -->
         <script src="script.js"></script>
     </body>
 

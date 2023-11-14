@@ -12,7 +12,7 @@
 
     <h3> Réservations en cours: </h3>
 
-    ---------- <br>
+    ------------------------------------- <br>
 
     <h3> Réservations passées: </h3>
 

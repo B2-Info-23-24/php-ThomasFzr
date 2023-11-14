@@ -94,11 +94,6 @@ input[type="submit"]:hover {
     align-items: center;
 }
 
-#zone-recherche-et-filtre {
-    padding-top: 30px;
-    padding-left: 15px;
-}
-
 #barre-recherche-logement-home {
     width: 50%;
     padding-top: 25px;
@@ -186,14 +181,77 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 /* === Zone filtres === */
 
-#zone-filtre {
+#zone-filtre-container {
+    padding-top: 20px;
     margin: auto;
     width: 85%;
     /* border: 5px solid; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-#filtre-deroulant {
-    /* background-color: red; */
+#zone-filtre-rightcontainer {
+    width: auto;
+    display: flex;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+
+#zone-filtre-rightcontainer-bottom{
+z-index: 9;
+    margin-top: 180px;
+    border-radius: 30px;
+    background: #3B556D;
+    opacity: 99%;
+    box-shadow: 6px 6px 12px #39526a, -6px -6px 12px #3d5870;
+    text-align: center;
+    font-weight: bold;
+}
+
+#filtre-deroulant{
+    z-index: 9;
+    margin-top: 180px;
+    border-radius: 30px;
+    background: #3B556D;
+    opacity: 99%;
+    box-shadow: 6px 6px 12px #39526a, -6px -6px 12px #3d5870;
+    text-align: center;
+    font-weight: bold;
+}
+
+.navigation ul {
+    font: bold 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.navigation li {
+    display: inline-block;
+}
+
+.navigation a {
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 12px 20px;
+    text-decoration: none;
+}
+
+.navigation a:hover {
+    background: #314b60;
+    box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, .3);
+}
+
+.navigation li:first-child a {
+    border-radius: 4px 0 0 4px;
+}
+
+.navigation li:last-child a {
+    border-right: 0;
+    border-radius: 0 4px 4px 0;
 }
 
 /* === Logements === */
@@ -272,7 +330,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 
-/* Profil */
+/*=== Profil ===*/
 
 #btn-profil {
     background-color: transparent;
@@ -314,7 +372,23 @@ input[type="range"]::-webkit-slider-runnable-track {
     border-radius: 30px;
     background: #3B556D;
     opacity: 99%;
-    box-shadow: 6px 6px 12px #39526a,-6px -6px 12px #3d5870;
+    box-shadow: 6px 6px 12px #39526a, -6px -6px 12px #3d5870;
     text-align: center;
     font-weight: bold;
+}
+
+#liens-profil-card {
+    text-decoration: none;
+    color: white;
+}
+
+/* === Profil user ===*/
+
+#profil-user {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #3B556D;
 }

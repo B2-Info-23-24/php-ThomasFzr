@@ -8,35 +8,40 @@
 </head>
 
 <body>
-    </br></br>
-    <p>
-    <h3>Mon profil: </h3>
+    <div id="profil-user">
+        <h3>Mon profil: </h3>
 
+        <div>
+            Nom: <?php if (isset($_SESSION['nom'])) {
+                        echo $_SESSION['nom'];
+                    } else {
+                        echo "Pas encore définis";
+                    }
+                    ?>
+        </div>
+        <div>
+            <br>Prénom: <?php if (isset($_SESSION['prenom'])) {
+                            echo $_SESSION['prenom'];
+                        } else {
+                            echo "Pas encore définis";
+                        }
+                        ?>
+        </div>
+        <div>
+            <br>Numéro de téléphone: <?php if (isset($_SESSION['numTel'])) {
+                                            echo $_SESSION['numTel'];
+                                        } else {
+                                            echo "Pas encore définis";
+                                        }
+                                        ?>
+        </div>
+        <div>
+            <br>Mail : <?php echo $_SESSION['mail']; ?>
+        </div>
 
-    Nom: <?php if (isset($_SESSION['nom'])) {
-                echo $_SESSION['nom'];
-            } else {
-                echo "Pas encore définis";
-            }
-            ?>
-    <br>Prénom: <?php if (isset($_SESSION['prenom'])) {
-                    echo $_SESSION['prenom'];
-                } else {
-                    echo "Pas encore définis";
-                }
-                ?>
-    <br>Numéro de téléphone: <?php if (isset($_SESSION['numTel'])) {
-                                    echo $_SESSION['numTel'];
-                                } else {
-                                    echo "Pas encore définis";
-                                }
-                                ?>
-    <br>Mail : <?php echo $_SESSION['mail']; ?>
+        <br>mot de passe?? jsp
 
-
-    <br>mot de passe?? jsp
-
-
+    </div>
 
 </body>
 

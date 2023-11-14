@@ -35,11 +35,12 @@
                     </div>
 
                     <?php
-                    if (isset($_POST['toggleButton'])) {
-                        $isVisible = !isset($_POST['isVisible']) || $_POST['isVisible'] == 'false';
-                    } else {
-                        $isVisible = false;
-                    }
+                    // if (isset($_POST['toggleButton'])) {
+                    //     $isVisible = !isset($_POST['isVisible']) || $_POST['isVisible'] == 'false';
+                    // } else {
+                    //     $isVisible = false;
+                    // }
+                    $isVisible = false;
                     ?>
 
                     <div id="container-rightheader-topright">
@@ -63,19 +64,19 @@
                 <div id="container-rightheader-bottom">
                     <div id="btn-profil-deroulant" class="<?php echo $isVisible ? '' : 'hidden'; ?>">
                         <div class="profil-card">
-                            <a href="?page=detailsCompte">
+                            <a href="?page=detailsCompte" id="liens-profil-card">
                                 MON COMPTE</a><br>
 
-                                <a href="?page=reservation">
+                                <a href="?page=reservation" id="liens-profil-card">
                                 MES RESERVATIONS</a> <br>
 
-                                <a href="?page=avis">
+                                <a href="?page=avis" id="liens-profil-card">
                                 MES AVIS</a> <br>
 
-                            <a href="?page=favoris">
+                            <a href="?page=favoris" id="liens-profil-card">
                                 MES FAVORIS</a> <br>
 
-                            <a href="?page=deconnection">
+                            <a href="?page=deconnection" id="liens-profil-card">
                                 DECONNEXION</a>
                         </div>
                     </div>
