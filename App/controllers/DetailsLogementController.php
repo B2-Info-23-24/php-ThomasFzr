@@ -2,7 +2,7 @@
 
 class DetailsLogementController {
     public function index() {
-        include 'views/detailsLogementView.php';
+        include 'App/views/detailsLogementView.php';
     }
 }
 

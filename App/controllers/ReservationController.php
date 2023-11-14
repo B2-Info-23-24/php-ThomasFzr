@@ -2,7 +2,7 @@
 
 class ReservationController {
     public function index() {
-        include 'views/reservationView.php';
+        include 'App/views/reservationView.php';
     }
 }
 

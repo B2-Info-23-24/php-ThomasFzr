@@ -2,7 +2,7 @@
 
 class AvisController {
     public function index() {
-        include 'views/avisView.php';
+        include 'App/views/avisView.php';
     }
 }
 

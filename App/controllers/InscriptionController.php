@@ -2,7 +2,7 @@
 
 class InscriptionController {
     public function index() {
-        include 'views/inscriptionView.php';
+        include 'App/views/inscriptionView.php';
     }
 }
 

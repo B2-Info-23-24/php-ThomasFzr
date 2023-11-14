@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="connectionRegisterStyle.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Public/assets/styles/connectionRegisterStyle.css">
+    <link rel="stylesheet" href="Public/assets/styles/style.css">
     <title>Troc mon toit </title>
 </head>
 

@@ -5,7 +5,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="Public/assets/styles/style.css">
         <title>Troc mon toit </title>
     </head>
 
@@ -36,11 +36,11 @@
 
                 <?php
 
-                if (isset($_POST['toggleButton'])) {
-                    $isVisible = !isset($_POST['isVisible']) || $_POST['isVisible'] == 'false';
-                } else {
-                    $isVisible = false;
-                }
+                // if (isset($_POST['toggleButton'])) {
+                //     $isVisible = !isset($_POST['isVisible']) || $_POST['isVisible'] == 'false';
+                // } else {
+                //     $isVisible = false;
+                // }
                 ?>
 
                 <div id="zone-filtre-rightcontainer">

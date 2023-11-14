@@ -40,7 +40,6 @@ class Database
             foreach ($data as $row) {
                 echo $row['nom'] . "<br />\n";
             }
-
             echo 'Succès !';
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
@@ -119,10 +118,10 @@ class Database
                 $_SESSION['pwd'] = $password;
                 echo "Connexion réussie!<br>";
                 echo "Bonjour, $email!";
-                include 'views/home.php';
+                include 'App/views/home.php';
             } else {
                 echo "Mail ou mdp invalide";
-                include 'views/connectionView.php';
+                include 'App/views/connectionView.php';
             }
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();

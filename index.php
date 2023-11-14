@@ -2,10 +2,10 @@
 session_start();
 
 spl_autoload_register(function ($class) {
-    include 'controllers/' . $class . '.php';
+    include 'App/controllers/' . $class . '.php';
 });
 
-include "views/headerView.php";
+include "App/views/headerView.php";
 
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
@@ -74,7 +74,7 @@ if (isset($_GET["page"])) {
 
         default:
             http_response_code(404);
-            include 'views/404.php';
+            include 'App/views/404.php';
             break;
     }
 } else {

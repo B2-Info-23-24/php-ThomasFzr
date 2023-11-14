@@ -2,7 +2,7 @@
 
 class FavorisController {
     public function index() {
-        include 'views/favorisView.php';
+        include 'App/views/favorisView.php';
     }
 }
 
