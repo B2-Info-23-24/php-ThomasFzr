@@ -18,7 +18,7 @@
         <form id="gettable-form" action="?page=process_getTable" method="post">
 
             <p>
-                <input type="submit" id="register" value="GET table">
+                <input type="submit" id="register" value="DECO">
             </p>
         </form>
 

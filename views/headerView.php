@@ -19,12 +19,24 @@
                 </a>
             </div>
             <div id="container-rightheader">
+                <div>
+                    <?php
+                    if (isset($_SESSION['mail'])) {
+                        echo "Bonjour, " . $_SESSION['mail'];
+                        echo "!";
+                    }
+                    ?>
+                </div>
                 <a href="?page=favoris">
                     <img src="/assets/iconeCoeur.png" alt="img icone coeur" id="imgIconeCoeur">
                 </a>
+
                 <a href="?page=connection">
                     <img src="/assets/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
                 </a>
+
+
+
             </div>
         </div>
     </div>

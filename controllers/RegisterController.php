@@ -8,11 +8,9 @@ class RegisterController
             $password = $_POST["password"];
 
             require_once __DIR__ . '/../models/db_connect.php';
-
             $database = new Database();
-            
-          $database->insertIntoTableRegister($email, $password);
-          echo "Register ok! <br/>";
+            $database->insertIntoTableRegister($email, $password);
+            echo "Register ok! <br/>";
         } else {
         }
     }

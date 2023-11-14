@@ -2,7 +2,13 @@
 
 class ConnectionController {
     public function index() {
-        include 'views/connectionView.php';
+        if ($_SESSION['isConnected'] == false) {
+            include 'views/connectionView.php';
+        } else{
+            include 'views/profilUtilisateurView.php';
+
+        }
+       
     }
 }
 

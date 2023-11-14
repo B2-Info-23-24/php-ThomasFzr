@@ -269,3 +269,7 @@ input[type="range"]::-webkit-slider-runnable-track {
     height: 50px;
     margin-right: 15px;
 }
+
+#imgIconeCoeur{
+    padding-left: 50px;
+}
