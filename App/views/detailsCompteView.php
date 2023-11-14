@@ -46,17 +46,10 @@
 
         <form action="?page=editInfoUser" method="post">
             <input type="text" id="name" name="name" placeholder="name">
-            <input type="submit" value="Modifier">
-        </form>
-        <form action="?page=editInfoUser" method="post">
             <input type="text" id="surname" name="surname" placeholder="surname">
-            <input type="submit" value="Modifier">
-        </form>
-        <form action="?page=editInfoUser" method="post">
             <input type="number" id="name" name="phoneNbr" placeholder="phoneNbr">
             <input type="submit" value="Modifier">
         </form>
-
 
     </div>
 
