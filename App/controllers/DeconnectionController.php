@@ -7,4 +7,3 @@ class DeconnectionController
         echo "Deconnexion, au revoir!";
     }
 }
-?>
