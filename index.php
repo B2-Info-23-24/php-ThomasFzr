@@ -5,7 +5,17 @@ spl_autoload_register(function ($class) {
     include 'App/controllers/' . $class . '.php';
 });
 
-include "App/views/headerView.php";
+
+require_once 'vendor/autoload.php';
+
+//rendu
+$loader = new Twig_Loader_Filesystem([__DIR__ . '/App/views']);
+$twig = new Twig_Environment($loader, [
+    'cache' => false
+    // __DIR__ . '/tmp'
+]);
+
+echo $twig->render('headerView.php');
 
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
@@ -13,48 +23,35 @@ if (isset($_GET["page"])) {
     switch ($page) {
         case '':
         case '/':
-            $controller = new HomeController();
-            $controller->index();
+            echo $twig->render('home.php');
             break;
 
         case 'connection':
-            $controller = new ConnectionController();
-            $controller->index();
+            echo $twig->render('connectionView.php');
             break;
 
         case 'inscription':
-            $controller = new InscriptionController();
-            $controller->index();
-            break;
-
-        case 'deconnection':
-            $controller = new DeconnectionController();
-            $controller->processDeconnection();
+            echo $twig->render('inscriptionView.php');
             break;
 
         case 'detailsLogement':
-            $controller = new DetailsLogementController();
-            $controller->index();
+            echo $twig->render('detailsLogementView.php');
             break;
 
         case 'detailsCompte':
-            $controller = new DetailsCompteController();
-            $controller->index();
+            echo $twig->render('detailsCompteView.php');
             break;
 
         case 'favoris':
-            $controller = new FavorisController();
-            $controller->index();
+            echo $twig->render('favorisView.php');
             break;
 
         case 'avis':
-            $controller = new AvisController();
-            $controller->index();
+            echo $twig->render('avisView.php');
             break;
 
         case 'reservation':
-            $controller = new ReservationController();
-            $controller->index();
+            echo $twig->render('reservationView.php');
             break;
 
         case 'process_login':
@@ -67,14 +64,19 @@ if (isset($_GET["page"])) {
             $controller->processRegister();
             break;
 
-        case 'process_getTable':
-            $controller = new GetTableController();
-            $controller->processGetTable();
+        case 'test':
+            $controller = new TestController();
+            $controller->test();
             break;
 
         case 'editInfoUser':
             $controller = new EditInfoUserController();
             $controller->processEditInfoUser();
+            break;
+
+        case 'deconnection':
+            $controller = new DeconnectionController();
+            $controller->processDeconnection();
             break;
 
         default:
@@ -83,6 +85,5 @@ if (isset($_GET["page"])) {
             break;
     }
 } else {
-    $controller = new HomeController();
-    $controller->index();
+    echo $twig->render('home.php');
 }
