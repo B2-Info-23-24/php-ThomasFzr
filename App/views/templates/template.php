@@ -11,7 +11,18 @@
 </head>
 
 <body>
+    {%include 'headerView.php' %}
 
+     <!-- TODO If message success echo here in php -->
+    <?php
+    if (isset($_SESSION['successMsg'])) {
+        echo $_SESSION['successMsg'];
+    }else{
+        echo 'no';
+    }
+
+    ?>
+   
     {% block content %}{% endblock %}
 
     <script src="script.js"></script>

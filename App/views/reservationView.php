@@ -1,10 +1,5 @@
 {% extends "templates/template.php" %}
 
-
-{% block head %}
-<link rel="stylesheet" href="Public/assets/styles/connectionRegisterStyle.css">
-{% endblock %}
-
 {% block content %}
 </br></br>
 
