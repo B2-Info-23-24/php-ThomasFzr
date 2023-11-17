@@ -5,56 +5,54 @@ spl_autoload_register(function ($class) {
     include 'App/controllers/' . $class . '.php';
 });
 
-include "App/views/headerView.php";
+
+require_once 'vendor/autoload.php';
+
+
+$loader = new Twig_Loader_Filesystem([__DIR__ . '/App/views']);
+$twig = new Twig_Environment($loader, [
+    'cache' => false
+]);
+
 
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 
     switch ($page) {
-        case '':
-        case '/':
-            $controller = new HomeController();
-            $controller->index();
-            break;
-
         case 'connection':
-            $controller = new ConnectionController();
-            $controller->index();
+            echo $twig->render('connectionView.php');
             break;
 
         case 'inscription':
-            $controller = new InscriptionController();
-            $controller->index();
+            echo $twig->render('inscriptionView.php');
             break;
 
-        case 'deconnection':
-            $controller = new DeconnectionController();
-            $controller->processDeconnection();
-            break;
-
-        case 'detailsLogement':
-            $controller = new DetailsLogementController();
-            $controller->index();
+        case 'detailsLogement&annonceID=':
+            if (isset($_GET['annonceID'])) {
+                $controller = new DetailsAnnonceController($twig);
+                $controller->getDetailsAnnonce($_GET['annonceID']);
+            } else {
+                // Handle the case where 'annonceID' is not set
+                echo "Error: 'annonceID' is not provided in the URL.";
+            }
             break;
 
         case 'detailsCompte':
-            $controller = new DetailsCompteController();
-            $controller->index();
+            $controller = new GetInfoUserController($twig);
+            $controller->getInfoUser();
             break;
 
         case 'favoris':
-            $controller = new FavorisController();
-            $controller->index();
+            $controller = new FavoriteController($twig);
+            $controller->loadAnnonceFavorite();
             break;
 
         case 'avis':
-            $controller = new AvisController();
-            $controller->index();
+            echo $twig->render('avisView.php');
             break;
 
         case 'reservation':
-            $controller = new ReservationController();
-            $controller->index();
+            echo $twig->render('reservationView.php');
             break;
 
         case 'process_login':
@@ -67,14 +65,19 @@ if (isset($_GET["page"])) {
             $controller->processRegister();
             break;
 
-        case 'process_getTable':
-            $controller = new GetTableController();
-            $controller->processGetTable();
+        case 'test':
+            $controller = new TestController($twig);
+            $controller->test();
             break;
 
         case 'editInfoUser':
             $controller = new EditInfoUserController();
             $controller->processEditInfoUser();
+            break;
+
+        case 'deconnection':
+            $controller = new DeconnectionController();
+            $controller->processDeconnection();
             break;
 
         default:
@@ -83,6 +86,6 @@ if (isset($_GET["page"])) {
             break;
     }
 } else {
-    $controller = new HomeController();
-    $controller->index();
+    $controller = new HomeController($twig);
+    $controller->loadAnnonce();
 }

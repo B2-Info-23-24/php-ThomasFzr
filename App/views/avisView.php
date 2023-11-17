@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
+{% extends "templates/template.php" %}
 
-<head>
-    <link rel="stylesheet" href="Public/assets/styles/connectionRegisterStyle.css">
-    <link rel="stylesheet" href="Public/assets/styles/style.css">
-    <title>Troc mon toit </title>
-</head>
-
-<body>
+{% block content %}
     </br></br>
 
     <h3> Mes avis: </h3>
@@ -40,7 +33,4 @@
         </div>
     </div>
   
-
-</body>
-
-</html>
+    {% endblock %}

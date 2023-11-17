@@ -1,92 +1,87 @@
-<!DOCTYPE html>
-<html>
+<div id="container-allheader">
+    <div id="container-header">
+        <div id="container-leftheader">
+            <a href="/" id="lien-logo-tmt">
+                <h1>TROC MON TOIT</h1>
+            </a>
+        </div>
+        <div id="container-rightheader">
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Public/assets/styles/style.css">
-    <title>Troc mon toit </title>
-</head>
+            <div id="container-rightheader-top">
+                <div id="container-rightheader-topleft">
+                    <!-- {% if infoUser.isConnected %}
+                    Bonjour, {{ app.session.surname }}!
 
-<body>
+                    {% else %}
+                    <a href="?page=connection">
+                        Me connecter
+                    </a>
+                    {% endif %} -->
 
-    <div id="container-allheader">
-        <div id="container-header">
-            <div id="container-leftheader">
-                <a href="/" id="lien-logo-tmt">
-                    <h1>TROC MON TOIT</h1>
-                </a>
+
+                    {% if app.session is defined and app.session.get('isConnected') %}
+                    Bonjour, {{ app.session.surname }}!
+                    {% else %}
+                    <a href="?page=connection">
+                        Me connecter
+                    </a>
+                    {% endif %}
+                    Bonjour, {{ app.session.surname }}!
+
+                </div>
+
+                {% set isVisible = app.request.method == 'POST' and (app.request.request.get('toggleButton') is defined ? not app.request.request.get('isVisible') or app.request.request.get('isVisible') == 'false' : false) %}
+
+
+                <div id="container-rightheader-topright">
+                    {% if infoUser.isConnected %}
+                    <form method="post" action="">
+                        <button type="submit" name="toggleButton" id="btn-profil">
+                            <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
+                        </button>
+                        <input type="hidden" name="isVisible" value="{{ isVisible ? 'true' : 'false' }}">
+                    </form>
+
+                    {% else %}
+
+                    <a href="?page=connection">
+                        <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
+                    </a>
+                    {% endif %}
+
+                </div>
             </div>
-            <div id="container-rightheader">
 
-                <div id="container-rightheader-top">
-                    <div id="container-rightheader-topleft">
-                        <?php
-                        if (isset($_SESSION['surname'])) {
-                            echo "Bonjour, " . $_SESSION['surname'];
-                            echo "!";
-                        } elseif (isset($_SESSION['mail'])) {
-                            echo "Bonjour, " . $_SESSION['mail'];
-                            echo "!";
-                        } else {
-                            echo '<a href="?page=connection">
-                            Me connecter
-                        </a>';
-                        }
-                        ?>
-                    </div>
+            <!-- {% if infoUser.isConnected %} -->
+            <div id="container-rightheader-bottom">
+                <div id="btn-profil-deroulant">
+                    <!-- class="{{ isVisible ? '' : 'hidden' }}" -->
+                    <div class="profil-card">
+                        <a href="?page=detailsCompte" id="liens-profil-card">
+                            MON COMPTE
+                        </a><br>
 
-                    <?php
-                    if (isset($_POST['toggleButton'])) {
-                        $isVisible = !isset($_POST['isVisible']) || $_POST['isVisible'] == 'false';
-                    } else {
-                        $isVisible = false;
-                    }
-                    ?>
+                        <a href="?page=reservation" id="liens-profil-card">
+                            MES RESERVATIONS
+                        </a> <br>
 
-                    <div id="container-rightheader-topright">
-                        <?php
-                        if (isset($_SESSION['mail'])) {
-                            echo '<form method="post" action="">
-                                        <button type="submit" name="toggleButton" id="btn-profil">
-                                        <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
-                                        </button>
-                                        <input type="hidden" name="isVisible" value="' . ($isVisible ? 'true' : 'false') . '">
-                                  </form>';
-                        } else {
-                            echo '<a href="?page=connection">
-                                     <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
-                                  </a>';
-                        }
-                        ?>
+                        <a href="?page=avis" id="liens-profil-card">
+                            MES AVIS
+                        </a> <br>
+
+                        <a href="?page=favoris" id="liens-profil-card">
+                            MES FAVORIS
+                        </a> <br>
+
+                        <a href="?page=deconnection" id="liens-profil-card">
+                            DECONNEXION
+                        </a>
                     </div>
                 </div>
+                <!-- {% endif %} -->
 
-                <div id="container-rightheader-bottom">
-                    <div id="btn-profil-deroulant" class="<?php echo $isVisible ? '' : 'hidden'; ?>">
-                        <div class="profil-card">
-                            <a href="?page=detailsCompte" id="liens-profil-card">
-                                MON COMPTE</a><br>
-
-                            <a href="?page=reservation" id="liens-profil-card">
-                                MES RESERVATIONS</a> <br>
-
-                            <a href="?page=avis" id="liens-profil-card">
-                                MES AVIS</a> <br>
-
-                            <a href="?page=favoris" id="liens-profil-card">
-                                MES FAVORIS</a> <br>
-
-                            <a href="?page=deconnection" id="liens-profil-card">
-                                DECONNEXION</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-
-</body>
-
-</html>
+</div>
+</div>
