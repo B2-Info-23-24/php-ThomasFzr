@@ -66,9 +66,9 @@
 
     {% for annonce in annonces %}
 
-    <a href="?page=detailsLogement&annonceID={{ annonce.annonceID }}" id="lien-annonce">
+    <a href="/detailsLogement?id={{ annonce.annonceID }}"  id="lien-annonce">
         <div class="annonce">
-            <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium">
+            <img src="Public/assets/images/logement{{annonce.annonceID}}.jpg">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>
             <div class="description">
                 <h4>{{annonce.name}}</h4>
@@ -82,7 +82,7 @@
 
 <!-- A SUPPRIMER -->
 
-<form id="gettable-form" action="?page=test" method="post">
+<form id="gettable-form" action="/test" method="post">
 
     <p>
         <input type="submit" id="register" value="BTN FOR TESTS.">

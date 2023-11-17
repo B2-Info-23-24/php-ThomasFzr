@@ -10,17 +10,17 @@ class EditInfoUserController
             if (isset($_POST["name"]) && $_POST["name"] != '') {
                 $database->updateTable("User", "name", $_POST["name"], $_SESSION["mail"]);
                 $database->getUserInfo($_SESSION["mail"]);
-                echo "name changed";
+                header('Location: /detailsCompte');
             }
             if (isset($_POST["surname"]) && $_POST["surname"] != '') {
                 $database->updateTable("User", "surname", $_POST["surname"], $_SESSION["mail"]);
                 $database->getUserInfo($_SESSION["mail"]);
-                echo "surname changed";
+                header('Location : /detailsCompte');
             }
             if (isset($_POST["phoneNbr"]) && $_POST["phoneNbr"] != '') {
                 $database->updateTable("User", "phoneNbr", $_POST["phoneNbr"], $_SESSION["mail"]);
                 $database->getUserInfo($_SESSION["mail"]);
-                echo "phoneNbr changed";
+                header('Location : /detailsCompte');
             }
         } else {
             echo "erreur edit info user";

@@ -40,7 +40,7 @@
     <h3>Modif: </h3>
 
 
-    <form action="?page=editInfoUser" method="post">
+    <form action="/editInfoUser" method="post">
         <input type="text" id="name" name="name" placeholder="name">
         <input type="text" id="surname" name="surname" placeholder="surname">
         <input type="number" id="name" name="phoneNbr" placeholder="phoneNbr">

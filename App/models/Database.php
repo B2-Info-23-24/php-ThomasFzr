@@ -62,9 +62,10 @@ class Database
                     CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
                     CREATE TABLE ServiceAnnonce (serviceAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT, annonceID INT, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));";
             $this->conn->exec($sql);
-            echo 'Table bien créée !';
+            return true;
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
+            return false;
         }
     }
 
@@ -76,9 +77,10 @@ class Database
                     INSERT INTO TypeLogement (name) VALUES ('Appartements'), ('Maisons'), ('Chalets'), ('Villas'), ('Peniches'), ('Yourtes'), ('Cabanes'), ('Igloos'), ('Tentes'), ('Cars');
                     INSERT INTO Equipement (name) VALUES ('Connexion Wi-Fi'), ('Climatiseur'), ('Chauffage'), ('Machine a laver'), ('Seche-linge'), ('Television'), ('Fer a repasser / Planche a repasser'), ('Nintendo Switch'), ('PS5'), ('Terrasse'), ('Balcon'), ('Piscine'), ('Jardin');";
             $this->conn->exec($sql);
-            echo 'Tables service, typelogement et equipement bien créées !';
+            return true;
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
+            return false;
         }
     }
 
@@ -184,9 +186,12 @@ class Database
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            echo "changement/ajout ok!";
+            return true;
         } else {
-            echo "erreur changement/ajout!";
+            return false;
         }
     }
+
+
+
 }

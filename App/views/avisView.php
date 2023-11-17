@@ -7,7 +7,7 @@
 
 
     <div class="zone-annonce">
-        <a href="?page=detailsLogement" id="lien-annonce">
+        <a href="/detailsLogement" id="lien-annonce">
             <div class="annonce">
                 <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium">
                 <div class="zone-prix">158 €/nuit</div>
