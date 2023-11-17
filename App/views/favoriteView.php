@@ -7,7 +7,7 @@
 
 <div class="zone-annonce">
     {% for annonce in annonces %}
-    <a href="/detailsLogement&annonceID={{ annonce.annonceID }}" id="lien-annonce">
+    <a href="/detailsLogement?id={{ annonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
             <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>

@@ -12,9 +12,7 @@ class TestController
         require_once __DIR__ . '/../models/Database.php';
         $database = new Database();
 
-        $infoAnnonce = $database->getDetailsAnnonce(1);
-        echo $this->twig->render('detailsAnnonceView.php', ['infoAnnonce' => $infoAnnonce]);
-
+        $database->insertFakerDatas();
+        header('Location: /');
     }
 }
-

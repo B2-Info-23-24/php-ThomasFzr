@@ -1,12 +1,36 @@
 <?php
 session_start();
 
+require_once 'vendor/autoload.php';
+
+// Assuming your classes follow PSR-4 naming conventions
 spl_autoload_register(function ($class) {
-    include 'App/controllers/' . $class . '.php';
+    // Convert class name to file path
+    $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+
+    // Define the base directory for your classes
+    $baseDir = __DIR__ . '/App/controllers/';
+
+    // Construct the full path to the class file
+    $filePath = $baseDir . $file;
+
+    // Include the class file if it exists
+    if (file_exists($filePath)) {
+        include $filePath;
+    }
 });
 
 
-require_once 'vendor/autoload.php';
+// use 'App/controllers/DeconnectionController.php';
+// include 'App/controllers/DetailsAnnonce.php';
+// include 'App/controllers/DeconnectionController.php';
+// include 'App/controllers/DeconnectionController.php';
+// include 'App/controllers/DeconnectionController.php';
+// include 'App/controllers/DeconnectionController.php';
+// include 'App/controllers/DeconnectionController.php';
+// include 'App/controllers/DeconnectionController.php';
+// include 'App/controllers/DeconnectionController.php';
+
 
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/App/views');
 $twig = new \Twig\Environment($loader);
@@ -78,6 +102,11 @@ switch ($path) {
     case '/process_register':
         $controller = new RegisterController();
         $controller->processRegister();
+        break;
+
+    case '/process_favorite':
+        $controller = new ProcessFavoriteController();
+        $controller->addToFavorite($_GET['id']);
         break;
 
     case '/test':

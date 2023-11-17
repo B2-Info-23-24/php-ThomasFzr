@@ -12,14 +12,12 @@
 
         <nav class="navigation">
             <ul>
-                {% for typeLogement in typeLogements%}
-                <li><a href="">{{typeLogement.name}}</a></li>
+                {% for typeLogement in typeLogements %}
+                <li><a href="">{{ typeLogement.name }}</a></li>
                 {% endfor %}
             </ul>
         </nav>
-        {% set isVisible = app.request.method == 'POST' and (app.request.request.get('toggleButton') is defined ? not app.request.request.get('isVisible') or app.request.request.get('isVisible') == 'false' : false) %}
-
-
+        
         <div id="zone-filtre-rightcontainer">
 
             <!-- <div id="zone-filtre-rightcontainer-top"> -->
@@ -29,35 +27,56 @@
             </form>
         </div>
         <!-- <div id="zone-filtre-rightcontainer-bottom"> -->
-
-        <div id="filtre-deroulant" class="hidden">
+        <!-- class="hidden -->
+        <div id="filtre-deroulant" ">
             <?php // echo $isVisible ? '' : 'hidden'; 
             ?>
-            <div class="card">
-                <div class="price-content">
-                    <div>
-                        <label>Min</label>
-                        <p id="min-value">50</p>
-                    </div>
+            Services:
+            <nav class="navigation">
+            <ul>
+                {% for service in services %}
+                <li><a href="">{{service.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </nav> <br><br>
 
-                    <div>
-                        <label>Max</label>
-                        <p id="max-value">500</p>
-                    </div>
+        Equipements:
+        <nav class="navigation">
+            <ul>
+                {% for equipement in equipements %}
+                <li><a href="">{{equipement.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+            <div class=" card">
+            <div class="price-content">
+                <div>
+                    <label>Min</label>
+                    <p id="min-value">50</p>
                 </div>
-                <div class="range-slider">
-                    <div class="range-fill"></div>
-                    <input class="input-slider" type="range" class="min-price" value="100" min="10" max="500" step="10" />
-                    <input class="input-slider" type="range" class="max-price" value="250" min="10" max="500" step="10" />
+
+                <div>
+                    <label>Max</label>
+                    <p id="max-value">500</p>
                 </div>
             </div>
-
-            Date début: <input type="date" id="dateDebut" min="2023-11-01" onchange="updateDateFinMin()">
-            <br>
-            Date fin: <input type="date" id="dateFin">
-            <br>
+            <div class="range-slider">
+                <div class="range-fill"></div>
+                <input class="input-slider" type="range" class="min-price" value="100" min="10" max="500" step="10" />
+                <input class="input-slider" type="range" class="max-price" value="250" min="10" max="500" step="10" />
+            </div>
         </div>
+
+        Date début: <input type="date" id="dateDebut" min="2023-11-01" onchange="updateDateFinMin()">
+        <br>
+        Date fin: <input type="date" id="dateFin">
+        <br>
+
+        
+
     </div>
+</div>
 </div>
 
 <br><br>
@@ -66,9 +85,9 @@
 
     {% for annonce in annonces %}
 
-    <a href="/detailsLogement?id={{ annonce.annonceID }}"  id="lien-annonce">
+    <a href="/detailsLogement?id={{ annonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="Public/assets/images/logement{{annonce.annonceID}}.jpg">
+            <img src="{{annonce.image}}" id="img-annonce-home">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>
             <div class="description">
                 <h4>{{annonce.name}}</h4>

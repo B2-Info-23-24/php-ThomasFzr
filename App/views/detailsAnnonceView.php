@@ -7,14 +7,19 @@
 
     <div class="flex-child-details-logement left">
         {% for info in infoAnnonce %}
-        <img src="Public/assets/images/logement{{info.annonceID}}.jpg"> <br>
-
+        <img src="{{info.image}}" id="img-details-annonce">
+        <br>
         {{info.name}}
 
         <br><br> Description du logement: <br><br>
         - Le prix d’une nuitée:
-        {{info.price}} €
-        {% endfor %} <br>
+        {{info.price}} € <br>
+
+        Adresse: {{info.adresse}}
+
+
+
+        <br>
         - Les commentaires laissés par les locataires <br>
         - Les notes laissées par les locataires <br>
         - Les disponibilités de réservation
@@ -28,10 +33,19 @@
         Date de début: <input type="date"> <br>
         Date de fin: <input type="date"> <br><br>
 
-        <input type="submit" value="AJOUTER EN FAVORIS"><br><br>
+        
+
+        {% if isInFavorite %}
+        <form action="/process_favorite?action=remove&id={{ info.annonceID }}" method="post">
+            <input type="submit" value="RETIRER DES FAVORIS"><br><br>
+        </form>
+        {% else %}
+        <form action="/process_favorite?id={{ info.annonceID }}" method="post">
+            <input type="submit" value="AJOUTER EN FAVORIS"><br><br>
+        </form>
+        {% endif %}
         <input type="submit" value="RESERVER">
-
     </div>
-
 </div>
+{% endfor %}
 {% endblock %}

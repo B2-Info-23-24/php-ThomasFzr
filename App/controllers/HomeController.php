@@ -16,7 +16,16 @@ class HomeController
 
         $tabAnnonce = $database->getAnnonce();
         $tabTypeLogement = $database->getTypeLogement();
-        echo $this->twig->render('home.php', ['annonces' => $tabAnnonce, 'typeLogements' => $tabTypeLogement]);
-
+        $tabService = $database->getService();
+        $tabEquipement = $database->getEquipement();
+        echo $this->twig->render(
+            'home.php',
+            [
+                'annonces' => $tabAnnonce,
+                'typeLogements' => $tabTypeLogement,
+                'services' => $tabService,
+                'equipements' => $tabEquipement
+            ]
+        );
     }
 }
