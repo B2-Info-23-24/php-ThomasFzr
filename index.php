@@ -27,13 +27,10 @@ if (isset($_GET["page"])) {
             echo $twig->render('inscriptionView.php');
             break;
 
-        case 'detailsLogement&annonceID=':
+        case 'detailsLogement':
             if (isset($_GET['annonceID'])) {
                 $controller = new DetailsAnnonceController($twig);
                 $controller->getDetailsAnnonce($_GET['annonceID']);
-            } else {
-                // Handle the case where 'annonceID' is not set
-                echo "Error: 'annonceID' is not provided in the URL.";
             }
             break;
 

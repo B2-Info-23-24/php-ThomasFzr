@@ -11,8 +11,8 @@
         {{info.name}}
         {% endfor %}
         <br><br> Description du logement: <br><br>
-        - Le prix d’une nuitée: {% for info in infoAnnonce %}
-        {{info.price}}
+        - Le prix d’une nuitée: {% for info in infoAnnonce %} 
+        {{info.price}} €
         {% endfor %} <br>
         - Les commentaires laissés par les locataires <br>
         - Les notes laissées par les locataires <br>
