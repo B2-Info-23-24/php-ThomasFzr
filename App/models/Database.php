@@ -16,8 +16,8 @@ class Database
     {
         try {
             $this->conn = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
-            // $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Connection failed (func construct): " . $e->getMessage());
         }
@@ -51,7 +51,7 @@ class Database
     {
         try {
             $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, favoriteID INT, commentGradeID INT, reservationID INT, isAdmin BOOL);
-                    CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dateDispo DATE, adresse VARCHAR(255), price INT, typeLogementAnnonceID INT, equipementAnnonceID INT, serviceAnnonceID INT, commentGradeID INT, reservationID INT, favoriteID INT);
+                    CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dateDispo DATE,  name VARCHAR(255), adresse VARCHAR(255), price INT, typeLogementAnnonceID INT, equipementAnnonceID INT, serviceAnnonceID INT, commentGradeID INT, reservationID INT, favoriteID INT);
                     CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, dateDebut DATE, dateFin DATE, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                     CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade FLOAT, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                     CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
@@ -76,7 +76,7 @@ class Database
                     INSERT INTO TypeLogement (name) VALUES ('Appartements'), ('Maisons'), ('Chalets'), ('Villas'), ('Peniches'), ('Yourtes'), ('Cabanes'), ('Igloos'), ('Tentes'), ('Cars');
                     INSERT INTO Equipement (name) VALUES ('Connexion Wi-Fi'), ('Climatiseur'), ('Chauffage'), ('Machine a laver'), ('Seche-linge'), ('Television'), ('Fer a repasser / Planche a repasser'), ('Nintendo Switch'), ('PS5'), ('Terrasse'), ('Balcon'), ('Piscine'), ('Jardin');";
             $this->conn->exec($sql);
-            echo 'Table bien créée !';
+            echo 'Tables service, typelogement et equipement bien créées !';
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
         }
@@ -115,23 +115,11 @@ class Database
             if ($stmt->rowCount() > 0) {
                 $_SESSION['isConnected'] = true;
                 $_SESSION['mail'] = $email;
-                $_SESSION['pwd'] = $password;
-
                 $db = new Database();
-                $db->getUserInfo($email);
-
-                echo "Connexion réussie!<br>";
-                if (isset($_SESSION['surname'])) {
-                    echo "Bonjour, " . $_SESSION['surname'];
-                    echo "!";
-                } else {
-                    echo "Bonjour, " . $_SESSION['mail'];
-                    echo "!";
-                }
-                include 'App/views/home.php';
+                $_SESSION['userID'] = $db->getUserInfo($email)['userID'];
+                return true;
             } else {
-                echo "Mail ou mdp invalide";
-                include 'App/views/connectionView.php';
+                return false;
             }
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -144,19 +132,49 @@ class Database
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($result && isset($result['name'])) {
-            $_SESSION['name'] = $result['name'];
-        }
-        if ($result && isset($result['surname'])) {
-            $_SESSION['surname'] = $result['surname'];
-        }
-        if ($result && isset($result['phoneNbr'])) {
-            $_SESSION['phoneNbr'] = $result['phoneNbr'];
-        }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getAnnonce()
+    {
+        $rqt = "SELECT * FROM Annonce";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDetailsAnnonce($annonceID)
+    {
+        $rqt = "SELECT * FROM Annonce WHERE annonceID = :annonceID";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function getTypeLogement()
+    {
+        $rqt = "SELECT * FROM TypeLogement LIMIT 10";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getFavorite($userID)
+    {
+        $rqt = "SELECT Annonce.*
+                FROM Annonce
+                JOIN Favorite ON Annonce.annonceID = Favorite.annonceID
+                JOIN User ON Favorite.userID = User.userID
+                WHERE User.userID = :userID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     public function updateTable($table, $column, $value, $email)
     {

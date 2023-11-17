@@ -8,24 +8,17 @@ spl_autoload_register(function ($class) {
 
 require_once 'vendor/autoload.php';
 
-//rendu
+
 $loader = new Twig_Loader_Filesystem([__DIR__ . '/App/views']);
 $twig = new Twig_Environment($loader, [
     'cache' => false
-    // __DIR__ . '/tmp'
 ]);
 
-echo $twig->render('headerView.php');
 
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 
     switch ($page) {
-        case '':
-        case '/':
-            echo $twig->render('home.php');
-            break;
-
         case 'connection':
             echo $twig->render('connectionView.php');
             break;
@@ -34,16 +27,24 @@ if (isset($_GET["page"])) {
             echo $twig->render('inscriptionView.php');
             break;
 
-        case 'detailsLogement':
-            echo $twig->render('detailsLogementView.php');
+        case 'detailsLogement&annonceID=':
+            if (isset($_GET['annonceID'])) {
+                $controller = new DetailsAnnonceController($twig);
+                $controller->getDetailsAnnonce($_GET['annonceID']);
+            } else {
+                // Handle the case where 'annonceID' is not set
+                echo "Error: 'annonceID' is not provided in the URL.";
+            }
             break;
 
         case 'detailsCompte':
-            echo $twig->render('detailsCompteView.php');
+            $controller = new GetInfoUserController($twig);
+            $controller->getInfoUser();
             break;
 
         case 'favoris':
-            echo $twig->render('favorisView.php');
+            $controller = new FavoriteController($twig);
+            $controller->loadAnnonceFavorite();
             break;
 
         case 'avis':
@@ -65,7 +66,7 @@ if (isset($_GET["page"])) {
             break;
 
         case 'test':
-            $controller = new TestController();
+            $controller = new TestController($twig);
             $controller->test();
             break;
 
@@ -85,5 +86,6 @@ if (isset($_GET["page"])) {
             break;
     }
 } else {
-    echo $twig->render('home.php');
+    $controller = new HomeController($twig);
+    $controller->loadAnnonce();
 }

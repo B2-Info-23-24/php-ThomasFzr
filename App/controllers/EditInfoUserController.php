@@ -4,7 +4,7 @@ class EditInfoUserController
     public function processEditInfoUser()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            require_once __DIR__ . '/../models/DataBase.php';
+            require_once __DIR__ . '/../models/Database.php';
             $database = new Database();
 
             if (isset($_POST["name"]) && $_POST["name"] != '') {

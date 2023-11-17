@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="connectionRegisterStyle.css">
     <link rel="stylesheet" href="Public/assets/styles/404style.css">
     <title>404 error </title>
 </head>

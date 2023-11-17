@@ -1,5 +1,5 @@
 <?php
-class TestController
+class GetInfoUserController
 {
     private $twig;
 
@@ -7,14 +7,13 @@ class TestController
     {
         $this->twig = $twig;
     }
-    public function test()
+
+    public function getInfoUser()
     {
         require_once __DIR__ . '/../models/Database.php';
         $database = new Database();
 
-        $infoAnnonce = $database->getDetailsAnnonce(1);
-        echo $this->twig->render('detailsAnnonceView.php', ['infoAnnonce' => $infoAnnonce]);
-
+        $infoUser = $database->getUserInfo($_SESSION['mail']);
+        echo $this->twig->render('detailsCompteView.php', ['infoUser' => $infoUser]);
     }
 }
-

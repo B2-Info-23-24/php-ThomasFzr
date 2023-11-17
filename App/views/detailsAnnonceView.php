@@ -1,19 +1,19 @@
 {% extends "templates/template.php" %}
 
-
-{% block head %}
-<link rel="stylesheet" href="Public/assets/styles/connectionRegisterStyle.css">
-{% endblock %}
-
 {% block content %}
 </br></br>
 
 <div class="flex-container-details-logement">
 
     <div class="flex-child-details-logement left">
-        <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium">
+        <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium"> <br>
+        {% for info in infoAnnonce %}
+        {{info.name}}
+        {% endfor %}
         <br><br> Description du logement: <br><br>
-        - Le prix d’une nuitée <br>
+        - Le prix d’une nuitée: {% for info in infoAnnonce %}
+        {{info.price}}
+        {% endfor %} <br>
         - Les commentaires laissés par les locataires <br>
         - Les notes laissées par les locataires <br>
         - Les disponibilités de réservation
@@ -24,6 +24,12 @@
             <a href="#"> ⭐⭐⭐⭐⭐ 5,0 </a> <br>
             <a href="#"> 33 commentaires</a>
         </div> <br>
+        Date de début: <input type="date"> <br>
+        Date de fin: <input type="date"> <br><br>
+        
+        <input type="submit" value="AJOUTER EN FAVORIS"><br><br>
+        <input type="submit" value="RESERVER"> 
+        
     </div>
 
 </div>
