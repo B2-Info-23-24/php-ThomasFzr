@@ -27,7 +27,7 @@ if (isset($_GET["page"])) {
             echo $twig->render('inscriptionView.php');
             break;
 
-        case 'detailsLogement&annonceID=':
+        case 'detailsLogement':
             if (isset($_GET['annonceID'])) {
                 $controller = new DetailsAnnonceController($twig);
                 $controller->getDetailsAnnonce($_GET['annonceID']);
