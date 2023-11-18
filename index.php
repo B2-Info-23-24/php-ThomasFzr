@@ -106,7 +106,7 @@ switch ($path) {
 
     case '/process_favorite':
         $controller = new ProcessFavoriteController();
-        $controller->addToFavorite($_GET['id']);
+        $controller->processFavorite($_GET['action'], $_GET['id']);
         break;
 
     case '/test':
