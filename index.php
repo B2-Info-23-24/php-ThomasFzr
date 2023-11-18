@@ -92,7 +92,8 @@ switch ($path) {
         break;
 
     case '/reservation':
-        echo $twig->render('reservationView.php');
+        $controller = new ReservationController($twig);
+        $controller->getReservation();
         break;
 
     case '/process_login':
