@@ -262,6 +262,21 @@ class Database
         }
     }
 
+    public function removeFromFavorite($annonceID)
+    {
+        $userID = $_SESSION['userID'];
+        $rqt = "DELETE FROM Favorite WHERE userID = :userID AND annonceID = :annonceID";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
+
+        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_STR);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function isInFavorite($annonceID)
     {
         $userID = $_SESSION['userID'];
@@ -288,6 +303,4 @@ class Database
             return false;
         }
     }
-
-    
 }

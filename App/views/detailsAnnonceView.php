@@ -40,7 +40,7 @@
             <input type="submit" value="RETIRER DES FAVORIS"><br><br>
         </form>
         {% else %}
-        <form action="/process_favorite?id={{ info.annonceID }}" method="post">
+        <form action="/process_favorite?action=add&id={{ info.annonceID }}" method="post">
             <input type="submit" value="AJOUTER EN FAVORIS"><br><br>
         </form>
         {% endif %}
