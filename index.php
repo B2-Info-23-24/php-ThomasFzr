@@ -87,7 +87,8 @@ switch ($path) {
         break;
 
     case '/avis':
-        echo $twig->render('avisView.php');
+        $controller = new AvisController($twig);
+        $controller->getAvis();
         break;
 
     case '/reservation':
