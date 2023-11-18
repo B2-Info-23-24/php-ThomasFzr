@@ -39,7 +39,7 @@ class Database
             $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, favoriteID INT, commentGradeID INT, reservationID INT, isAdmin BOOL);
                     CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dateDispo DATE,  name VARCHAR(255), image VARCHAR(255), adresse VARCHAR(255), price INT, typeLogementAnnonceID INT, equipementAnnonceID INT, serviceAnnonceID INT, commentGradeID INT, reservationID INT, favoriteID INT);
                     CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, dateDebut DATE, dateFin DATE, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
-                    CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade FLOAT, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+                    CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade FLOAT, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
                     CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
                     CREATE TABLE TypeLogement (typeLogementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
                     CREATE TABLE TypeLogementAnnonce (typeLogementAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, typeLogementID INT, annonceID INT, FOREIGN KEY (typeLogementID) REFERENCES TypeLogement(typeLogementID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
@@ -172,7 +172,7 @@ class Database
     {
         $rqt = "SELECT * FROM Annonce WHERE annonceID = :annonceID";
         $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_STR);
+        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -309,4 +309,23 @@ class Database
         }
     }
     //===== =================================== =====
+
+    //===== AVIS =====
+    public function getCommentGrade()
+    {
+        $userID = $_SESSION['userID'];
+    
+        $rqt = "SELECT * FROM CommentGrade WHERE userID = :userID";
+    
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    
+        if ($stmt->execute()) {
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } else {
+            return false;
+        }
+    }
+    
 }

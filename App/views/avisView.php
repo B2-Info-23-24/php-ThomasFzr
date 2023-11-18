@@ -1,36 +1,35 @@
 {% extends "templates/template.php" %}
 
 {% block content %}
-    </br></br>
+</br></br>
 
-    <h3> Mes avis: </h3>
+<h3> Mes avis: </h3>
 
-
-    <div class="zone-annonce">
-        <a href="/detailsLogement" id="lien-annonce">
-            <div class="annonce">
-                <img src="https://a2.muscache.com/im/pictures/6152848/b04eddeb_original.jpg?aki_policy=x_medium">
-                <div class="zone-prix">158 €/nuit</div>
-                <div class="description">
-                    <h4>Loft Studio in the Central Area</h4>
-                </div>
-                 ⭐⭐⭐⭐⭐ 5,0<br>
-                <a href="#"> Vraiment cool sah!</a>
-            </div>
-        </a>
-
-        <div class="annonce">
-            <img src="https://a2.muscache.com/im/pictures/34792065/bae84a3f_original.jpg?aki_policy=x_medium">
-            <div class="zone-prix">
-                499 €/nuit
-                <!-- <img src="/assets/iconeCoeur.png" alt="img icone coeur" id="imgIconeCoeurAnnonce"> -->
-            </div>
-            <div class="description">
-                <h4>Everview Suite</h4>
-            </div>
-           ⭐⭐⭐⭐ 4,0 <br>
-                <a href="#"> J'ai adoré!</a>
+{% if tabAnnonce is not empty %}
+{% for annonceDetails in tabAnnonce %}
+<a href="/detailsLogement?id={{ annonceDetails.annonceID }}" id="lien-annonce">
+    <div class="annonce">
+        <img src="{{ annonceDetails.image }}" id="img-annonce-home">
+        <div class="zone-prix">{{ annonceDetails.price }} €/nuit</div>
+        <div class="description">
+            <h4>{{ annonceDetails.name }}</h4>
         </div>
+
+        {% if tabAvis is not empty %}
+        {% for avis in tabAvis %}
+        {% if avis is defined and avis.annonceID is defined and avis.annonceID == annonceDetails.annonceID %}
+        <div class="avis">
+            {{ avis.grade }}/5 ⭐ <br>
+            {{ avis.comment }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
     </div>
-  
-    {% endblock %}
+</a>
+{% endfor %}
+{% else %}
+<p>Aucun avis laissé pour le moment.</p>
+{% endif %}
+
+{% endblock %}
