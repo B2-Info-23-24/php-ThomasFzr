@@ -15,7 +15,7 @@ class LoginController
                 exit;
             } else {
                 $_SESSION['successMsg'] = "Mail ou mdp invalide";
-                header('Location: /?page=connection');
+                header('Location: /connection');
                 exit;
             }
         } else {
