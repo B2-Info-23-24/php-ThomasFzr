@@ -8,6 +8,6 @@ class ProcessFavoriteController
         $db = new Database();
 
         $db->addToFavorite($id);
-        header('Location : detailsLogement?id=$id');
+        header("Location: /detailsLogement?id=$id");
     }
 }
