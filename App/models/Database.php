@@ -29,30 +29,10 @@ class Database
         $this->faker = Factory::create('fr_FR');
     }
 
-    public function getConnection()
-    {
-        try {
-            return $this->conn;
-        } catch (PDOException $e) {
-            die("Connection failed (func getConnection): " . $e->getMessage());
-        }
-    }
 
+    //===== Appeler une seule fois au premier chargement de la page =====
 
-    public function getTable()
-    {
-        try {
-            $data = $this->conn->query("SELECT * FROM User")->fetchAll();
-            foreach ($data as $row) {
-                echo $row['nom'] . "<br />\n";
-            }
-            echo 'Succès !';
-        } catch (PDOException $e) {
-            echo "Erreur : " . $e->getMessage();
-        }
-    }
-
-    //Appeler une seule fois au premier chargement de la page
+    //Creation de toutes les tables
     public function createTables()
     {
         try {
@@ -75,7 +55,7 @@ class Database
         }
     }
 
-    //Appeler une seule fois au premier chargement de la page
+    //Remplir les tables de services type de logement et equipements
     public function remplirLogementEquipementService()
     {
         try {
@@ -90,17 +70,42 @@ class Database
         }
     }
 
-    function insertIntoTable($table, $column, $value)
+    //===== =================================== =====
+
+    //===== SERVICES TYPES LOGEMENT EQUIPEMENTS =====
+
+    //Récupérer les types de logement
+    public function getTypeLogement()
     {
-        try {
-            $sql = "INSERT INTO $table ($column) VALUES ('$value')";
-            $this->conn->exec($sql);
-            echo 'Succès! <br>';
-        } catch (PDOException $e) {
-            echo "Erreur : " . $e->getMessage();
-        }
+        $rqt = "SELECT * FROM TypeLogement";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //Récupérer les services
+    public function getService()
+    {
+        $rqt = "SELECT * FROM Service";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    //Récupérer les équipements
+    public function getEquipement()
+    {
+        $rqt = "SELECT * FROM Equipement";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    //===== =================================== =====
+
+
+    //===== CONNEXION/INSCRIPTION DONNEES USER =====
+
+    //Insert inscription et récupération données user
     function insertIntoTableRegister($mail, $pwd)
     {
         try {
@@ -117,6 +122,7 @@ class Database
         }
     }
 
+    //Authentification de connexion et récupération données user
     public function authenticateUser($email, $password)
     {
         try {
@@ -139,6 +145,7 @@ class Database
         }
     }
 
+    //Récupération données user
     public function getUserInfo($email)
     {
         $rqt = "SELECT * FROM User WHERE mail = :email";
@@ -147,7 +154,11 @@ class Database
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    //===== =================================== =====
 
+    //===== ANNONCE =====
+
+    //Récupérer toutes les annonces
     public function getAnnonce()
     {
         $rqt = "SELECT * FROM Annonce";
@@ -156,6 +167,7 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //Récupérer détails d'une annonce
     public function getDetailsAnnonce($annonceID)
     {
         $rqt = "SELECT * FROM Annonce WHERE annonceID = :annonceID";
@@ -165,46 +177,11 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //===== =================================== =====
 
-    public function getTypeLogement()
-    {
-        $rqt = "SELECT * FROM TypeLogement";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    //===== GENERALES =====
 
-    public function getService()
-    {
-        $rqt = "SELECT * FROM Service";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getEquipement()
-    {
-        $rqt = "SELECT * FROM Equipement";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getFavorite($userID)
-    {
-        $rqt = "SELECT Annonce.*
-                FROM Annonce
-                JOIN Favorite ON Annonce.annonceID = Favorite.annonceID
-                JOIN User ON Favorite.userID = User.userID
-                WHERE User.userID = :userID;";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
-
+    //Update d'une table
     public function updateTable($table, $column, $value, $email)
     {
         $rqt = "UPDATE $table SET $column = :value WHERE mail = :email";
@@ -219,9 +196,11 @@ class Database
         }
     }
 
+    //===== FAKER =====
+
+    //Remplir les tables avec les données de Faker
     public function insertFakerDatas()
     {
-
         $homeNames = [
             'Petite maison calme',
             'Appartement lumineux',
@@ -251,6 +230,25 @@ class Database
             $stmt->execute([$dateDispo, $adresse, $price, $typeLogementAnnonceID, $equipementAnnonceID, $serviceAnnonceID, $commentGradeID, $reservationID, $favoriteID, $name, $imageURL]);
         }
     }
+    //===== =================================== =====
+
+    //===== FAVORIS =====
+
+    //Récupérer les annonces ajoutées en favoris par le user actuel
+    public function getFavorite($userID)
+    {
+        $rqt = "SELECT Annonce.*
+                FROM Annonce
+                JOIN Favorite ON Annonce.annonceID = Favorite.annonceID
+                JOIN User ON Favorite.userID = User.userID
+                WHERE User.userID = :userID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    //Ajouter en favoris une annonce
     public function addToFavorite($annonceID)
     {
         $userID = $_SESSION['userID'];
@@ -267,6 +265,7 @@ class Database
         }
     }
 
+    //Retirer une annonce des favoris
     public function removeFromFavorite($annonceID)
     {
         $userID = $_SESSION['userID'];
@@ -282,6 +281,7 @@ class Database
         }
     }
 
+    //Tester si une annonce a été ajouté en favoris par le user actuel
     public function isInFavorite($annonceID)
     {
         $userID = $_SESSION['userID'];
@@ -308,4 +308,5 @@ class Database
             return false;
         }
     }
+    //===== =================================== =====
 }
