@@ -10,7 +10,7 @@ class RegisterController
             require_once __DIR__ . '/../models/Database.php';
             $database = new Database();
             $database->insertIntoTableRegister($email, $password);
-            echo "Register ok! <br/>";
+            header('Location: /');
         } else {
         }
     }

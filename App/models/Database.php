@@ -106,9 +106,14 @@ class Database
         try {
             $sql = "INSERT INTO User (mail, pwd) VALUES ('$mail', '$pwd')";
             $this->conn->exec($sql);
-            echo 'Succès! <br>';
+            $_SESSION['isConnected'] = true;
+            $_SESSION['mail'] = $mail;
+            $db = new Database();
+            $_SESSION['userID'] = $db->getUserInfo($mail)['userID'];
+            return true;
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
+            return false;
         }
     }
 
