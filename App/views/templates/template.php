@@ -25,7 +25,7 @@
    
     {% block content %}{% endblock %}
 
-    <script src="script.js"></script>
+    {% block footer %}{% endblock %}
 </body>
 
 </html>

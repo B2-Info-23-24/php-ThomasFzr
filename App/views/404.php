@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <img src="Public/assets/images/catBg.jpeg" id="img-cat">
     <div id="oups">
         OUPS, ERREUR 404!
     </div>

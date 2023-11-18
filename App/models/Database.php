@@ -201,16 +201,7 @@ class Database
     //Remplir les tables avec les données de Faker
     public function insertFakerDatas()
     {
-        $homeNames = [
-            'Petite maison calme',
-            'Appartement lumineux',
-            'Villa spacieuse',
-            'Studio moderne',
-            'Chalet rustique',
-            'Loft industriel',
-            'Maison de campagne',
-            'Penthouse élégant'
-        ];
+        $homeNames = ['Petite maison calme', 'Appartement lumineux', 'Villa spacieuse', 'Studio moderne', 'Chalet rustique', 'Loft industriel', 'Maison de campagne', 'Penthouse élégant', 'Duplex contemporain', 'Manoir charmant', 'Cabane en bord de mer', 'Maisonnette accueillante', 'Château majestueux', 'Résidence paisible', 'Cottage pittoresque', 'Bungalow confortable', 'Appartement de luxe', 'Maisonnette chaleureuse', 'Refuge montagnard'];
 
         for ($i = 0; $i < 10; $i++) {
             $dateDispo = $this->faker->date;

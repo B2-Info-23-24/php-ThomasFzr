@@ -17,7 +17,7 @@
                 {% endfor %}
             </ul>
         </nav>
-        
+
         <div id="zone-filtre-rightcontainer">
 
             <!-- <div id="zone-filtre-rightcontainer-top"> -->
@@ -32,51 +32,51 @@
             <?php // echo $isVisible ? '' : 'hidden'; 
             ?>
             Services:
-            <nav class="navigation">
+            <nav class=" navigation">
             <ul>
                 {% for service in services %}
                 <li><a href="">{{service.name}}</a></li>
                 {% endfor %}
             </ul>
-        </nav> <br><br>
+            </nav> <br><br>
 
-        Equipements:
-        <nav class="navigation">
-            <ul>
-                {% for equipement in equipements %}
-                <li><a href="">{{equipement.name}}</a></li>
-                {% endfor %}
-            </ul>
-        </nav>
+            Equipements:
+            <nav class="navigation">
+                <ul>
+                    {% for equipement in equipements %}
+                    <li><a href="">{{equipement.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
 
             <div class=" card">
-            <div class="price-content">
-                <div>
-                    <label>Min</label>
-                    <p id="min-value">50</p>
-                </div>
+                <div class="price-content">
+                    <div>
+                        <label>Min</label>
+                        <p id="min-value">50</p>
+                    </div>
 
-                <div>
-                    <label>Max</label>
-                    <p id="max-value">500</p>
+                    <div>
+                        <label>Max</label>
+                        <p id="max-value">500</p>
+                    </div>
+                </div>
+                <div class="range-slider">
+                    <div class="range-fill"></div>
+                    <input class="input-slider" type="range" class="min-price" value="100" min="10" max="500" step="10" />
+                    <input class="input-slider" type="range" class="max-price" value="250" min="10" max="500" step="10" />
                 </div>
             </div>
-            <div class="range-slider">
-                <div class="range-fill"></div>
-                <input class="input-slider" type="range" class="min-price" value="100" min="10" max="500" step="10" />
-                <input class="input-slider" type="range" class="max-price" value="250" min="10" max="500" step="10" />
-            </div>
+
+            Date début: <input type="date" id="dateDebut" min="2023-11-01" onchange="updateDateFinMin()">
+            <br>
+            Date fin: <input type="date" id="dateFin">
+            <br>
+
+
+
         </div>
-
-        Date début: <input type="date" id="dateDebut" min="2023-11-01" onchange="updateDateFinMin()">
-        <br>
-        Date fin: <input type="date" id="dateFin">
-        <br>
-
-        
-
     </div>
-</div>
 </div>
 
 <br><br>
@@ -109,4 +109,7 @@
 </form>
 <!-- A SUPPRIMER -->
 
+{% endblock %}
+{% block footer %}
+<script src="script.js"></script>
 {% endblock %}

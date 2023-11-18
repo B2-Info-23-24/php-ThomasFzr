@@ -128,6 +128,5 @@ switch ($path) {
     default:
         http_response_code(404);
         include 'App/views/404.php';
-        echo "case default";
         break;
 }
