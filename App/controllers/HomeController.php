@@ -9,12 +9,17 @@ class HomeController
         $this->twig = $twig;
     }
 
-    function loadAnnonce()
+    function getInfoHome($typeLogement)
     {
         require_once __DIR__ . '/../models/Database.php';
         $database = new Database();
+        $rqt = "";
+        if ($typeLogement != '') {
+            $rqt = "WHERE typeLogement = '$typeLogement'";
+        }
 
-        $tabAnnonce = $database->getAnnonce();
+
+        $tabAnnonce = $database->getAnnonce($rqt);
         $tabTypeLogement = $database->getTypeLogement();
         $tabService = $database->getService();
         $tabEquipement = $database->getEquipement();

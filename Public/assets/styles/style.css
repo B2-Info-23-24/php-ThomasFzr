@@ -94,11 +94,6 @@ input[type="submit"]:hover {
     align-items: center;
 }
 
-#barre-recherche-logement-home {
-    width: 50%;
-    padding-top: 25px;
-}
-
 
 /* === Slider prix === */
 
@@ -188,39 +183,78 @@ input[type="range"]::-webkit-slider-runnable-track {
     /* border: 5px solid; */
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
-#zone-filtre-rightcontainer {
-    width: auto;
-    display: flex;
+#barre-recherche-logement-home {
+    width: 100%;
+}
+
+#zone-filtre-container-top {
+    width: 100%;
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
-    /* justify-content: space-between; */
+    justify-content: space-evenly;
 }
 
-#zone-filtre-rightcontainer-bottom{
-z-index: 9;
-    margin-top: 180px;
-    border-radius: 30px;
-    background: #3B556D;
-    opacity: 99%;
-    box-shadow: 6px 6px 12px #39526a, -6px -6px 12px #3d5870;
+/* Barre recherche */
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     text-align: center;
-    font-weight: bold;
 }
 
-#filtre-deroulant{
-    z-index: 9;
-    margin-top: 20px;
+.search__input {
+    font-family: inherit;
+    font-size: inherit;
+    background-color: #f4f2f2;
+    border: none;
+    color: #646464;
+    padding: 0.1rem 0.5rem;
     border-radius: 30px;
-    background: #3B556D;
-    opacity: 99%;
-    box-shadow: 6px 6px 12px #39526a, -6px -6px 12px #3d5870;
-    text-align: center;
-    font-weight: bold;
+    width: 12em;
+    transition: all ease-in-out .5s;
+    margin-right: -2rem;
 }
+
+.search__input:hover,
+.search__input:focus {
+    box-shadow: 0 0 1em #00000013;
+}
+
+.search__input:focus {
+    outline: none;
+    background-color: #f0eeee;
+}
+
+.search__input::-webkit-input-placeholder {
+    font-weight: 100;
+    color: #ccc;
+}
+
+.search__input:focus+.search__button {
+    background-color: #f0eeee;
+}
+
+.search__button {
+    border: none;
+    background-color: #f4f2f2;
+    margin-top: .1em;
+}
+
+.search__button:hover {
+    cursor: pointer;
+}
+
+.search__icon {
+    height: 1.1em;
+    width: 1.1em;
+    fill: #b4b4b4;
+}
+
+/* Types logement services et equipements */
 
 .navigation ul {
     font: bold 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -254,11 +288,58 @@ z-index: 9;
     border-radius: 0 4px 4px 0;
 }
 
+/* Btn submit */
+.button--submit {
+    min-height: 40px;
+    padding: 0.1rem 0.5rem;
+    border: none;
+    border-radius: 8px ;
+    background-color: #3B556D;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+  }
+  
+  .button--submit:hover {
+    background-color: #406282;
+  }
+/* Filtres bottom */
+#filtre-deroulant {
+    z-index: 9;
+    margin-top: 20px;
+    border-radius: 30px;
+    background: #3B556D;
+    opacity: 99%;
+    box-shadow: 6px 6px 12px #39526a, -6px -6px 12px #3d5870;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.btn-submit-filtre {
+    margin-top: 10px;
+    min-height: 40px;
+    padding: 0.1rem 0.5rem;
+    border: none;
+    border-radius: 8px ;
+    background-color: #5FC2BA;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+  }
+  
+  .btn-submit-filtre:hover {
+    background-color: #5ed1c7;
+  }
+
 /* === Logements === */
 
 .zone-annonce {
     margin: auto;
     width: 85%;
+    text-align: center;
     /* border: 5px solid; */
 }
 
@@ -266,13 +347,12 @@ z-index: 9;
     display: inline-block;
     margin: 30px 5px 0 5px;
     text-align: center;
-    /* Center the content inside each .img */
 }
 
 #img-annonce-home {
     width: 301px;
     height: 206px;
-} 
+}
 
 .zone-prix {
     margin: -200px 0 0 12px;
@@ -297,7 +377,7 @@ z-index: 9;
 
 /* === Details logement === */
 
-#img-details-annonce{
+#img-details-annonce {
     height: 250px;
 }
 
@@ -396,7 +476,7 @@ z-index: 9;
     background-color: #3B556D;
 }
 
-#profil-user-modif{
+#profil-user-modif {
     position: absolute;
     left: 50%;
     top: 110%;

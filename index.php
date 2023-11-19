@@ -3,39 +3,18 @@ session_start();
 
 require_once 'vendor/autoload.php';
 
-// Assuming your classes follow PSR-4 naming conventions
+
 spl_autoload_register(function ($class) {
-    // Convert class name to file path
     $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-
-    // Define the base directory for your classes
     $baseDir = __DIR__ . '/App/controllers/';
-
-    // Construct the full path to the class file
     $filePath = $baseDir . $file;
-
-    // Include the class file if it exists
     if (file_exists($filePath)) {
         include $filePath;
     }
 });
 
-
-// use 'App/controllers/DeconnectionController.php';
-// include 'App/controllers/DetailsAnnonce.php';
-// include 'App/controllers/DeconnectionController.php';
-// include 'App/controllers/DeconnectionController.php';
-// include 'App/controllers/DeconnectionController.php';
-// include 'App/controllers/DeconnectionController.php';
-// include 'App/controllers/DeconnectionController.php';
-// include 'App/controllers/DeconnectionController.php';
-// include 'App/controllers/DeconnectionController.php';
-
-
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/App/views');
 $twig = new \Twig\Environment($loader);
-
-
 
 //creation et remplissage des tables une seule fois au lancement
 // $db = new Database();
@@ -48,19 +27,20 @@ $twig = new \Twig\Environment($loader);
 
 $adresse = $_SERVER['REQUEST_URI'];
 // echo $adresse;
-
 $adrExp = explode("?", $adresse);
 //Modifier pour passer un / au lieu d'un ?id donc slice peut etre??????????????????????
-
 // echo $adrExp;
-
 $path = $adrExp[0];
 
 switch ($path) {
     case '':
     case '/':
         $controller = new HomeController($twig);
-        $controller->loadAnnonce();
+        if (isset($_GET['typeLogement'])) {
+            $controller->getInfoHome($_GET['typeLogement']);
+        }else{
+            $controller->getInfoHome('');
+        }
         break;
     case '/connection':
         echo $twig->render('connectionView.php');
