@@ -12,28 +12,17 @@
                     <a href="/connection">
                         Me connecter
                     </a>
-                    Bonjour, {{ app.session.surname }}!
-
                 </div>
 
                 <div id="container-rightheader-topright">
-
-                    <form method="post" action="">
-                        <button type="submit" name="toggleButton" id="btn-profil">
-                            <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
-                        </button>
-                        <input type="hidden" name="isVisible" value="{{ isVisible ? 'true' : 'false' }}">
-                    </form>
-                    <a href="/connection">
+                    <button type="submit" name="toggleButton" id="btn-profil">
                         <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
-                    </a>
+                    </button>
                 </div>
             </div>
 
-
             <div id="container-rightheader-bottom">
-                <div id="btn-profil-deroulant">
-                    <!-- class="{{ isVisible ? '' : 'hidden' }}" -->
+                <div id="btn-profil-deroulant" class="profil-card" style="display: none;">
                     <div class="profil-card">
                         <a href="/detailsCompte" id="liens-profil-card">
                             MON COMPTE
@@ -61,3 +50,14 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var btnProfil = document.getElementById('btn-profil');
+        var btnProfilDeroulant = document.getElementById('btn-profil-deroulant');
+
+        btnProfil.addEventListener('click', function() {
+            btnProfilDeroulant.style.display = (btnProfilDeroulant.style.display === 'none') ? 'block' : 'none';
+        });
+    });
+</script>
