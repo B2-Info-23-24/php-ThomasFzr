@@ -62,7 +62,7 @@ class Database
     }
 
     //Remplir les tables de services type de logement et equipements
-    public function remplirEquipementService()
+    public function remplirLogementEquipementService()
     {
         try {
             // Vérifier si la table Service est vide
@@ -75,10 +75,16 @@ class Database
             $resultEquipement = $this->conn->query($queryEquipement);
             $countEquipement = $resultEquipement->fetch(PDO::FETCH_ASSOC)['count'];
 
+            // Vérifier si la table TypeLogement est vide
+            $queryTypeLogement = "SELECT COUNT(*) as count FROM TypeLogement";
+            $resultTypeLogement = $this->conn->query($queryTypeLogement);
+            $countTypeLogement = $resultTypeLogement->fetch(PDO::FETCH_ASSOC)['count'];
+
             // Si les tables ne sont pas encore remplies, on peut les remplir
-            if ($countService == 0 && $countEquipement == 0) {
-                $sql = "INSERT INTO Service (name) VALUES ('Transferts aeroport'), ('Petit-dejeuner'),('Service de menage'),('Location de voiture'),('Visites guidees'),('Cours de cuisine'),('Loisirs');
-                        INSERT INTO Equipement (name) VALUES ('Connexion Wi-Fi'),('Climatiseur'),('Chauffage'),('Machine a laver'),('Seche-linge'),('Television'),('Fer a repasser / Planche a repasser'),('Nintendo Switch'),('PS5'),('Terrasse'),('Balcon'),('Piscine'),('Jardin');";
+            if ($countService == 0 && $countEquipement == 0 && $countTypeLogement == 0) {
+                $sql = "INSERT INTO Service (name) VALUES ('Transferts aeroport'),('Petit-dejeuner'),('Service de menage'),('Location de voiture'),('Visites guidees'),('Cours de cuisine'),('Loisirs');
+                        INSERT INTO Equipement (name) VALUES ('Connexion Wi-Fi'),('Climatiseur'),('Chauffage'),('Machine a laver'),('Seche-linge'),('Television'),('Fer a repasser / Planche a repasser'),('Nintendo Switch'),('PS5'),('Terrasse'),('Balcon'),('Piscine'),('Jardin');
+                        INSERT INTO TypeLogement (name) VALUES ('Appartements'),('Maisons'),('Chalets'),('Villas'),('Péniches'),('Yourtes'),('Cabanes'),('Igloos'),('Tentes'),('Cars');";
                 $this->conn->exec($sql);
                 return true;
             } else {
@@ -89,6 +95,7 @@ class Database
             return false;
         }
     }
+
 
 
     //===== =================================== =====
@@ -236,7 +243,7 @@ class Database
             $randomQueryParam = md5(uniqid());
             $imageURL = "https://source.unsplash.com/800x600/?home&$randomQueryParam";
 
-            $stmt = $this->conn->prepare("INSERT INTO Annonce (dateDispo, adresse, price, typeLogement, commentGradeID, reservationID, favoriteID, name, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare("INSERT INTO Annonce (dateDispo, ville, price, typeLogement, commentGradeID, reservationID, favoriteID, name, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$dateDispo, $ville, $price, $typeLogement, $commentGradeID, $reservationID, $favoriteID, $name, $imageURL]);
         }
     }

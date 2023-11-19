@@ -12,7 +12,7 @@ class TestController
         require_once __DIR__ . '/../models/Database.php';
         $database = new Database();
         $database->createTables();
-        $database->remplirEquipementService();
+        $database->remplirLogementEquipementService();
         $database->insertFakerDatas();
         header('Location: /');
     }
