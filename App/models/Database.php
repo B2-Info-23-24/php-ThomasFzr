@@ -36,8 +36,11 @@ class Database
     public function createTables()
     {
         try {
-            $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, favoriteID INT, commentGradeID INT, reservationID INT, isAdmin BOOL);
-                    CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dateDispo DATE,  name VARCHAR(255), image VARCHAR(255), adresse VARCHAR(255), price INT, typeLogementAnnonceID INT, equipementAnnonceID INT, serviceAnnonceID INT, commentGradeID INT, reservationID INT, favoriteID INT);
+            $sql = "SHOW TABLES LIKE 'User'";
+            $result = $this->conn->query($sql);
+            if ($result->rowCount() == 0) {
+                $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, favoriteID INT, commentGradeID INT, reservationID INT, isAdmin BOOL);
+                    CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dateDispo DATE,  name VARCHAR(255), image VARCHAR(255), ville VARCHAR(255), price INT, typeLogement VARCHAR(255), commentGradeID INT, reservationID INT, favoriteID INT);
                     CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, dateDebut DATE, dateFin DATE, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                     CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade FLOAT, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
                     CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
@@ -47,8 +50,11 @@ class Database
                     CREATE TABLE EquipementAnnonce (equipementAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipementID INT, annonceID INT, FOREIGN KEY (equipementID) REFERENCES Equipement(equipementID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                     CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
                     CREATE TABLE ServiceAnnonce (serviceAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT, annonceID INT, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));";
-            $this->conn->exec($sql);
-            return true;
+                $this->conn->exec($sql);
+                return true;
+            } else {
+                return false;
+            }
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
             return false;
@@ -56,19 +62,34 @@ class Database
     }
 
     //Remplir les tables de services type de logement et equipements
-    public function remplirLogementEquipementService()
+    public function remplirEquipementService()
     {
         try {
-            $sql = "INSERT INTO Service (name) VALUES ('Transferts aeroport'), ('Petit-dejeuner'), ('Service de menage'), ('Location de voiture'), ('Visites guidees'), ('Cours de cuisine'), ('Loisirs');
-                    INSERT INTO TypeLogement (name) VALUES ('Appartements'), ('Maisons'), ('Chalets'), ('Villas'), ('Peniches'), ('Yourtes'), ('Cabanes'), ('Igloos'), ('Tentes'), ('Cars');
-                    INSERT INTO Equipement (name) VALUES ('Connexion Wi-Fi'), ('Climatiseur'), ('Chauffage'), ('Machine a laver'), ('Seche-linge'), ('Television'), ('Fer a repasser / Planche a repasser'), ('Nintendo Switch'), ('PS5'), ('Terrasse'), ('Balcon'), ('Piscine'), ('Jardin');";
-            $this->conn->exec($sql);
-            return true;
+            // Vérifier si la table Service est vide
+            $queryService = "SELECT COUNT(*) as count FROM Service";
+            $resultService = $this->conn->query($queryService);
+            $countService = $resultService->fetch(PDO::FETCH_ASSOC)['count'];
+
+            // Vérifier si la table Equipement est vide
+            $queryEquipement = "SELECT COUNT(*) as count FROM Equipement";
+            $resultEquipement = $this->conn->query($queryEquipement);
+            $countEquipement = $resultEquipement->fetch(PDO::FETCH_ASSOC)['count'];
+
+            // Si les tables ne sont pas encore remplies, on peut les remplir
+            if ($countService == 0 && $countEquipement == 0) {
+                $sql = "INSERT INTO Service (name) VALUES ('Transferts aeroport'), ('Petit-dejeuner'),('Service de menage'),('Location de voiture'),('Visites guidees'),('Cours de cuisine'),('Loisirs');
+                        INSERT INTO Equipement (name) VALUES ('Connexion Wi-Fi'),('Climatiseur'),('Chauffage'),('Machine a laver'),('Seche-linge'),('Television'),('Fer a repasser / Planche a repasser'),('Nintendo Switch'),('PS5'),('Terrasse'),('Balcon'),('Piscine'),('Jardin');";
+                $this->conn->exec($sql);
+                return true;
+            } else {
+                return false; // Les tables sont déjà remplies
+            }
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
             return false;
         }
     }
+
 
     //===== =================================== =====
 
@@ -159,9 +180,9 @@ class Database
     //===== ANNONCE =====
 
     //Récupérer toutes les annonces
-    public function getAnnonce()
+    public function getAnnonce($requete)
     {
-        $rqt = "SELECT * FROM Annonce";
+        $rqt = "SELECT * FROM Annonce $requete";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -202,14 +223,12 @@ class Database
     public function insertFakerDatas()
     {
         $homeNames = ['Petite maison calme', 'Appartement lumineux', 'Villa spacieuse', 'Studio moderne', 'Chalet rustique', 'Loft industriel', 'Maison de campagne', 'Penthouse élégant', 'Duplex contemporain', 'Manoir charmant', 'Cabane en bord de mer', 'Maisonnette accueillante', 'Château majestueux', 'Résidence paisible', 'Cottage pittoresque', 'Bungalow confortable', 'Appartement de luxe', 'Maisonnette chaleureuse', 'Refuge montagnard'];
-
+        $typesLogements = ['Appartements', 'Maisons', 'Chalets', 'Villas', 'Peniches', 'Yourtes', 'Cabanes', 'Igloos', 'Tentes', 'Cars'];
         for ($i = 0; $i < 10; $i++) {
             $dateDispo = $this->faker->date;
-            $adresse = $this->faker->address;
+            $ville = $this->faker->city;
             $price = $this->faker->numberBetween(100, 1000);
-            $typeLogementAnnonceID = $this->faker->numberBetween(1, 5);
-            $equipementAnnonceID = $this->faker->numberBetween(1, 5);
-            $serviceAnnonceID = $this->faker->numberBetween(1, 5);
+            $typeLogement = $this->faker->randomElement($typesLogements);
             $commentGradeID = $this->faker->numberBetween(1, 5);
             $reservationID = $this->faker->numberBetween(1, 5);
             $favoriteID = $this->faker->numberBetween(1, 5);
@@ -217,8 +236,8 @@ class Database
             $randomQueryParam = md5(uniqid());
             $imageURL = "https://source.unsplash.com/800x600/?home&$randomQueryParam";
 
-            $stmt = $this->conn->prepare("INSERT INTO Annonce (dateDispo, adresse, price, typeLogementAnnonceID, equipementAnnonceID, serviceAnnonceID, commentGradeID, reservationID, favoriteID, name, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$dateDispo, $adresse, $price, $typeLogementAnnonceID, $equipementAnnonceID, $serviceAnnonceID, $commentGradeID, $reservationID, $favoriteID, $name, $imageURL]);
+            $stmt = $this->conn->prepare("INSERT INTO Annonce (dateDispo, adresse, price, typeLogement, commentGradeID, reservationID, favoriteID, name, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$dateDispo, $ville, $price, $typeLogement, $commentGradeID, $reservationID, $favoriteID, $name, $imageURL]);
         }
     }
     //===== =================================== =====
@@ -305,12 +324,12 @@ class Database
     public function getCommentGrade()
     {
         $userID = $_SESSION['userID'];
-    
+
         $rqt = "SELECT * FROM CommentGrade WHERE userID = :userID";
-    
+
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-    
+
         if ($stmt->execute()) {
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -318,5 +337,4 @@ class Database
             return false;
         }
     }
-    
 }
