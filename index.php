@@ -36,12 +36,13 @@ switch ($path) {
     case '':
     case '/':
         $controller = new HomeController($twig);
-        if (isset($_GET['typeLogement'])) {
-            $controller->getInfoHome($_GET['typeLogement']);
-        }else{
-            $controller->getInfoHome('');
-        }
+        $typeLogement = isset($_GET['typeLogement']) ? $_GET['typeLogement'] : '';
+        $selectedEquipements = isset($_GET['selectedEquipements']) ? $_GET['selectedEquipements'] : [];
+        $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
+
+        $controller->getInfoHome($typeLogement, $selectedEquipements, $selectedServices);
         break;
+
     case '/connection':
         echo $twig->render('connectionView.php');
         break;
