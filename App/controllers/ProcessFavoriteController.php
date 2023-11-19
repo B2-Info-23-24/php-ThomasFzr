@@ -23,11 +23,15 @@ function __construct()
 
 
     function processFavorite($action, $id){
+        if (isset($_SESSION['userID'])) {
         $process = new ProcessFavoriteController();
         if($action == "add"){
             $process->addToFavorite($id);
         } elseif($action == "remove"){
             $process->removeFromFavorite($id);
         }
+    }else {
+        header('Location: /connection');
+    }
     }
 }
