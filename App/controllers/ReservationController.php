@@ -1,8 +1,6 @@
 <?php
 class ReservationController
 {
-
-
     private $twig;
 
     public function __construct($twig)

@@ -2,13 +2,13 @@
 
 {% block content %}
 <div id="zone-recherche-et-filtre">
-    <!-- <div id="zone-recherche">
-                <input type="text" id="barre-recherche-logement-home" placeholder="Rechercher un nom de logement">
-            </div> -->
+   
 
     <div id="zone-filtre-container">
 
-
+    <div id="zone-recherche">
+                <input type="text" id="barre-recherche-logement-home" placeholder="Rechercher un nom de logement">
+            </div>
 
         <nav class="navigation">
             <ul>
@@ -35,7 +35,7 @@
             <nav class=" navigation">
             <ul>
                 {% for service in services %}
-                <li><a href="">{{service.name}}</a></li>
+               <li>{{service.name}}: <input type="radio"></li>
                 {% endfor %}
             </ul>
             </nav> <br><br>
@@ -44,7 +44,7 @@
             <nav class="navigation">
                 <ul>
                     {% for equipement in equipements %}
-                    <li><a href="">{{equipement.name}}</a></li>
+                    <li>{{equipement.name}}: <input type="radio"></li>
                     {% endfor %}
                 </ul>
             </nav>
