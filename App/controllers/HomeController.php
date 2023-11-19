@@ -9,20 +9,34 @@ class HomeController
         $this->twig = $twig;
     }
 
-    function getInfoHome($typeLogement)
+    function getInfoHome($typeLogement, $selectedEquipements, $selectedServices)
     {
         require_once __DIR__ . '/../models/Database.php';
         $database = new Database();
-        $rqt = "";
+        $conditions = [];
+
         if ($typeLogement != '') {
-            $rqt = "WHERE typeLogement = '$typeLogement'";
+            $conditions[] = "typeLogement = '$typeLogement'";
+        }
+        if (!empty($selectedEquipements)) {
+            $equipementsCondition = implode(',', $selectedEquipements);
+            $conditions[] = "annonceID IN (SELECT annonceID FROM EquipementAnnonce WHERE equipementID IN ($equipementsCondition))";
+        }
+        if (!empty($selectedServices)) {
+            $servicesCondition = implode(',', $selectedServices);
+            $conditions[] = "annonceID IN (SELECT annonceID FROM ServiceAnnonce WHERE serviceID IN ($servicesCondition))";
+        }
+        $whereClause = '';
+
+        if (!empty($conditions)) {
+            $whereClause = 'WHERE ' . implode(' AND ', $conditions);
         }
 
-
-        $tabAnnonce = $database->getAnnonce($rqt);
+        $tabAnnonce = $database->getAnnonce($whereClause);
         $tabTypeLogement = $database->getTypeLogement();
         $tabService = $database->getService();
         $tabEquipement = $database->getEquipement();
+
         echo $this->twig->render(
             'home.php',
             [

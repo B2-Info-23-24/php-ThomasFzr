@@ -1,9 +1,7 @@
 {% extends "templates/template.php" %}
 
 {% block content %}
-
 <div id="zone-filtre-container">
-
     <div id="zone-filtre-container-top">
         <div class="search">
             <input type="text" class="search__input" placeholder="Rechercher une ville">
@@ -17,6 +15,7 @@
         </div>
         <nav class="navigation">
             <ul>
+                <li><a href="/">Tout</a></li>
                 {% for typeLogement in typeLogements %}
                 <li><a href="/?typeLogement={{ typeLogement.name }}">{{ typeLogement.name }}</a></li>
                 {% endfor %}
@@ -24,33 +23,48 @@
         </nav>
         <div id="zone-filtre-rightcontainer">
             <form method="post" action="">
-                <button type="submit" name="toggleButton" class="button--submit">FILTRES</button>
-                <input type="hidden" name="isVisible" value="<?php echo $isVisible ? 'true' : 'false'; ?>">
+                <button type="button" id="toggleFiltresButton" class="button--submit">FILTRES</button>
+                <input type="hidden" name="isVisible" value="{{ isVisible ? 'true' : 'false' }}">
             </form>
         </div>
     </div>
 
-    <div id="filtre-deroulant">
+    <div id="filtre-deroulant" class="hidden">
+        <form method="get" action="/">
+            <input type="hidden" name="typeLogement" value="{{ _GET['typeLogement'] ?? '' }}">
 
-        <form method="post" action="">
+
             Services:
-            <nav class=" navigation">
+            <nav class="navigation">
                 <ul>
                     {% for service in services %}
-                    <li>{{service.name}}: <input type="radio"></li>
+                    <li>
+                        <label>
+                            {{ service.name }}
+                            <input type="checkbox" name="selectedServices[]" value="{{ service.serviceID }}">
+                        </label>
+                    </li>
                     {% endfor %}
                 </ul>
             </nav> <br><br>
+
             Equipements:
             <nav class="navigation">
                 <ul>
                     {% for equipement in equipements %}
-                    <li>{{equipement.name}}: <input type="radio"></li>
+                    <li>
+                        <label>
+                            {{ equipement.name }}
+                            <input type="checkbox" name="selectedEquipements[]" value="{{ equipement.equipementID }}">
+                        </label>
+                    </li>
                     {% endfor %}
                 </ul>
             </nav>
-            <button type="submit" name="toggleButton" class="btn-submit-filtre">APPLIQUER FILTRES</button>
+
+            <button type="submit" class="btn-submit-filtre">APPLIQUER FILTRES</button>
         </form>
+
         <div class="card">
             <div class="price-content">
                 <div>
@@ -69,20 +83,13 @@
                 <input class="input-slider" type="range" class="max-price" value="250" min="10" max="500" step="10" />
             </div>
         </div>
-
-        <!-- Date début: <input type="date" id="dateDebut" min="2023-11-01" onchange="updateDateFinMin()">
-        <br>
-        Date fin: <input type="date" id="dateFin">
-        <br> -->
     </div>
 </div>
 
 <br><br>
 
 <div class="zone-annonce">
-
     {% for annonce in annonces %}
-
     <a href="/detailsLogement?id={{ annonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
             <img src="{{annonce.image}}" id="img-annonce-home">
@@ -92,22 +99,25 @@
             </div>
         </div>
     </a>
-
     {% endfor %}
-
 </div>
 
 <!-- A SUPPRIMER -->
-
 <form id="gettable-form" action="/test" method="post">
-
     <p>
         <input type="submit" id="register" value="BTN FOR TESTS.">
     </p>
 </form>
 <!-- A SUPPRIMER -->
-
 {% endblock %}
+
 {% block footer %}
 <script src="script.js"></script>
+<script>
+    document.getElementById('toggleFiltresButton').addEventListener('click', function() {
+        var filtreDeroulant = document.getElementById('filtre-deroulant');
+        filtreDeroulant.classList.toggle('visible');
+        filtreDeroulant.classList.toggle('hidden');
+    });
+</script>
 {% endblock %}
