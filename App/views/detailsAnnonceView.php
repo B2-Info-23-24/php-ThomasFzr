@@ -12,21 +12,23 @@
         <h3>{{ info.name }}</h3>
         Ville: {{ info.adresse }}<br><br>
         <div id="nombre-etoile-commentaire-logement">
-            ({{ averageGrade }}) ⭐ -
-            {{ tabAvis|length }} commentaire{{ tabAvis|length == 0 ? '' : 's' }}
+            {{ tabAvis|length == 0 ? 'Pas encore de note' : averageGrade }} ⭐ -
+            ({{ tabAvis|length }} commentaire{{ tabAvis|length == 0 ? '' : 's' }})
         </div>
 
         {% endfor %}
 
         <br>
+        <ul>
         {% for avis in tabAvis %}
+       
         <div id="details-commentaires-notes">
-            <!-- {{ avis.userID }} -->
-            {{ avis.grade }}⭐
+            <li>{{ avis.grade }}⭐
             ({{ avis.date }}) <br>
-            {{ avis.comment }}
+            {{ avis.comment }}</li>
         </div> <br>
         {% endfor %}
+        </ul>
     </div>
 
     {% for info in infoAnnonce %}

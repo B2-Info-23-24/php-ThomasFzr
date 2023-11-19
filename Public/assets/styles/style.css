@@ -405,7 +405,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #details-commentaires-notes{
-    border: 2px solid ;
+    /* border: 2px solid ; */
     width: 450px;
 }
 
