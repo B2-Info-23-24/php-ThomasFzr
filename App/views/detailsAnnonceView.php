@@ -7,45 +7,52 @@
 
     <div class="flex-child-details-logement left">
         {% for info in infoAnnonce %}
-        <img src="{{info.image}}" id="img-details-annonce">
+        <img src="{{ info.image }}" id="img-details-annonce">
         <br>
-        {{info.name}}
+        <h3>{{ info.name }}</h3>
+        Ville: {{ info.adresse }}<br><br>
+        <div id="nombre-etoile-commentaire-logement">
+            ({{ averageGrade }}) ⭐ -
+            {{ tabAvis|length }} commentaire{{ tabAvis|length == 0 ? '' : 's' }}
+        </div>
 
-        <br><br> Description du logement: <br><br>
-        - Le prix d’une nuitée:
-        {{info.price}} € <br>
-
-        Adresse: {{info.adresse}}
-
-
+        {% endfor %}
 
         <br>
-        - Les commentaires laissés par les locataires <br>
-        - Les notes laissées par les locataires <br>
-        - Les disponibilités de réservation
+        {% for avis in tabAvis %}
+        <div id="details-commentaires-notes">
+            <!-- {{ avis.userID }} -->
+            {{ avis.grade }}⭐
+            ({{ avis.date }}) <br>
+            {{ avis.comment }}
+        </div> <br>
+        {% endfor %}
     </div>
 
+    {% for info in infoAnnonce %}
     <div class="flex-child-details-logement right">
-        <div id="nombre-etoile-commentaire-logement">
-            <a href="#"> ⭐⭐⭐⭐⭐ 5,0 </a> <br>
-            <a href="#"> 33 commentaires</a>
-        </div> <br>
-        Date de début: <input type="date"> <br>
-        Date de fin: <input type="date"> <br><br>
-
-        
-
         {% if isInFavorite %}
         <form action="/process_favorite?action=remove&id={{ info.annonceID }}" method="post">
-            <input type="submit" value="RETIRER DES FAVORIS"><br><br>
+            <input type="submit" value="RETIRER DES FAVORIS 💔"><br><br>
         </form>
         {% else %}
         <form action="/process_favorite?action=add&id={{ info.annonceID }}" method="post">
-            <input type="submit" value="AJOUTER EN FAVORIS"><br><br>
+            <input type="submit" value="AJOUTER EN FAVORIS 🩷"><br><br>
         </form>
         {% endif %}
+
+
+        Disponibilités de réservation: <br>
+        Du: <input type="date"> <br>
+        au: <input type="date"><br>
+        {{ info.dateDispo }}<br><br>
+
+        {{ info.price }} € x ? nuit<br><br>
+
+        Date de début: <input type="date"> <br>
+        Date de fin: <input type="date"> <br><br>
         <input type="submit" value="RESERVER">
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 {% endblock %}

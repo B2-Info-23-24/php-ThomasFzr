@@ -25,14 +25,17 @@ $twig = new \Twig\Environment($loader);
 //     $db->remplirLogementEquipementService();
 // }
 
-$adresse = $_SERVER['REQUEST_URI'];
-// echo $adresse;
-$adrExp = explode("?", $adresse);
-//Modifier pour passer un / au lieu d'un ?id donc slice peut etre??????????????????????
-// echo $adrExp;
-$path = $adrExp[0];
 
-switch ($path) {
+$urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+
+$parts = explode('/', trim($urlPath, '/'));
+$route = "/".$parts[0];
+$id = $parts[1] ?? null;
+
+// echo "Route: $route, ID: $id";
+
+switch ($route) {
     case '':
     case '/':
         $controller = new HomeController($twig);
@@ -52,9 +55,8 @@ switch ($path) {
         break;
 
     case '/detailsLogement':
-    case '/detailsLogement/':
         $controller = new DetailsAnnonceController($twig);
-        $controller->getDetailsAnnonce($_GET['id']);
+        $controller->getDetailsAnnonce($id);
         break;
 
     case '/detailsCompte':

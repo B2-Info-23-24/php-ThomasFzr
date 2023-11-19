@@ -90,7 +90,7 @@
 
 <div class="zone-annonce">
     {% for annonce in annonces %}
-    <a href="/detailsLogement?id={{ annonce.annonceID }}" id="lien-annonce">
+    <a href="/detailsLogement/{{ annonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
             <img src="{{annonce.image}}" id="img-annonce-home">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>

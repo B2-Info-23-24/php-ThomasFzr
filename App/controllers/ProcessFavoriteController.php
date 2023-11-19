@@ -12,13 +12,13 @@ function __construct()
      function addToFavorite($id)
     {
         $this->db->addToFavorite($id);
-        header("Location: /detailsLogement?id=$id");
+        header("Location: /detailsLogement/$id");
     }
 
     function removeFromFavorite($id)
     {
         $this->db->removeFromFavorite($id);
-        header("Location: /detailsLogement?id=$id");
+        header("Location: /detailsLogement/$id");
     }
 
 

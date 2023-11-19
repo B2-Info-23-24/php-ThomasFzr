@@ -378,11 +378,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 /* === Details logement === */
 
 #img-details-annonce {
-    height: 250px;
+    height: 450px;
 }
 
 .flex-container-details-logement {
     display: flex;
+    margin-left: 50px;
 }
 
 .flex-child-details-logement {
@@ -392,7 +393,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .flex-child-details-logement:first-child {
     margin-right: 20px;
-    /* border: 2px solid ; */
+    border-right: 2px solid ;
 }
 
 .hidden {
@@ -403,15 +404,10 @@ input[type="range"]::-webkit-slider-runnable-track {
     height: 50px;
 }
 
-#imgIconeCoeur {
-    height: 50px;
-    margin-right: 15px;
+#details-commentaires-notes{
+    border: 2px solid ;
+    width: 450px;
 }
-
-#imgIconeCoeur {
-    padding-left: 50px;
-}
-
 
 /*=== Profil ===*/
 
