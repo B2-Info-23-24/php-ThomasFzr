@@ -87,6 +87,11 @@ switch ($route) {
         $controller->insertAvis($_GET['id']);
         break;
 
+    case '/process_reservation':
+        $controller = new ProcessReservationController();
+        $controller->insertReservation($_GET['id']);
+        break;
+
     case '/test':
         $controller = new TestController($twig);
         $controller->test();
