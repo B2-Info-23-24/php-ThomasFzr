@@ -59,9 +59,9 @@
 
         {{ info.price }} € x ? nuit<br><br>
 
-        <form>
-            Date de début: <input type="date"> <br>
-            Date de fin: <input type="date"> <br><br>
+        <form action="/process_reservation?id={{info.annonceID}}" method="post">
+            Date de début: <input type="date" name="dateDebut" required> <br>
+            Date de fin: <input type="date" name="dateFin" required> <br><br>
             <input type="submit" value="RESERVER">
         </form>
         {% endfor %}

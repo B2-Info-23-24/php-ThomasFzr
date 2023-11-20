@@ -8,6 +8,7 @@ class ReservationController
         $this->twig = $twig;
     }
 
+    //A modifier TODO
     function getReservation()
     {
         if (isset($_SESSION['userID'])) {
