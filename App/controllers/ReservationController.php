@@ -12,7 +12,11 @@ class ReservationController
     function getReservation()
     {
         if (isset($_SESSION['userID'])) {
-            echo $this->twig->render('reservationView.php');
+            require_once __DIR__ . '/../models/Database.php';
+            $database = new Database();
+
+            $tabAnnonce = $database->getReservation($_SESSION['userID']);
+            echo $this->twig->render('reservationView.php', ['annonces' => $tabAnnonce]);
         } else {
             header('Location: /connection');
         }

@@ -398,4 +398,17 @@ class Database
         }
     }
 
+    //Récupérer les annonces réservées par le user actuel
+    public function getReservation($userID)
+    {
+        $rqt = "SELECT Annonce.*
+                FROM Annonce
+                JOIN Reservation ON Annonce.annonceID = Reservation.annonceID
+                JOIN User ON Reservation.userID = User.userID
+                WHERE User.userID = :userID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
