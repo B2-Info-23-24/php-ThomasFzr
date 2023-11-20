@@ -15,7 +15,7 @@ class AvisController
         if (isset($_SESSION['userID'])) {
             require_once __DIR__ . '/../models/Database.php';
             $db = new Database();
-            $tabAvis = $db->getCommentGrade();
+            $tabAvis = $db->getCommentGradeFromUser();
 
             if (is_array($tabAvis) && !empty($tabAvis)) {
                 $annonceIDs = array_column($tabAvis, 'annonceID');

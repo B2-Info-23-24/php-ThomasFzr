@@ -16,21 +16,10 @@ spl_autoload_register(function ($class) {
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/App/views');
 $twig = new \Twig\Environment($loader);
 
-//creation et remplissage des tables une seule fois au lancement
-// $db = new Database();
-// if(!$db->createTables()){
-//     $db->createTables();
-// }
-// if(!$db->remplirLogementEquipementService()){
-//     $db->remplirLogementEquipementService();
-// }
-
 
 $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-
 $parts = explode('/', trim($urlPath, '/'));
-$route = "/".$parts[0];
+$route = "/" . $parts[0];
 $id = $parts[1] ?? null;
 
 // echo "Route: $route, ID: $id";
@@ -42,7 +31,6 @@ switch ($route) {
         $typeLogement = isset($_GET['typeLogement']) ? $_GET['typeLogement'] : '';
         $selectedEquipements = isset($_GET['selectedEquipements']) ? $_GET['selectedEquipements'] : [];
         $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
-
         $controller->getInfoHome($typeLogement, $selectedEquipements, $selectedServices);
         break;
 
@@ -92,6 +80,11 @@ switch ($route) {
     case '/process_favorite':
         $controller = new ProcessFavoriteController();
         $controller->processFavorite($_GET['action'], $_GET['id']);
+        break;
+
+    case '/process_avis':
+        $controller = new ProcessAvisController();
+        $controller->insertAvis($_GET['id']);
         break;
 
     case '/test':

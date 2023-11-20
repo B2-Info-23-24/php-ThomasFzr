@@ -10,24 +10,32 @@
         <img src="{{ info.image }}" id="img-details-annonce">
         <br>
         <h3>{{ info.name }}</h3>
-        Ville: {{ info.adresse }}<br><br>
+        Ville: {{ info.ville }}<br><br>
         <div id="nombre-etoile-commentaire-logement">
             {{ tabAvis|length == 0 ? 'Pas encore de note' : averageGrade }} ⭐ -
-            ({{ tabAvis|length }} commentaire{{ tabAvis|length == 0 ? '' : 's' }})
+            ({{ tabAvis|length }} commentaire{{ tabAvis|length <= 1 ? '' : 's' }})
         </div>
 
+        <div id="zone-laisser-avis">
+            <form action="/process_avis?id={{info.annonceID}}" method="post">
+                <input type="number" name="grade" placeholder="Note" required min="0" max="5">
+                <input type="text" name="comment" placeholder="Laisser un commentaire" required>
+                <input type="submit" value="ENVOYER L'AVIS">
+            </form>
+        </div>
         {% endfor %}
 
         <br>
         <ul>
-        {% for avis in tabAvis %}
-       
-        <div id="details-commentaires-notes">
-            <li>{{ avis.grade }}⭐
-            ({{ avis.date }}) <br>
-            {{ avis.comment }}</li>
-        </div> <br>
-        {% endfor %}
+            {% for avis in tabAvis %}
+
+            <div id="details-commentaires-notes">
+                <li>{{ avis.grade }}⭐
+                    ({{ avis.date }}) <br>
+                    {{ avis.comment }}
+                </li>
+            </div> <br>
+            {% endfor %}
         </ul>
     </div>
 
@@ -51,9 +59,11 @@
 
         {{ info.price }} € x ? nuit<br><br>
 
-        Date de début: <input type="date"> <br>
-        Date de fin: <input type="date"> <br><br>
-        <input type="submit" value="RESERVER">
+        <form>
+            Date de début: <input type="date"> <br>
+            Date de fin: <input type="date"> <br><br>
+            <input type="submit" value="RESERVER">
+        </form>
         {% endfor %}
     </div>
 </div>

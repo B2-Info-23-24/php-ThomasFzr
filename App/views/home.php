@@ -95,7 +95,7 @@
             <img src="{{annonce.image}}" id="img-annonce-home">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>
             <div class="description">
-                <h4>{{annonce.typeLogement}}</h4>
+                <h4>{{annonce.name}}</h4>
             </div>
         </div>
     </a>
