@@ -55,7 +55,7 @@ RUN service apache2 restart
 - 
 - Installer Composer : `sudo apt install composer`
 - Installer Twig : `composer require twig/twig`
-- Installer Faker : `docker run --rm --interactive --tty --volume %PWD:/app composer require fakerphp/faker`
+- Installer Faker : `sudo docker run --rm --interactive --tty --volume %PWD:/app composer require fakerphp/faker`
 
 - Arreter le serveur apache : `docker-compose down`
 - Relancer le serveur apache : `docker-compose up --build`
