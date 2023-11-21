@@ -9,7 +9,7 @@ class HomeController
         $this->twig = $twig;
     }
 
-    function getInfoHome($typeLogement, $selectedEquipements, $selectedServices)
+    function getInfoHome($typeLogement, $selectedEquipements, $selectedServices, $ville)
     {
         require_once __DIR__ . '/../models/Database.php';
         $database = new Database();
@@ -17,6 +17,9 @@ class HomeController
 
         if ($typeLogement != '') {
             $conditions[] = "typeLogement = '$typeLogement'";
+        }
+        if ($ville != '') {
+            $conditions[] = "ville = '$ville'";
         }
         if (!empty($selectedEquipements)) {
             $equipementsCondition = implode(',', $selectedEquipements);

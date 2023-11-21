@@ -9,6 +9,7 @@
 {% if annonces is not empty %}
 <div class="zone-annonce">
     {% for annonce in annonces %}
+    {% if annonce.date <= dateToday%}
     <a href="/detailsLogement/{{ annonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
             <img src="{{ annonce.image }}" id="img-annonce-home">
@@ -18,6 +19,7 @@
             </div>
         </div>
     </a>
+    {% endif%}
     {% endfor %}
 </div>
 

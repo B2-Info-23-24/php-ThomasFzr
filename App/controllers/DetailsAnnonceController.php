@@ -2,11 +2,20 @@
 class DetailsAnnonceController
 {
     private $twig;
+    private $dateToday;
+    private $dateTodayPlusOne;
 
     public function __construct($twig)
     {
         $this->twig = $twig;
+        $this->dateToday = new DateTime('now');
+        $this->dateTodayPlusOne = clone $this->dateToday;
+        $this->dateTodayPlusOne->modify('+1 day');
+        $this->dateToday = $this->dateToday->format('Y-m-d');
+        $this->dateTodayPlusOne = $this->dateTodayPlusOne->format('Y-m-d');
     }
+
+
 
     public function getDetailsAnnonce($annonceID)
     {
@@ -17,10 +26,15 @@ class DetailsAnnonceController
         $tabTypeLogement = $database->getTypeLogement();
         $tabService = $database->getService();
         $tabEquipement = $database->getEquipement();
-        $isInFavorite = $database->isInFavorite($annonceID);
         $tabAvis = $database->getCommentGradeFromAnnonce($annonceID);
         $averageGrade = $this->calculateAverageGrade($tabAvis);
+        $userID = null;
+        $isInFavorite = null;
 
+        if (isset($_SESSION['userID'])) {
+            $userID = $_SESSION['userID'];
+            $isInFavorite = $database->isInFavorite($annonceID);
+        }
         echo $this->twig->render('detailsAnnonceView.php', [
             'infoAnnonce' => $infoAnnonce,
             'typeLogements' => $tabTypeLogement,
@@ -29,6 +43,9 @@ class DetailsAnnonceController
             'isInFavorite' => $isInFavorite,
             'tabAvis' => $tabAvis,
             'averageGrade' => $averageGrade,
+            'dateToday' => $this->dateToday,
+            'dateTodayPlusOne' => $this->dateTodayPlusOne,
+            'userID' => $userID
         ]);
     }
 

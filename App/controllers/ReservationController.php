@@ -15,8 +15,14 @@ class ReservationController
             require_once __DIR__ . '/../models/Database.php';
             $database = new Database();
 
+            $dateToday = new DateTime('now');
+            $dateToday = $dateToday->format('Y-m-d');
+
             $tabAnnonce = $database->getReservation($_SESSION['userID']);
-            echo $this->twig->render('reservationView.php', ['annonces' => $tabAnnonce]);
+            echo $this->twig->render('reservationView.php', [
+                'annonces' => $tabAnnonce,
+                'dateToday' => $dateToday
+            ]);
         } else {
             header('Location: /connection');
         }

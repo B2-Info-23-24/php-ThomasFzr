@@ -29,9 +29,10 @@ switch ($route) {
     case '/':
         $controller = new HomeController($twig);
         $typeLogement = isset($_GET['typeLogement']) ? $_GET['typeLogement'] : '';
+        $ville = isset($_GET['ville']) ? $_GET['ville'] : '';
         $selectedEquipements = isset($_GET['selectedEquipements']) ? $_GET['selectedEquipements'] : [];
         $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
-        $controller->getInfoHome($typeLogement, $selectedEquipements, $selectedServices);
+        $controller->getInfoHome($typeLogement, $selectedEquipements, $selectedServices, $ville);
         break;
 
     case '/connection':

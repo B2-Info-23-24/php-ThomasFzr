@@ -39,7 +39,7 @@ class Database
             $sql = "SHOW TABLES LIKE 'User'";
             $result = $this->conn->query($sql);
             if ($result->rowCount() == 0) {
-                $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, favoriteID INT, commentGradeID INT, reservationID INT, isAdmin BOOL);
+                $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, favoriteID INT, commentGradeID INT, reservationID INT, isAdmin BOOL DEFAUT false);
                     CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), image VARCHAR(255), ville VARCHAR(255), price INT, typeLogement VARCHAR(255), commentGradeID INT, reservationID INT, favoriteID INT);
                     CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, dateDebut DATE, dateFin DATE, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                     CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade FLOAT, date DATE, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
@@ -228,22 +228,22 @@ class Database
     //Remplir les tables avec les données de Faker
     public function insertFakerDatas()
     {
-        $homeNames = ['Petite maison calme', 'Appartement lumineux', 'Villa spacieuse', 'Studio moderne', 'Chalet rustique', 'Loft industriel', 'Maison de campagne', 'Penthouse élégant', 'Duplex contemporain', 'Manoir charmant', 'Cabane en bord de mer', 'Maisonnette accueillante', 'Château majestueux', 'Résidence paisible', 'Cottage pittoresque', 'Bungalow confortable', 'Appartement de luxe', 'Maisonnette chaleureuse', 'Refuge montagnard'];
+        $homeNames = [' calme', ' lumineux', ' spacieuse', ' moderne', ' rustique', ' industriel', ' de campagne', ' élégant', ' contemporain', ' charmant', ' en bord de mer', ' accueillante', ' majestueux', ' paisible', ' pittoresque', ' confortable', ' de luxe', ' chaleureuse', ' montagnard'];
         $typesLogements = ['Appartements', 'Maisons', 'Chalets', 'Villas', 'Peniches', 'Yourtes', 'Cabanes', 'Igloos', 'Tentes', 'Cars'];
+        $villes = ['Lyon', 'Paris', 'Marseille', 'Grenoble', 'Toulouse', 'Bordeaux', 'Limoge', 'Perpignan', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Angers', 'Lille', 'Rennes', 'Caen'];
         for ($i = 0; $i < 10; $i++) {
-            $dateDispo = $this->faker->date;
-            $ville = $this->faker->city;
+            $ville = $this->faker->randomElement($villes);
             $price = $this->faker->numberBetween(100, 1000);
             $typeLogement = $this->faker->randomElement($typesLogements);
             $commentGradeID = $this->faker->numberBetween(1, 5);
             $reservationID = $this->faker->numberBetween(1, 5);
             $favoriteID = $this->faker->numberBetween(1, 5);
-            $name = $this->faker->randomElement($homeNames);
+            $name = $typeLogement.$this->faker->randomElement($homeNames);
             $randomQueryParam = md5(uniqid());
             $imageURL = "https://source.unsplash.com/800x600/?home&$randomQueryParam";
 
-            $stmt = $this->conn->prepare("INSERT INTO Annonce (dateDispo, ville, price, typeLogement, commentGradeID, reservationID, favoriteID, name, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$dateDispo, $ville, $price, $typeLogement, $commentGradeID, $reservationID, $favoriteID, $name, $imageURL]);
+            $stmt = $this->conn->prepare("INSERT INTO Annonce (ville, price, typeLogement, commentGradeID, reservationID, favoriteID, name, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$ville, $price, $typeLogement, $commentGradeID, $reservationID, $favoriteID, $name, $imageURL]);
         }
     }
     //===== =================================== =====
