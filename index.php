@@ -17,6 +17,18 @@ $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/App/views');
 $twig = new \Twig\Environment($loader);
 
 
+if (isset($_SESSION['userID'])) {
+    $isConnected = true;
+    $twig->addGlobal('isConnected', $isConnected);
+}
+
+if (isset($_SESSION['surname'])) {
+    $surname = $_SESSION['surname'];
+    $twig->addGlobal('surname', $surname);
+}
+
+
+
 $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $parts = explode('/', trim($urlPath, '/'));
 $route = "/" . $parts[0];

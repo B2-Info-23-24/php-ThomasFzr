@@ -424,9 +424,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #container-rightheader-top {
-    width: 100%;
+    width: 110%;
     position: absolute;
-    top: 0;
+    top: 10%;
     left: 0;
     opacity: 0.7;
     display: flex;

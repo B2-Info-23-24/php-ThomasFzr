@@ -163,6 +163,7 @@ class Database
                 $_SESSION['mail'] = $email;
                 $db = new Database();
                 $_SESSION['userID'] = $db->getUserInfo($email)['userID'];
+                $_SESSION['surname'] = $db->getUserInfo($email)['surname'];                
                 return true;
             } else {
                 return false;
