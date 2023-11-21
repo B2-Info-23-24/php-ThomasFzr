@@ -14,15 +14,9 @@
 <body>
     {%include 'headerView.php' %}
 
-     <!-- TODO If message success echo here in php -->
-    <?php
-    if (isset($_SESSION['successMsg'])) {
-        echo $_SESSION['successMsg'];
-    }else{
-        echo 'no';
-    }
+     {{ successMsg }}
+     {{ errorMsg }}
 
-    ?>
    
     {% block content %}{% endblock %}
 

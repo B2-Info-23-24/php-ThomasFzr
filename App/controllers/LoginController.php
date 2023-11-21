@@ -10,11 +10,11 @@ class LoginController
             require_once __DIR__ . '/../models/Database.php';
             $database = new Database();
             if ($database->authenticateUser($email, $password)) {
-                $_SESSION['successMsg'] = "Connexion réussie!<br>";
+                $_SESSION['successMsg'] = "Connexion réussie!";
                 header('Location: /');
                 exit;
             } else {
-                $_SESSION['successMsg'] = "Mail ou mdp invalide";
+                $_SESSION['errorMsg'] = "Mail ou mdp invalide!";
                 header('Location: /connection');
                 exit;
             }

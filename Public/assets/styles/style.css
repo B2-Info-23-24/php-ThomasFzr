@@ -465,19 +465,22 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 #profil-user {
     position: absolute;
-    left: 50%;
+    left: 40%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background-color: #3B556D;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 #profil-user-modif {
     position: absolute;
-    left: 50%;
-    top: 110%;
+    left: 60%;
+    top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background-color: #3B556D;
-
+    padding: 10px;
+    border-radius: 10px;
 }
