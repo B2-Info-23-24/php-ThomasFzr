@@ -9,7 +9,8 @@ class ProcessReservationController
             $db = new Database();
             $db->insertReservation($annonceID,  $_POST["dateDebut"], $_POST["dateFin"]);
 
-            //Aller dans mes reservations TODO
+            $_SESSION['successMsg'] = "Réservation validée!";
+            
             header("Location: /reservation");
         }
     }

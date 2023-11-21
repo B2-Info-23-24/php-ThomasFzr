@@ -13,6 +13,7 @@ class ProcessAvisController
             $date = $date->format('Y-m-d');
 
             $db->insertAvis($annonceID,  $_POST["grade"], $_POST["comment"], $date);
+            $_SESSION['successMsg'] = "Avis posté!";
 
             header("Location: /detailsLogement/$annonceID");
         }

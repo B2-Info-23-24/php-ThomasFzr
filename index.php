@@ -27,6 +27,17 @@ if (isset($_SESSION['surname'])) {
     $twig->addGlobal('surname', $surname);
 }
 
+if (isset($_SESSION['successMsg'])) {
+    $successMsg = $_SESSION['successMsg'];
+    $twig->addGlobal('successMsg', $successMsg);
+    unset($_SESSION['successMsg']);
+}
+
+if (isset($_SESSION['errorMsg'])) {
+    $errorMsg = $_SESSION['errorMsg'];
+    $twig->addGlobal('errorMsg', $errorMsg);
+    unset($_SESSION['errorMsg']); // Clear the errorMsg
+}
 
 
 $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
