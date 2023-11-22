@@ -10,13 +10,44 @@
         <img src="{{ info.image }}" id="img-details-annonce">
         <br>
         <h3>{{ info.name }} ({{info.price}}€/nuit)</h3>
-        Ville: {{ info.ville }}<br><br>
+        <div class="description-annonce">
+            Ville: {{ info.ville }}<br><br>
+            {% endfor %}
+
+            Equipements disponibles:
+            {% if equipements is not empty %}
+            <ul>
+                {% for equipement in equipements %}
+                <li> {{equipement.name}}</li>
+                {% endfor%}
+            </ul>
+            {% else %}
+            <br><br>Aucun équipement disponible. <br>
+            {% endif%}
+
+
+            Services disponibles:
+            {% if services is not empty %}
+            <ul>
+                {% for service in services %}
+                <li> {{service.name}}</li>
+                {% endfor%}
+            </ul>
+            {% else %}
+            <br><br>Aucun service disponible.<br>
+            {% endif%}
+        </div>
+        <br>
+
         <div id="nombre-etoile-commentaire-logement">
             {{ tabAvis|length == 0 ? 'Pas encore de note' : averageGrade }} ⭐ -
             ({{ tabAvis|length }} commentaire{{ tabAvis|length <= 1 ? '' : 's' }})
         </div><br>
 
+
+
         {% if userID is not null %}
+        {% for info in infoAnnonce %}
         <div id="zone-laisser-avis">
             <form action="/process_avis?id={{info.annonceID}}" method="post">
                 <input type="number" name="grade" placeholder="Note" required min="0" max="5">
@@ -24,10 +55,11 @@
                 <input type="submit" value="ENVOYER L'AVIS">
             </form>
         </div>
+        {%endfor%}
         {%else%}
         Veuillez vous connecter pour laisser un avis sur ce logement.
         {%endif%}
-        {% endfor %}
+
 
         <br>
         <ul>
@@ -35,7 +67,8 @@
 
             <div id="details-commentaires-notes">
                 <li>{{ avis.grade }}⭐
-                    ({{ avis.date }}) <br>
+                    ({{ avis.date|date("d/m/Y") }})
+                    <br>
                     {{ avis.comment }}
                 </li>
             </div> <br>

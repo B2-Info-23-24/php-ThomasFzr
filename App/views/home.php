@@ -34,7 +34,7 @@
 
     <div id="filtre-deroulant" class="hidden">
         <form method="get" action="/">
-            <input type="hidden" name="typeLogement" value="{{ _GET['typeLogement'] ?? '' }}">
+            <!-- <input type="hidden" name="typeLogement" value="{{ _GET['typeLogement'] ?? '' }}"> -->
 
 
             Services:
@@ -72,19 +72,19 @@
             <div class="price-content">
                 <div>
                     <label>Min</label>
-                    <p id="min-value">50</p>
+                    <p id="min-value">100</p>
                 </div>
 
                 <div>
                     <label>Max</label>
-                    <p id="max-value">500</p>
+                    <p id="max-value">1000</p>
                 </div>
             </div>
             <div class="range-slider">
-                <div class="range-fill"></div>
-                <input class="input-slider" type="range" class="min-price" value="100" min="10" max="500" step="10" />
-                <input class="input-slider" type="range" class="max-price" value="250" min="10" max="500" step="10" />
-            </div>
+        <div class="range-fill"></div>
+        <input class="input-slider min-price" type="range" value="100" min="10" max="500" step="10" />
+        <input class="input-slider max-price" type="range" value="250" min="10" max="500" step="10" />
+    </div>
         </div>
     </div>
 </div>
@@ -112,7 +112,7 @@
 <!-- A SUPPRIMER -->
 <form id="gettable-form" action="/test" method="post">
     <p>
-        <input type="submit" id="register" value="BTN FOR TESTS.">
+        <input type="submit" id="test" value="BTN FOR TESTS.">
     </p>
 </form>
 <!-- A SUPPRIMER -->

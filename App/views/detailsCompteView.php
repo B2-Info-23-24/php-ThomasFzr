@@ -39,9 +39,9 @@
 <div id="profil-user-modif">
     <h3>Modif: </h3>
     <form action="/editInfoUser" method="post">
-        <input type="text" id="name" name="name" placeholder="name"> <br>
-        <input type="text" id="surname" name="surname" placeholder="surname"><br>
-        <input type="number" id="name" name="phoneNbr" placeholder="phoneNbr"><br>
+        <input type="text" id="name" name="name" placeholder="Nom"> <br>
+        <input type="text" id="surname" name="surname" placeholder="Prénom"><br>
+        <input type="number" id="name" name="phoneNbr" placeholder="Numéro de téléphone"><br>
         <input type="submit" value="Modifier">
     </form>
 

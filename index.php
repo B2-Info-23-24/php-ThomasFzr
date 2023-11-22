@@ -17,6 +17,16 @@ $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/App/views');
 $twig = new \Twig\Environment($loader);
 
 
+require_once __DIR__ . '/App/models/Database.php';
+$database = new Database();
+if ($database->createTables()) {
+    $database->remplirLogementEquipementService();
+    $database->insertFakerDatas();
+    $database->remplirEquipemmentAnnonceEtServiceAnnonce();
+}
+
+
+
 if (isset($_SESSION['userID'])) {
     $isConnected = true;
     $twig->addGlobal('isConnected', $isConnected);

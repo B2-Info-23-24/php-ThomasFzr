@@ -1,34 +1,31 @@
 // === Slider prix ===
 
-let minValue = document.getElementById("min-value");
-let maxValue = document.getElementById("max-value");
+document.addEventListener('DOMContentLoaded', function() {
+  let minValue = document.getElementById("min-value");
+  let maxValue = document.getElementById("max-value");
 
-const rangeFill = document.querySelector(".range-fill");
+  const rangeFill = document.querySelector(".range-fill");
 
-function validateRange() {
-  let minPrice = parseInt(inputSliderElements[0].value);
-  let maxPrice = parseInt(inputSliderElements[1].value);
+  function validateRange() {
+      let minPrice = parseInt(document.querySelector(".input-slider.min-price").value);
+      let maxPrice = parseInt(document.querySelector(".input-slider.max-price").value);
 
-  if (minPrice > maxPrice) {
-    let tempValue = maxPrice;
-    maxPrice = minPrice;
-    minPrice = tempValue;
+      const minPercentage = (minPrice / 500) * 100;
+      const maxPercentage = (maxPrice / 500) * 100;
+
+      rangeFill.style.left = minPercentage + "%";
+      rangeFill.style.width = maxPercentage - minPercentage + "%";
+
+      minValue.innerHTML = (minPrice * 2) + " €";
+      maxValue.innerHTML = (maxPrice * 2) + " €";
   }
 
-  const minPercentage = ((minPrice - 10) / 490) * 100;
-  const maxPercentage = ((maxPrice - 10) / 490) * 100;
+  const inputSliderElements = document.querySelectorAll(".input-slider");
 
-  rangeFill.style.left = minPercentage + "%";
-  rangeFill.style.width = maxPercentage - minPercentage + "%";
+  inputSliderElements.forEach(function(element) {
+      element.addEventListener("input", validateRange);
+  });
 
-  minValue.innerHTML = minPrice + " €";
-  maxValue.innerHTML = maxPrice + " €";
-}
-
-const inputSliderElements = document.getElementsByClassName("input-slider");
-
-Array.from(inputSliderElements).forEach(function(element) {
-  element.addEventListener("input", validateRange);
+  validateRange();
 });
 
-validateRange();

@@ -14,6 +14,7 @@ class TestController
         $database->createTables();
         $database->remplirLogementEquipementService();
         $database->insertFakerDatas();
+        $database->remplirEquipemmentAnnonceEtServiceAnnonce();
         header('Location: /');
     }
 }
