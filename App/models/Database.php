@@ -507,19 +507,41 @@ class Database
     //===== RESERVATION =====
     public function insertReservation($annonceID,  $dateDebut, $dateFin)
     {
-        $userID = $_SESSION['userID'];
 
-        $rqt = "INSERT INTO Reservation (userID, annonceID, dateDebut, dateFin) VALUES (:userID, :annonceID,:dateDebut, :dateFin)";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
-        $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
-        $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
+        $period = new DatePeriod(
+            new DateTime($dateDebut),
+            new DateInterval('P1D'),
+            new DateTime($dateFin)
+        );
 
-        if ($stmt->execute()) {
-            return true;
-        } else {
+        $count = 0;
+        foreach ($period as $date) {
+            $rqt = "SELECT * FROM Reservation WHERE annonceID = 1 AND dateDebut <= :date AND dateFin >= :date";
+            $stmt = $this->conn->prepare($rqt);
+            $formattedDate = $date->format('Y-m-d');
+            $stmt->bindParam(':date', $formattedDate, PDO::PARAM_STR);
+            if ($stmt->execute() > 0) {
+                $count++;
+            }
+        }
+        if ($stmt->fetch(PDO::FETCH_ASSOC)) {
+            $_SESSION['errorMsg'] = "Une des dates entrées déborde sur une réservation.";
             return false;
+        } else {
+            $userID = $_SESSION['userID'];
+
+            $rqt = "INSERT INTO Reservation (userID, annonceID, dateDebut, dateFin) VALUES (:userID, :annonceID,:dateDebut, :dateFin)";
+            $stmt = $this->conn->prepare($rqt);
+            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+            $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+            $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
+            $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
