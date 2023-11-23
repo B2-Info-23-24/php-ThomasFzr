@@ -39,7 +39,7 @@ class Database
             $sql = "SHOW TABLES LIKE 'User'";
             $result = $this->conn->query($sql);
             if ($result->rowCount() == 0) {
-                $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, isAdmin BOOL DEFAULT false);
+                $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, isAdmin BOOL DEFAULT false, UNIQUE(mail));
                     CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), image VARCHAR(255), ville VARCHAR(255), price INT, typeLogement VARCHAR(255), commentGradeID INT, reservationID INT, favoriteID INT);
                     CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, dateDebut DATE, hasReviewed BOOLEAN DEFAULT FALSE, dateFin DATE, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                     CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade INT, date DATE, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
@@ -197,17 +197,22 @@ class Database
     //Insert inscription et récupération données user
     function insertIntoTableRegister($mail, $pwd)
     {
-        try {
+        $rqt = "SELECT * from User where mail = :mail";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(":mail", $mail, PDO::PARAM_STR);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $_SESSION['errorMsg'] = "Un compte existe déjà avec cette adresse mail.";
+            return false;
+        } else {
             $sql = "INSERT INTO User (mail, pwd) VALUES ('$mail', '$pwd')";
             $this->conn->exec($sql);
             $_SESSION['isConnected'] = true;
             $_SESSION['mail'] = $mail;
             $db = new Database();
             $_SESSION['userID'] = $db->getUserInfo($mail)['userID'];
+            $_SESSION['successMsg'] = "Bienvenue!";
             return true;
-        } catch (PDOException $e) {
-            echo "Erreur : " . $e->getMessage();
-            return false;
         }
     }
 
@@ -506,8 +511,8 @@ class Database
 
         $rqt = "INSERT INTO Reservation (userID, annonceID, dateDebut, dateFin) VALUES (:userID, :annonceID,:dateDebut, :dateFin)";
         $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_STR);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
         $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
         $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
 
