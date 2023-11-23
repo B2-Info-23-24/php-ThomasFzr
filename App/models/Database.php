@@ -516,10 +516,11 @@ class Database
 
         $count = 0;
         foreach ($period as $date) {
-            $rqt = "SELECT * FROM Reservation WHERE annonceID = 1 AND dateDebut <= :date AND dateFin >= :date";
+            $rqt = "SELECT * FROM Reservation WHERE annonceID = :annonceID AND dateDebut <= :date AND dateFin >= :date";
             $stmt = $this->conn->prepare($rqt);
             $formattedDate = $date->format('Y-m-d');
             $stmt->bindParam(':date', $formattedDate, PDO::PARAM_STR);
+            $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
             if ($stmt->execute() > 0) {
                 $count++;
             }
