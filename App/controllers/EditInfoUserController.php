@@ -26,7 +26,12 @@ class EditInfoUserController
                 $_SESSION["mail"] = $_POST["mail"];
                 $successMsg = $successMsg . " Mail";
             }
-            $_SESSION['successMsg'] = $successMsg . " changé avec succès";
+            if ((isset($_POST["name"]) && $_POST["name"] != '') || (isset($_POST["surname"]) && $_POST["surname"] != '')
+                || (isset($_POST["phoneNbr"]) && $_POST["phoneNbr"] != '') || (isset($_POST["mail"]) && $_POST["mail"] != '')
+            ) {
+                $_SESSION['successMsg'] = $successMsg . " changé avec succès";
+            }
+
             header('Location: /detailsCompte');
         } else {
             echo "erreur edit info user";

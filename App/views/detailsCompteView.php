@@ -42,7 +42,7 @@
         <input type="text" id="name" name="name" placeholder="Nom"> <br>
         <input type="text" id="surname" name="surname" placeholder="Prénom"><br>
         <input type="number" id="name" name="phoneNbr" placeholder="Numéro de téléphone"><br>
-        <input type="text" id="mail" name="mail" placeholder="Mail"><br>
+        <input type="email" id="mail" name="mail" placeholder="Adresse mail"><br>
         <input type="submit" value="Modifier">
     </form>
 
