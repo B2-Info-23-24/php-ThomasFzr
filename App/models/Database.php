@@ -505,39 +505,33 @@ class Database
     //===== =================================== =====
 
     //===== RESERVATION =====
-    public function insertReservation($annonceID,  $dateDebut, $dateFin)
+    public function insertReservation($annonceID, $dateDebut, $dateFin)
     {
-
-        $period = new DatePeriod(
-            new DateTime($dateDebut),
-            new DateInterval('P1D'),
-            new DateTime($dateFin)
-        );
-
-        $count = 0;
-        foreach ($period as $date) {
-            $rqt = "SELECT * FROM Reservation WHERE annonceID = :annonceID AND dateDebut <= :date AND dateFin >= :date";
-            $stmt = $this->conn->prepare($rqt);
-            $formattedDate = $date->format('Y-m-d');
-            $stmt->bindParam(':date', $formattedDate, PDO::PARAM_STR);
-            $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
-            if ($stmt->execute() > 0) {
-                $count++;
-            }
-        }
+        $rqt = "SELECT * FROM Reservation WHERE annonceID = :annonceID 
+                AND (:dateDebut BETWEEN dateDebut AND dateFin
+                  OR :dateFin BETWEEN dateDebut AND dateFin
+                  OR dateDebut BETWEEN :dateDebut AND :dateFin
+                  OR dateFin BETWEEN :dateDebut AND :dateFin)";
+        
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
+        $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
+        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->execute();
+    
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
             $_SESSION['errorMsg'] = "Une des dates entrées déborde sur une réservation.";
             return false;
         } else {
             $userID = $_SESSION['userID'];
-
-            $rqt = "INSERT INTO Reservation (userID, annonceID, dateDebut, dateFin) VALUES (:userID, :annonceID,:dateDebut, :dateFin)";
+    
+            $rqt = "INSERT INTO Reservation (userID, annonceID, dateDebut, dateFin) VALUES (:userID, :annonceID, :dateDebut, :dateFin)";
             $stmt = $this->conn->prepare($rqt);
             $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
             $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
             $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
             $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
-
+    
             if ($stmt->execute()) {
                 return true;
             } else {
@@ -545,6 +539,7 @@ class Database
             }
         }
     }
+    
 
     //Récupérer les annonces réservées par le user actuel
     public function getReservation($userID)
