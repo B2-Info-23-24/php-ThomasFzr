@@ -21,6 +21,11 @@ class EditInfoUserController
                 $database->updateTable("User", "phoneNbr", $_POST["phoneNbr"], $_SESSION["mail"]);
                 $successMsg = $successMsg . " Numéro de téléphone";
             }
+            if (isset($_POST["mail"]) && $_POST["mail"] != '') {
+                $database->updateTable("User", "mail", $_POST["mail"], $_SESSION["mail"]);
+                $_SESSION["mail"] = $_POST["mail"];
+                $successMsg = $successMsg . " Mail";
+            }
             $_SESSION['successMsg'] = $successMsg . " changé avec succès";
             header('Location: /detailsCompte');
         } else {
