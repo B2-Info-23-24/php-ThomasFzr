@@ -110,7 +110,6 @@
 </div>
 
 {% if isAdmin %}
-Bjr admin.
 <div class="zone-annonce">
     <a href="/addAnnonce" id="lien-annonce">
         <div class="annonce">
