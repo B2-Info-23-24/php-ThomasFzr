@@ -305,7 +305,7 @@ class Database
             $price = $this->faker->numberBetween(100, 1000);
             $typeLogement = $this->faker->randomElement($typesLogements);
             $name = $typeLogement . $this->faker->randomElement($homeNames);
-            $imageURL = $typeLogement . $this->faker->numberBetween(1, 3).".png";
+            $imageURL = $typeLogement . $this->faker->numberBetween(1, 3) . ".png";
 
             $stmt = $this->conn->prepare("INSERT INTO Annonce (ville, price, typeLogement, name, image) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$ville, $price, $typeLogement, $name, $imageURL]);
@@ -569,7 +569,23 @@ class Database
             $_SESSION['successMsg'] = "Annonce bien ajoutée!";
             return true;
         } else {
-            $_SESSION['errorMsg'] = "Annonce pas ajoutée!";
+            $_SESSION['errorMsg'] = "Annonce pas ajoutée.";
+            return false;
+        }
+    }
+
+    function deleteAnnonce($annonceID)
+    {
+        $rqt = "DELETE FROM ServiceAnnonce WHERE annonceID = :annonceID;
+                DELETE FROM EquipementAnnonce WHERE annonceID = :annonceID;
+                DELETE FROM Annonce WHERE annonceID = :annonceID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        if($stmt->execute()){
+            $_SESSION['successMsg'] = "Annonce bien supprimée!";
+            return true;
+        }else {
+            $_SESSION['errorMsg'] = "Annonce pas supprimée.";
             return false;
         }
     }

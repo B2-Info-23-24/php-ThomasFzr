@@ -156,6 +156,11 @@ switch ($route) {
         $controller->addAnnonce();
         break;
 
+    case '/deleteAnnonce':
+        $controller = new DeleteAnnonceController();
+        $controller->deleteAnnonce($_GET['id']);
+        break;
+
     default:
         http_response_code(404);
         include 'App/views/404.php';
