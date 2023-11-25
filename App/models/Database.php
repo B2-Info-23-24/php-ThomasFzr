@@ -71,7 +71,7 @@ class Database
             if ($countService == 0) {
                 $sql = "INSERT INTO Service (name) VALUES ('Transferts aeroport'),('Petit-dejeuner'),('Service de menage'),('Location de voiture'),('Visites guidees'),('Cours de cuisine'),('Loisirs');
                         INSERT INTO Equipement (name) VALUES ('Connexion Wi-Fi'),('Climatiseur'),('Chauffage'),('Machine a laver'),('Seche-linge'),('Television'),('Fer a repasser / Planche a repasser'),('Nintendo Switch'),('PS5'),('Terrasse'),('Balcon'),('Piscine'),('Jardin');
-                        INSERT INTO TypeLogement (name) VALUES ('Appartements'),('Maisons'),('Chalets'),('Villas'),('Péniches'),('Yourtes'),('Cabanes'),('Igloos'),('Tentes'),('Cars');";
+                        INSERT INTO TypeLogement (name) VALUES ('Appartement'),('Maison'),('Chalet'),('Villa'),('Péniche'),('Yourte'),('Cabane'),('Igloo'),('Tente'),('Car');";
                 $this->conn->exec($sql);
                 return true;
             } else {
@@ -298,7 +298,7 @@ class Database
     public function insertFakerDatas()
     {
         $homeNames = [' calme', ' lumineux', ' spacieuse', ' moderne', ' rustique', ' industriel', ' de campagne', ' élégant', ' contemporain', ' charmant', ' en bord de mer', ' accueillante', ' majestueux', ' paisible', ' pittoresque', ' confortable', ' de luxe', ' chaleureuse', ' montagnard'];
-        $typesLogements = ['Appartements', 'Maisons', 'Chalets', 'Villas', 'Péniches', 'Yourtes', 'Cabanes', 'Igloos', 'Tentes', 'Cars'];
+        $typesLogements = ['Appartement', 'Maison', 'Chalet', 'Villa', 'Péniche', 'Yourte', 'Cabane', 'Igloo', 'Tente', 'Car'];
         $villes = ['Lyon', 'Paris', 'Marseille', 'Grenoble', 'Toulouse', 'Bordeaux', 'Limoge', 'Perpignan', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Angers', 'Lille', 'Rennes', 'Caen'];
         for ($i = 0; $i < 20; $i++) {
             $ville = $this->faker->randomElement($villes);
