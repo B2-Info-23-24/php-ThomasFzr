@@ -96,7 +96,7 @@
     {% for annonce in annonces %}
     <a href="/detailsLogement/{{ annonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="{{annonce.image}}" id="img-annonce-home">
+            <img src="Public/assets/images/{{annonce.image}}" id="img-annonce-home" alt="image-{{ info.image }}">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>
             <div class="description">
                 <h4>{{annonce.name}}</h4>
@@ -108,6 +108,20 @@
     Aucune annonce ne répondant à vos filtres.
     {% endif%}
 </div>
+
+{% if isAdmin %}
+Bjr admin.
+<div class="zone-annonce">
+    <a href="/addAnnonce" id="lien-annonce">
+        <div class="annonce">
+            <img src="Public/assets/images/iconePlusBlanc.png" id="img-annonce-home">
+            <div class="description">
+                <h4>AJOUTER UNE ANNONCE</h4>
+            </div>
+        </div>
+    </a>
+</div>
+{% endif %}
 
 <!-- A SUPPRIMER -->
 <form id="gettable-form" action="/test" method="post">

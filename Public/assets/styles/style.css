@@ -384,6 +384,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 #img-details-annonce {
     height: 450px;
+    width: 650px;
 }
 
 .flex-container-details-logement {

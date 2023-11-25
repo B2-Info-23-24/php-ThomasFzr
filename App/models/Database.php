@@ -39,16 +39,16 @@ class Database
             $sql = "SHOW TABLES LIKE 'User'";
             $result = $this->conn->query($sql);
             if ($result->rowCount() == 0) {
-                $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255), pwd VARCHAR(255), phoneNbr INT, isAdmin BOOL DEFAULT false, UNIQUE(mail));
-                    CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), image VARCHAR(255), ville VARCHAR(255), price INT, typeLogement VARCHAR(255), commentGradeID INT, reservationID INT, favoriteID INT);
-                    CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, dateDebut DATE, hasReviewed BOOLEAN DEFAULT FALSE, dateFin DATE, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
-                    CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, grade INT, date DATE, comment VARCHAR(255), FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
-                    CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, annonceID INT, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
+                $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255) NOT NULL, pwd VARCHAR(255) NOT NULL, phoneNbr INT, isAdmin BOOL NOT NULL DEFAULT false, UNIQUE(mail));
+                    CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, image VARCHAR(255), ville VARCHAR(255) NOT NULL, price INT NOT NULL, typeLogement VARCHAR(255) NOT NULL);
+                    CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, dateDebut DATE NOT NULL, dateFin DATE NOT NULL, hasReviewed BOOLEAN DEFAULT FALSE NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+                    CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, grade INT NOT NULL, date DATE NOT NULL, comment VARCHAR(255) NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
+                    CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
                     CREATE TABLE TypeLogement (typeLogementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
-                    CREATE TABLE Equipement (equipementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
-                    CREATE TABLE EquipementAnnonce (equipementAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipementID INT, annonceID INT, FOREIGN KEY (equipementID) REFERENCES Equipement(equipementID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
-                    CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255));
-                    CREATE TABLE ServiceAnnonce (serviceAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT, annonceID INT, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));";
+                    CREATE TABLE Equipement (equipementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255 NOT NULL));
+                    CREATE TABLE EquipementAnnonce (equipementAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipementID INT NOT NULL, annonceID INT NOT NULL, FOREIGN KEY (equipementID) REFERENCES Equipement(equipementID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
+                    CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255 NOT NULL));
+                    CREATE TABLE ServiceAnnonce (serviceAnnonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT NOT NULL, annonceID INT NOT NULL, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));";
                 $this->conn->exec($sql);
                 return true;
             } else {
@@ -231,6 +231,7 @@ class Database
                 $db = new Database();
                 $_SESSION['userID'] = $db->getUserInfo($email)['userID'];
                 $_SESSION['surname'] = $db->getUserInfo($email)['surname'];
+                $_SESSION['isAdmin'] = $db->getUserInfo($email)['isAdmin'];
                 return true;
             } else {
                 return false;
@@ -297,21 +298,17 @@ class Database
     public function insertFakerDatas()
     {
         $homeNames = [' calme', ' lumineux', ' spacieuse', ' moderne', ' rustique', ' industriel', ' de campagne', ' élégant', ' contemporain', ' charmant', ' en bord de mer', ' accueillante', ' majestueux', ' paisible', ' pittoresque', ' confortable', ' de luxe', ' chaleureuse', ' montagnard'];
-        $typesLogements = ['Appartements', 'Maisons', 'Chalets', 'Villas', 'Peniches', 'Yourtes', 'Cabanes', 'Igloos', 'Tentes', 'Cars'];
+        $typesLogements = ['Appartements', 'Maisons', 'Chalets', 'Villas', 'Péniches', 'Yourtes', 'Cabanes', 'Igloos', 'Tentes', 'Cars'];
         $villes = ['Lyon', 'Paris', 'Marseille', 'Grenoble', 'Toulouse', 'Bordeaux', 'Limoge', 'Perpignan', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Angers', 'Lille', 'Rennes', 'Caen'];
         for ($i = 0; $i < 20; $i++) {
             $ville = $this->faker->randomElement($villes);
             $price = $this->faker->numberBetween(100, 1000);
             $typeLogement = $this->faker->randomElement($typesLogements);
-            $commentGradeID = $this->faker->numberBetween(1, 5);
-            $reservationID = $this->faker->numberBetween(1, 5);
-            $favoriteID = $this->faker->numberBetween(1, 5);
             $name = $typeLogement . $this->faker->randomElement($homeNames);
-            $randomQueryParam = md5(uniqid());
-            $imageURL = "https://source.unsplash.com/800x600/?home&$randomQueryParam";
+            $imageURL = $typeLogement . $this->faker->numberBetween(1, 3).".png";
 
-            $stmt = $this->conn->prepare("INSERT INTO Annonce (ville, price, typeLogement, commentGradeID, reservationID, favoriteID, name, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$ville, $price, $typeLogement, $commentGradeID, $reservationID, $favoriteID, $name, $imageURL]);
+            $stmt = $this->conn->prepare("INSERT INTO Annonce (ville, price, typeLogement, name, image) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$ville, $price, $typeLogement, $name, $imageURL]);
         }
     }
 
@@ -552,5 +549,28 @@ class Database
         $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    //===== ADD ANNONCE =====
+
+    function insertAnnonce($name, $ville, $price, $typeLogement, $image)
+    {
+        $rqt = "INSERT INTO Annonce (name, ville, price, typeLogement, image)
+          VALUES (:name, :ville, :price, :typeLogement, :image);";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':ville', $ville, PDO::PARAM_STR);
+        $stmt->bindParam(':price', $price, PDO::PARAM_INT);
+        $stmt->bindParam(':typeLogement', $typeLogement, PDO::PARAM_STR);
+        $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "Annonce bien ajoutée!";
+            return true;
+        } else {
+            $_SESSION['errorMsg'] = "Annonce pas ajoutée!";
+            return false;
+        }
     }
 }

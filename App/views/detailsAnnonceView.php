@@ -7,7 +7,7 @@
 
     <div class="flex-child-details-logement left">
         {% for info in infoAnnonce %}
-        <img src="{{ info.image }}" id="img-details-annonce">
+        <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
         <br>
         <h3>{{ info.name }} ({{info.price}}€/nuit)</h3>
         <div class="description-annonce">
@@ -22,7 +22,7 @@
                 {% endfor%}
             </ul>
             {% else %}
-            <br><br>Aucun équipement disponible. <br>
+            <br><br>Aucun équipement disponible. <br><br>
             {% endif%}
 
 

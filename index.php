@@ -37,6 +37,11 @@ if (isset($_SESSION['surname'])) {
     $twig->addGlobal('surname', $surname);
 }
 
+if (isset($_SESSION['isAdmin'])) {
+    $isAdmin = $_SESSION['isAdmin'];
+    $twig->addGlobal('isAdmin', $isAdmin);
+}
+
 if (isset($_SESSION['successMsg'])) {
     $successMsg = $_SESSION['successMsg'];
     $twig->addGlobal('successMsg', $successMsg);
@@ -46,7 +51,7 @@ if (isset($_SESSION['successMsg'])) {
 if (isset($_SESSION['errorMsg'])) {
     $errorMsg = $_SESSION['errorMsg'];
     $twig->addGlobal('errorMsg', $errorMsg);
-    unset($_SESSION['errorMsg']); // Clear the errorMsg
+    unset($_SESSION['errorMsg']);
 }
 
 
@@ -139,6 +144,16 @@ switch ($route) {
     case '/deconnection':
         $controller = new DeconnectionController();
         $controller->processDeconnection();
+        break;
+
+    case '/addAnnonce':
+        $controller = new AddAnnonceController($twig);
+        $controller->addAnnonce();
+        break;
+
+    case '/processAddAnnonce':
+        $controller = new ProcessAddAnnonceController($twig);
+        $controller->addAnnonce();
         break;
 
     default:
