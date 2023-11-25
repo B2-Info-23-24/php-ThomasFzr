@@ -512,26 +512,26 @@ class Database
                   OR :dateFin BETWEEN dateDebut AND dateFin
                   OR dateDebut BETWEEN :dateDebut AND :dateFin
                   OR dateFin BETWEEN :dateDebut AND :dateFin)";
-        
+
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
         $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
         $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
         $stmt->execute();
-    
+
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
             $_SESSION['errorMsg'] = "Une des dates entrées déborde sur une réservation.";
             return false;
         } else {
             $userID = $_SESSION['userID'];
-    
+
             $rqt = "INSERT INTO Reservation (userID, annonceID, dateDebut, dateFin) VALUES (:userID, :annonceID, :dateDebut, :dateFin)";
             $stmt = $this->conn->prepare($rqt);
             $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
             $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
             $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
             $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
-    
+
             if ($stmt->execute()) {
                 return true;
             } else {
@@ -539,16 +539,15 @@ class Database
             }
         }
     }
-    
+
 
     //Récupérer les annonces réservées par le user actuel
     public function getReservation($userID)
     {
-        $rqt = "SELECT Annonce.*
-                FROM Annonce
-                JOIN Reservation ON Annonce.annonceID = Reservation.annonceID
-                JOIN User ON Reservation.userID = User.userID
-                WHERE User.userID = :userID;";
+        $rqt = "SELECT * FROM Reservation r
+                JOIN Annonce a ON a.annonceID = r.annonceID
+                WHERE r.userID = :userID
+                ORDER BY r.dateDebut asc;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
         $stmt->execute();

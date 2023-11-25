@@ -8,7 +8,6 @@ class ReservationController
         $this->twig = $twig;
     }
 
-    //A modifier TODO
     function getReservation()
     {
         if (isset($_SESSION['userID'])) {
@@ -18,9 +17,9 @@ class ReservationController
             $dateToday = new DateTime('now');
             $dateToday = $dateToday->format('Y-m-d');
 
-            $tabAnnonce = $database->getReservation($_SESSION['userID']);
+            $tabAnnonceReservation = $database->getReservation($_SESSION['userID']);
             echo $this->twig->render('reservationView.php', [
-                'annonces' => $tabAnnonce,
+                'annoncesReservations' => $tabAnnonceReservation,
                 'dateToday' => $dateToday
             ]);
         } else {
