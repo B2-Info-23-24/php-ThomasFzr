@@ -19,7 +19,7 @@ class DetailsAnnonceController
         $infoAnnonce = $database->getDetailsAnnonce($annonceID);
         $tabService = $database->getServiceFromAnnonce($annonceID);
         $tabEquipement = $database->getEquipementFromAnnonce($annonceID);
-        $tabAvis = $database->getCommentGradeFromAnnonce($annonceID);
+        $tabAvis = $database->getReviewFromAnnonce($annonceID);
         $averageGrade = $this->calculateAverageGrade($tabAvis);
         $userID = null;
         $isInFavorite = null;

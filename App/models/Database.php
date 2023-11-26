@@ -43,7 +43,7 @@ class Database
                 $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255) NOT NULL, pwd VARCHAR(255) NOT NULL, phoneNbr INT, isAdmin BOOL NOT NULL DEFAULT false, UNIQUE(mail));
                 CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL, image VARCHAR(255), ville VARCHAR(255) NOT NULL, price INT NOT NULL, typeLogement VARCHAR(255) NOT NULL);
                 CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, dateDebut DATE NOT NULL, dateFin DATE NOT NULL, hasReviewed BOOLEAN DEFAULT FALSE NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
-                CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, grade INT NOT NULL, date DATE NOT NULL, comment VARCHAR(255) NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
+                CREATE TABLE Review (reviewID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, grade INT NOT NULL, date DATE NOT NULL, comment VARCHAR(255) NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
                 CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
                 CREATE TABLE TypeLogement (typeLogementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
                 CREATE TABLE Equipement (equipementID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
@@ -394,16 +394,16 @@ class Database
     }
     //===== =================================== =====
 
-    //===== AVIS =====
-    public function getCommentGradeFromUser()
+    //===== REVIEW =====
+    public function getReviewFromUser()
     {
         $userID = $_SESSION['userID'];
 
-        $rqt = "SELECT c.*, a.* 
-                FROM CommentGrade c
-                JOIN Annonce a on a.annonceID = c.annonceID
+        $rqt = "SELECT r.*, a.* 
+                FROM Review r
+                JOIN Annonce a on a.annonceID = r.annonceID
                 WHERE userID = :userID
-                ORDER BY c.grade desc;";
+                ORDER BY r.grade desc;";
 
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -416,13 +416,13 @@ class Database
         }
     }
 
-    public function getCommentGradeFromAnnonce($annonceID)
+    public function getReviewFromAnnonce($annonceID)
     {
 
-        $rqt = "SELECT c.*, u.name, u.surname 
-                FROM CommentGrade c
-                JOIN User u on u.userID = c.userID
-                WHERE c.annonceID = :annonceID";
+        $rqt = "SELECT r.*, u.name, u.surname 
+                FROM Review r
+                JOIN User u on u.userID = r.userID
+                WHERE r.annonceID = :annonceID";
 
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
@@ -435,10 +435,10 @@ class Database
         }
     }
 
-    public function insertAvis($annonceID, $grade, $comment, $date)
+    public function insertReview($annonceID, $grade, $comment, $date)
     {
         $userID = $_SESSION['userID'];
-        $existingRecord = $this->getExistingAvis($userID, $annonceID, $date);
+        $existingRecord = $this->getExistingReview($userID, $annonceID, $date);
         $hasReservation = $this->checkUserReservation($userID, $annonceID);
 
 
@@ -448,7 +448,7 @@ class Database
         }
 
         if ($hasReservation) {
-            $rqt = "INSERT INTO CommentGrade (userID, annonceID, grade, comment, date) VALUES (:userID, :annonceID, :grade, :comment, :date)";
+            $rqt = "INSERT INTO Review (userID, annonceID, grade, comment, date) VALUES (:userID, :annonceID, :grade, :comment, :date)";
             $stmt = $this->conn->prepare($rqt);
             $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
             $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
@@ -495,9 +495,9 @@ class Database
         }
     }
 
-    private function getExistingAvis($userID, $annonceID, $date)
+    private function getExistingReview($userID, $annonceID, $date)
     {
-        $rqt = "SELECT * FROM CommentGrade WHERE userID = :userID AND annonceID = :annonceID AND date = :date";
+        $rqt = "SELECT * FROM Review WHERE userID = :userID AND annonceID = :annonceID AND date = :date";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
         $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
@@ -653,18 +653,18 @@ class Database
 
     function getAllReview()
     {
-        $rqt = "SELECT c.*, a.*, u.*
-                FROM CommentGrade c
-                JOIN Annonce a on a.annonceID = c.annonceID
-                JOIN User u on u.userID = c.userID
-                ORDER BY c.annonceID asc;";
+        $rqt = "SELECT r.*, a.*, u.*
+                FROM Review r
+                JOIN Annonce a on a.annonceID = r.annonceID
+                JOIN User u on u.userID = r.userID
+                ORDER BY r.annonceID asc;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function deleteReview($reviewID){
-        $rqt = "DELETE FROM CommentGrade WHERE commentGradeID = :reviewID;";
+        $rqt = "DELETE FROM Review WHERE reviewID = :reviewID;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
         if ($stmt->execute()) {

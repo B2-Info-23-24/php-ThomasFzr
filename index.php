@@ -97,7 +97,7 @@ switch ($route) {
         break;
 
     case '/avis':
-        $controller = new AvisController($twig);
+        $controller = new ReviewController($twig);
         $controller->getAvis();
         break;
 

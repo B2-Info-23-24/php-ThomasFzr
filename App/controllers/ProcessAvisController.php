@@ -12,7 +12,7 @@ class ProcessAvisController
             $date = new DateTime('now');
             $date = $date->format('Y-m-d');
 
-            $db->insertAvis($annonceID,  $_POST["grade"], $_POST["comment"], $date);
+            $db->insertReview($annonceID,  $_POST["grade"], $_POST["comment"], $date);
             header("Location: /detailsLogement/$annonceID");
         }
     }
