@@ -110,9 +110,9 @@
         {% if isAdmin %}
         <br><br>
         {% for info in infoAnnonce %}
-        <form action="/deleteAnnonce?id={{ info.annonceID }}" method="post" id="div-delete-annonce">
-            <input type="submit" value="SUPPRIMER L'ANNONCE"><br><br>
-        </form>
+        <a href="/deleteAnnonce?id={{ info.annonceID }}">
+            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+        </a>
         {% endfor %}
         {% endif %}
     </div>

@@ -183,9 +183,13 @@ switch ($route) {
         break;
 
     case '/detailsTypesLogement':
+        $controller = new DetailsTypesLogementController($twig);
+        $controller->getTypesLogement();
         break;
 
     case '/detailsEquipementsServices':
+        $controller = new DetailsEquipementsServicesController($twig);
+        $controller->getEquipementsServices();
         break;
 
     default:

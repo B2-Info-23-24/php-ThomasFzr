@@ -496,32 +496,37 @@ input[type="range"]::-webkit-slider-runnable-track {
 /* ====== ADMIN ====== */
 
 #zone-users {
-    display: flex;
-
-    justify-content: space-between;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: auto;
+    width: 85%;
+    text-align: center;
 }
 
 #details-users {
+    width: 400px;
+    height: 400px;
+    margin-left: 15px;
+    display: inline-block;
+    margin: 30px 5px 0 5px;
+    text-align: center;
     background-color: #3B556D;
     padding: 10px;
     border-radius: 10px;
-    margin-top: 15px;
-    width:400px;
-    height:400px;
-    margin-left: 15px;
 }
 
 #icone-poubelle-rouge {
     width: 25px;
-    margin-left: 95%;
+    text-align: center;
 }
 
 #add-user {
+    width: 400px;
+    height: 400px;
+    margin-left: 15px;
+    display: inline-block;
+    margin: 30px 5px 0 5px;
+    text-align: center;
     background-color: #3B556D;
-    padding: 15px;
-    width: 20%;
+    padding: 10px;
     border-radius: 10px;
 }
 
