@@ -656,7 +656,7 @@ class Database
         $rqt = "SELECT c.*, a.*, u.*
                 FROM CommentGrade c
                 JOIN Annonce a on a.annonceID = c.annonceID
-                JOIN User u on u.userID = c.userID;
+                JOIN User u on u.userID = c.userID
                 ORDER BY c.annonceID asc;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
