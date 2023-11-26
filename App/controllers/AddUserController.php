@@ -27,6 +27,8 @@ class AddUserController
 
             if ($db->addUser($mail, $pwd, $isAdmin, $name, $surname, $phoneNbr)) {
                 header('Location: /detailsUtilisateur');
+            }else{
+                header('Location: /detailsUtilisateur');
             }
         }
     }
