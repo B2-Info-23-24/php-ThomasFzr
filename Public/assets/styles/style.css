@@ -495,16 +495,38 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 /* ====== ADMIN ====== */
 
-#details-users{
+#zone-users {
+    display: flex;
+
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#details-users {
     background-color: #3B556D;
     padding: 10px;
     border-radius: 10px;
     margin-top: 15px;
-    width: 25%;
+    width:400px;
+    height:400px;
     margin-left: 15px;
 }
 
-#icone-poubelle-rouge{
+#icone-poubelle-rouge {
     width: 25px;
     margin-left: 95%;
+}
+
+#add-user {
+    background-color: #3B556D;
+    padding: 15px;
+    width: 20%;
+    border-radius: 10px;
+}
+
+#imgIconePlus {
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 12%;
 }

@@ -153,7 +153,7 @@ switch ($route) {
         break;
 
     case '/processAddAnnonce':
-        $controller = new ProcessAddAnnonceController($twig);
+        $controller = new ProcessAddAnnonceController();
         $controller->addAnnonce();
         break;
 
@@ -165,6 +165,11 @@ switch ($route) {
     case '/detailsUtilisateur':
         $controller = new GetAllUserController($twig);
         $controller->getAllUser();
+        break;
+
+    case '/addUser':
+        $controller = new AddUserController();
+        $controller->addUser();
         break;
 
     case '/deleteUser':
