@@ -41,7 +41,7 @@ class Database
             if ($result->rowCount() == 0) {
                 echo "tables non existentes";
                 $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255) NOT NULL, pwd VARCHAR(255) NOT NULL, phoneNbr INT, isAdmin BOOL NOT NULL DEFAULT false, UNIQUE(mail));
-                CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, image VARCHAR(255), ville VARCHAR(255) NOT NULL, price INT NOT NULL, typeLogement VARCHAR(255) NOT NULL);
+                CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL, image VARCHAR(255), ville VARCHAR(255) NOT NULL, price INT NOT NULL, typeLogement VARCHAR(255) NOT NULL);
                 CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, dateDebut DATE NOT NULL, dateFin DATE NOT NULL, hasReviewed BOOLEAN DEFAULT FALSE NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                 CREATE TABLE CommentGrade (commentGradeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, grade INT NOT NULL, date DATE NOT NULL, comment VARCHAR(255) NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
                 CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
@@ -653,7 +653,11 @@ class Database
 
     function getAllReview()
     {
-        $rqt = "SELECT * FROM CommentGrade";
+        $rqt = "SELECT c.*, a.*, u.*
+                FROM CommentGrade c
+                JOIN Annonce a on a.annonceID = c.annonceID
+                JOIN User u on u.userID = c.userID;
+                ORDER BY c.annonceID asc;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

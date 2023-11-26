@@ -9,7 +9,7 @@
         {% for info in infoAnnonce %}
         <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
         <br>
-        <h3>{{ info.name }} ({{info.price}}€/nuit)</h3>
+        <h3>{{ info.title }} ({{info.price}}€/nuit)</h3>
         <div class="description-annonce">
             Ville: {{ info.ville }}<br><br>
             {% endfor %}

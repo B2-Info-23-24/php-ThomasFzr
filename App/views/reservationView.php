@@ -13,7 +13,7 @@
             <img src="Public/assets/images/{{annonce.image}}" id="img-annonce-home" alt="image-{{ annonce.image }}">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>
             <div class="description">
-                <h4>{{annonce.name}}</h4>
+                <h4>{{annonce.title}}</h4>
                 Réservation du {{annonce.dateDebut|date("d/m/Y")}} au {{annonce.dateFin|date("d/m/Y")}}.
             </div>
         </div>

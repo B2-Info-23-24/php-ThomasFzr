@@ -13,7 +13,7 @@
             <img src="Public/assets/images/{{tabAvisAnnonce.image}}" id="img-annonce-home" alt="image-{{ tabAvisAnnonce.image }}">
             <div class="zone-prix">{{ tabAvisAnnonce.price }} €/nuit</div>
             <div class="description">
-                <h4>{{ tabAvisAnnonce.name }}</h4>
+                <h4>{{ tabAvisAnnonce.title }}</h4>
             </div>
 
             <div class="avis">
