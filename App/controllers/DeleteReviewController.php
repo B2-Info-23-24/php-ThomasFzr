@@ -1,15 +1,13 @@
 <?php
-class deleteAnnonceController
+class DeleteReviewController
 {
-    function deleteAnnonce($id)
+    public function deleteReview($id)
     {
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Database.php';
             $db = new Database();
-            if ($db->deleteAnnonce($id)) {
-                header("Location: /");
-            } else {
-                header("Location: /detailsLogement/$id");
+            if ($db->deleteReview($id)) {
+                header("Location: /detailsAvis");
             }
         } else {
             header('Location: /');

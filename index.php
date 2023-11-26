@@ -173,13 +173,18 @@ switch ($route) {
         break;
 
     case '/deleteUser':
-        $controller = new DeleteUserController($twig);
+        $controller = new DeleteUserController();
         $controller->deleteUser($_GET['id']);
         break;
 
     case '/detailsAvis':
         $controller = new GetAllReviewController($twig);
         $controller->getAllReview();
+        break;
+
+    case '/deleteReview':
+        $controller = new DeleteReviewController();
+        $controller->deleteReview($_GET['id']);
         break;
 
     case '/detailsTypesLogement':
