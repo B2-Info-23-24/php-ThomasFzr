@@ -29,7 +29,7 @@
     {% if annonce.dateFin < dateToday %}
     <a href="/detailsLogement/{{ annonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="{{ annonce.image }}" id="img-annonce-home">
+            <img src="Public/assets/images/{{annonce.image}}" id="img-annonce-home" alt="image-{{ annonce.image }}">
             <div class="zone-prix">{{annonce.price}} €/nuit</div>
             <div class="description">
                 <h4>{{annonce.name}}</h4>

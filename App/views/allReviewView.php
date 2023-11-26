@@ -28,7 +28,7 @@
                     <br>
                     {{ review.comment }}<br>
 
-                    <a href="/deleteReview?id={{review.commentGradeID}}">
+                    <a href="/deleteReview?id={{review.reviewID}}">
                         <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                     </a>
 
