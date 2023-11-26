@@ -399,7 +399,11 @@ class Database
     {
         $userID = $_SESSION['userID'];
 
-        $rqt = "SELECT * FROM CommentGrade WHERE userID = :userID";
+        $rqt = "SELECT c.*, a.* 
+                FROM CommentGrade c
+                JOIN Annonce a on a.annonceID = c.annonceID
+                WHERE userID = :userID
+                ORDER BY c.grade desc;";
 
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -415,7 +419,10 @@ class Database
     public function getCommentGradeFromAnnonce($annonceID)
     {
 
-        $rqt = "SELECT * FROM CommentGrade WHERE annonceID = :annonceID";
+        $rqt = "SELECT c.*, u.name, u.surname 
+                FROM CommentGrade c
+                JOIN User u on u.userID = c.userID
+                WHERE c.annonceID = :annonceID";
 
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);

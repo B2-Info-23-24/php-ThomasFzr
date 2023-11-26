@@ -5,27 +5,22 @@
 
 <h3> Mes avis: </h3>
 
-{% if tabAnnonce is not empty %}
+{% if tabAvisAnnonces is not empty %}
 <div class="zone-annonce">
-    {% for annonceDetails in tabAnnonce %}
-    <a href="/detailsLogement/{{ annonceDetails.annonceID }}" id="lien-annonce">
+    {% for tabAvisAnnonce in tabAvisAnnonces %}
+    <a href="/detailsLogement/{{ tabAvisAnnonce.annonceID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="{{ annonceDetails.image }}" id="img-annonce-home">
-            <div class="zone-prix">{{ annonceDetails.price }} €/nuit</div>
+            <img src="Public/assets/images/{{tabAvisAnnonce.image}}" id="img-annonce-home" alt="image-{{ tabAvisAnnonce.image }}">
+            <div class="zone-prix">{{ tabAvisAnnonce.price }} €/nuit</div>
             <div class="description">
-                <h4>{{ annonceDetails.name }}</h4>
+                <h4>{{ tabAvisAnnonce.name }}</h4>
             </div>
 
-            {% if tabAvis is not empty %}
-            {% for avis in tabAvis %}
-            {% if avis is defined and avis.annonceID is defined and avis.annonceID == annonceDetails.annonceID %}
             <div class="avis">
-                {{ avis.grade }}/5 ⭐ <br>
-                {{ avis.comment }}
+                {{ tabAvisAnnonce.grade }}/5 ⭐ <br>
+                {{ tabAvisAnnonce.comment }} <br>
+                {{ tabAvisAnnonce.date |date("d/m/Y") }}
             </div>
-            {% endif %}
-            {% endfor %}
-            {% endif %}
         </div>
     </a>
     {% endfor %}

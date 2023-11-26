@@ -66,7 +66,14 @@
             {% for avis in tabAvis %}
 
             <div id="details-commentaires-notes">
-                <li>{{ avis.grade }}⭐
+                <li>{{ avis.grade }}⭐ -
+
+                    {% if avis.surname !='' %}
+                    {{ avis.surname }} {{ avis.name }}
+                    {%else%}
+                    Anonyme
+                    {%endif%}
+
                     ({{ avis.date|date("d/m/Y") }})
                     <br>
                     {{ avis.comment }}
