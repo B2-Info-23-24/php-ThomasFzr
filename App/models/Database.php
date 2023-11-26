@@ -553,6 +553,9 @@ class Database
     }
 
 
+    //===== ADMIN =====
+
+
     //===== ADD ANNONCE =====
 
     function insertAnnonce($name, $ville, $price, $typeLogement, $image)
@@ -582,12 +585,43 @@ class Database
                 DELETE FROM Annonce WHERE annonceID = :annonceID;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
-        if($stmt->execute()){
-            $_SESSION['successMsg'] = "Annonce bien supprimée!";
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "Annonce supprimée!";
             return true;
-        }else {
-            $_SESSION['errorMsg'] = "Annonce pas supprimée.";
+        } else {
+            $_SESSION['errorMsg'] = "Annonce non supprimée.";
             return false;
         }
     }
+
+    function getAllUser()
+    {
+        $rqt = "SELECT * FROM User";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function deleteUser($userID){
+        $rqt = "DELETE FROM User WHERE userID = :userID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "User supprimé!";
+            return true;
+        } else {
+            $_SESSION['errorMsg'] = "User non supprimé.";
+            return false;
+        }
+    }
+
+    function getAllReview()
+    {
+        $rqt = "SELECT * FROM CommentGrade";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

@@ -1,32 +1,25 @@
 <?php
-class AddAnnonceController
+class GetAllUserController
 {
 
-
     private $twig;
-
 
     public function __construct($twig)
     {
         $this->twig = $twig;
     }
 
-
-    public function addAnnonce()
+    public function getAllUser()
     {
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Database.php';
             $db = new Database();
-            $typesLogement = $db->getTypeLogement();
-            $equipements = $db->getEquipement();
-            $services = $db->getService();
+            $users = $db->getAllUser();
 
             echo $this->twig->render(
-                'addAnnonceView.php',
+                'allUserView.php',
                 [
-                    'typesLogement' => $typesLogement,
-                    'equipements' => $equipements,
-                    'services' => $services
+                    'users' => $users,
                 ]
             );
         } else {
