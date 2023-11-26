@@ -131,6 +131,7 @@ switch ($route) {
         $controller->insertReservation($_GET['id']);
         break;
 
+        //TODO supprimer
     case '/test':
         $controller = new TestController($twig);
         $controller->test();
@@ -159,6 +160,27 @@ switch ($route) {
     case '/deleteAnnonce':
         $controller = new DeleteAnnonceController();
         $controller->deleteAnnonce($_GET['id']);
+        break;
+
+    case '/detailsUtilisateur':
+        $controller = new GetAllUserController($twig);
+        $controller->getAllUser();
+        break;
+
+    case '/deleteUser':
+        $controller = new DeleteUserController($twig);
+        $controller->deleteUser($_GET['id']);
+        break;
+
+    case '/detailsAvis':
+        $controller = new GetAllReviewController($twig);
+        $controller->getAllReview();
+        break;
+
+    case '/detailsTypesLogement':
+        break;
+
+    case '/detailsEquipementsServices':
         break;
 
     default:

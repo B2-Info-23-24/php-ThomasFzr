@@ -41,10 +41,17 @@
             <div id="container-rightheader-bottom">
                 <div id="btn-profil-deroulant" class="profil-card" style="display: none;">
                     <div class="profil-card">
+                        {% if isAdmin %}
+                        <a href="/detailsUtilisateur" id="liens-profil-card">UTILISATEURS</a><br>
+                        <a href="/detailsAvis" id="liens-profil-card">AVIS</a><br>
+                        <a href="/detailsTypesLogement" id="liens-profil-card">TYPES LOGEMENT</a><br>
+                        <a href="/detailsEquipementsServices" id="liens-profil-card">EQUIPEMENTS/SERVICES</a><br>
+                        {%else%}
                         <a href="/detailsCompte" id="liens-profil-card">MON COMPTE</a><br>
                         <a href="/reservation" id="liens-profil-card">MES RESERVATIONS</a><br>
                         <a href="/avis" id="liens-profil-card">MES AVIS</a><br>
                         <a href="/favoris" id="liens-profil-card">MES FAVORIS</a><br>
+                        {%endif%}
                         <a href="/deconnection" id="liens-profil-card">DECONNEXION</a>
                     </div>
                 </div>

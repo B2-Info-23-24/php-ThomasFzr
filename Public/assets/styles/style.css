@@ -495,10 +495,16 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 /* ====== ADMIN ====== */
 
-/* #div-delete-annonce {
-    background-color: red;
-    width: 40%;
+#details-users{
+    background-color: #3B556D;
     padding: 10px;
-    text-align: center;
     border-radius: 10px;
-} */
+    margin-top: 15px;
+    width: 25%;
+    margin-left: 15px;
+}
+
+#icone-poubelle-rouge{
+    width: 25px;
+    margin-left: 95%;
+}

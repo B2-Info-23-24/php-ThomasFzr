@@ -1,32 +1,24 @@
 <?php
-class AddAnnonceController
+class GetAllReviewController
 {
-
-
     private $twig;
-
 
     public function __construct($twig)
     {
         $this->twig = $twig;
     }
 
-
-    public function addAnnonce()
+    public function getAllReview()
     {
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Database.php';
             $db = new Database();
-            $typesLogement = $db->getTypeLogement();
-            $equipements = $db->getEquipement();
-            $services = $db->getService();
+            $reviews = $db->getAllReview();
 
             echo $this->twig->render(
-                'addAnnonceView.php',
+                'allReviewView.php',
                 [
-                    'typesLogement' => $typesLogement,
-                    'equipements' => $equipements,
-                    'services' => $services
+                    'reviews' => $reviews,
                 ]
             );
         } else {
