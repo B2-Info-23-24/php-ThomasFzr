@@ -662,4 +662,18 @@ class Database
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    function deleteReview($reviewID){
+        $rqt = "DELETE FROM CommentGrade WHERE commentGradeID = :reviewID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "Commentaire supprimé!";
+            return true;
+        } else {
+            $_SESSION['errorMsg'] = "Commentaire non supprimé.";
+            return false;
+        }
+
+    }
 }

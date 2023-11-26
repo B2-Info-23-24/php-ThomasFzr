@@ -6,6 +6,7 @@
 
 <div class="zone-annonce">
     {% for review in reviews %}
+
     <a href="/detailsLogement/{{ review.annonceID }}" id="lien-annonce">
         <div class="annonce">
             <img src="Public/assets/images/{{review.image}}" id="img-annonce-home" alt="image-{{ review.image }}">
@@ -25,11 +26,17 @@
 
                     ({{ review.date|date("d/m/Y") }})
                     <br>
-                    {{ review.comment }}
+                    {{ review.comment }}<br>
+
+                    <a href="/deleteReview?id={{review.commentGradeID}}">
+                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                    </a>
+
                 </li>
-            </div> 
+            </div>
         </div>
     </a>
+
     {% endfor %}
 </div>
 
