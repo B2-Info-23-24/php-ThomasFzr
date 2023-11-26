@@ -515,7 +515,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 #icone-poubelle-rouge {
     width: 25px;
-    margin-left: 95%;
+    text-align: center;
 }
 
 #add-user {
