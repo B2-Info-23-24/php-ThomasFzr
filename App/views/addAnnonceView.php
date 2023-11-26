@@ -16,9 +16,9 @@
 
             <div class="description-annonce">
                 Image: <input type="file" name="image" accept="image/png, image/jpeg" /><br>
-                Nom: <input type="text" name="nom" placeholder="Nom" required> <br><br>
-                Ville: <input type="text" name="ville" placeholder="Ville" required> <br><br>
-                Prix: <input type="number" name="prix" placeholder="Prix à la nuit" required><br><br>
+                Titre: <input type="text" name="title" placeholder="Nom" required> <br><br>
+                Ville: <input type="text" name="city" placeholder="Titre" required> <br><br>
+                Prix: <input type="number" name="price" placeholder="Prix à la nuit" required><br><br>
                 Type de logement:
                 <select name="typeLogement" required>
                     <option value="">Choisir un type de logement</option>

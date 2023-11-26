@@ -41,7 +41,7 @@ class Database
             if ($result->rowCount() == 0) {
                 echo "tables non existentes";
                 $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255) NOT NULL, pwd VARCHAR(255) NOT NULL, phoneNbr INT, isAdmin BOOL NOT NULL DEFAULT false, UNIQUE(mail));
-                CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL, image VARCHAR(255), ville VARCHAR(255) NOT NULL, price INT NOT NULL, typeLogement VARCHAR(255) NOT NULL);
+                CREATE TABLE Annonce (annonceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL, image VARCHAR(255), city VARCHAR(255) NOT NULL, price INT NOT NULL, typeLogement VARCHAR(255) NOT NULL);
                 CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, dateDebut DATE NOT NULL, dateFin DATE NOT NULL, hasReviewed BOOLEAN DEFAULT FALSE NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID));
                 CREATE TABLE Review (reviewID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, grade INT NOT NULL, date DATE NOT NULL, comment VARCHAR(255) NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID, date));
                 CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, annonceID INT NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (annonceID) REFERENCES Annonce(annonceID), UNIQUE (userID, annonceID));
@@ -300,16 +300,16 @@ class Database
     {
         $homeNames = [' calme', ' lumineux', ' spacieuse', ' moderne', ' rustique', ' industriel', ' de campagne', ' élégant', ' contemporain', ' charmant', ' en bord de mer', ' accueillante', ' majestueux', ' paisible', ' pittoresque', ' confortable', ' de luxe', ' chaleureuse', ' montagnard'];
         $typesLogements = ['Appartement', 'Maison', 'Chalet', 'Villa', 'Péniche', 'Yourte', 'Cabane', 'Igloo', 'Tente', 'Car'];
-        $villes = ['Lyon', 'Paris', 'Marseille', 'Grenoble', 'Toulouse', 'Bordeaux', 'Limoge', 'Perpignan', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Angers', 'Lille', 'Rennes', 'Caen'];
+        $cities = ['Lyon', 'Paris', 'Marseille', 'Grenoble', 'Toulouse', 'Bordeaux', 'Limoge', 'Perpignan', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Angers', 'Lille', 'Rennes', 'Caen'];
         for ($i = 0; $i < 20; $i++) {
-            $ville = $this->faker->randomElement($villes);
+            $city = $this->faker->randomElement($cities);
             $price = $this->faker->numberBetween(100, 1000);
             $typeLogement = $this->faker->randomElement($typesLogements);
-            $name = $typeLogement . $this->faker->randomElement($homeNames);
+            $title = $typeLogement . $this->faker->randomElement($homeNames);
             $imageURL = $typeLogement . $this->faker->numberBetween(1, 3) . ".png";
 
-            $stmt = $this->conn->prepare("INSERT INTO Annonce (ville, price, typeLogement, name, image) VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([$ville, $price, $typeLogement, $name, $imageURL]);
+            $stmt = $this->conn->prepare("INSERT INTO Annonce (city, price, typeLogement, title, image) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$city, $price, $typeLogement, $title, $imageURL]);
         }
     }
 
@@ -565,13 +565,13 @@ class Database
 
     //===== ADD ANNONCE =====
 
-    function insertAnnonce($name, $ville, $price, $typeLogement, $image)
+    function insertAnnonce($title, $city, $price, $typeLogement, $image)
     {
-        $rqt = "INSERT INTO Annonce (name, ville, price, typeLogement, image)
-          VALUES (:name, :ville, :price, :typeLogement, :image);";
+        $rqt = "INSERT INTO Annonce (title, city, price, typeLogement, image)
+          VALUES (:title, :city, :price, :typeLogement, :image);";
         $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':ville', $ville, PDO::PARAM_STR);
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':city', $city, PDO::PARAM_STR);
         $stmt->bindParam(':price', $price, PDO::PARAM_INT);
         $stmt->bindParam(':typeLogement', $typeLogement, PDO::PARAM_STR);
         $stmt->bindParam(':image', $image, PDO::PARAM_STR);

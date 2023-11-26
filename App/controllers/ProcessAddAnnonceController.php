@@ -10,16 +10,16 @@ class ProcessAddAnnonceController
 
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $name = $_POST["nom"];
-                $ville = $_POST["ville"];
-                $price = $_POST["prix"];
+                $title = $_POST["title"];
+                $city = $_POST["city"];
+                $price = $_POST["price"];
                 $typeLogement = $_POST["typeLogement"];
                 $image = null;
                 if (isset($_POST["image"])) {
                     $image = $_POST["image"];
                 }
 
-                if ($db->insertAnnonce($name, $ville, $price, $typeLogement, $image)) {
+                if ($db->insertAnnonce($title, $city, $price, $typeLogement, $image)) {
                     header('Location: /');
                 } else {
                     header('Location: /addAnnonce');
