@@ -10,7 +10,9 @@
             <div id="container-rightheader-top">
                 <div id="container-rightheader-topleft">
 
-                    {% if surname is defined %}
+                    {% if isAdmin %}
+                    Compte admin
+                    {% elseif surname is defined %}
                     Bonjour, {{surname}}!
                     {% else %}
                     Bonjour!
