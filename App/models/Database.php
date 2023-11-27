@@ -639,7 +639,14 @@ class Database
 
     function deleteUser($userID)
     {
-        $rqt = "DELETE FROM User WHERE userID = :userID;";
+        $rqt = "DELETE FROM Favorite
+                WHERE userID = :userID;
+                DELETE FROM Reservation
+                WHERE userID = :userID;
+                DELETE FROM Review
+                WHERE userID = :userID;
+                DELETE FROM User
+                WHERE userID = :userID;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
         if ($stmt->execute()) {
