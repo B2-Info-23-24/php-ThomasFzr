@@ -54,6 +54,15 @@ if (isset($_SESSION['errorMsg'])) {
     unset($_SESSION['errorMsg']);
 }
 
+if (isset($_GET['typeLogement'])) {
+    $typeLogement = $_GET['typeLogement'];
+    $twig->addGlobal('typeLogement', $typeLogement);
+} else {
+    $typeLogement = '';
+    $twig->addGlobal('typeLogement', $typeLogement);
+}
+
+
 
 $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $parts = explode('/', trim($urlPath, '/'));
@@ -67,10 +76,13 @@ switch ($route) {
     case '/':
         $controller = new HomeController($twig);
         $typeLogement = isset($_GET['typeLogement']) ? $_GET['typeLogement'] : '';
-        $ville = isset($_GET['ville']) ? $_GET['ville'] : '';
+        $ville = isset($_GET['city']) ? $_GET['city'] : '';
+        $minPrice = isset($_GET['min-price']) ? $_GET['min-price'] : '';
+        $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : '';
         $selectedEquipements = isset($_GET['selectedEquipements']) ? $_GET['selectedEquipements'] : [];
         $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
-        $controller->getInfoHome($typeLogement, $selectedEquipements, $selectedServices, $ville);
+        $controller->getInfoHome($typeLogement, $selectedEquipements, $selectedServices, $ville, $minPrice, $maxPrice);
+
         break;
 
     case '/connection':
