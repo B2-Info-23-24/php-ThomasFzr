@@ -11,7 +11,7 @@
         <br>
         <h3>{{ info.title }} ({{info.price}}€/nuit)</h3>
         <div class="description-annonce">
-            Ville: {{ info.ville }}<br><br>
+            Ville: {{ info.city }}<br><br>
             {% endfor %}
 
             Equipements disponibles:
