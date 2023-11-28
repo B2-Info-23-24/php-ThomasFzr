@@ -199,14 +199,9 @@ switch ($route) {
         $controller->deleteReview($_GET['id']);
         break;
 
-    case '/detailsTypesLogement':
-        $controller = new DetailsTypesLogementController($twig);
-        $controller->getTypesLogement();
-        break;
-
-    case '/detailsEquipementsServices':
-        $controller = new DetailsEquipementsServicesController($twig);
-        $controller->getEquipementsServices();
+    case '/detailsTypesLogementEquipementsServices':
+        $controller = new DetailsTypesLogementEquipementsServicesController($twig);
+        $controller->getTypesLogementEquipementsServices();
         break;
 
     default:

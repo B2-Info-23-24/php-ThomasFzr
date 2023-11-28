@@ -536,3 +536,32 @@ input[type="range"]::-webkit-slider-runnable-track {
     margin-top: 10px;
     margin-left: 12%;
 }
+
+.flex-container-TES {
+    display: flex;
+    margin-left: 50px;
+}
+
+.flex-child-TES {
+    flex: 1;
+}
+
+.flex-child-TES:first-child {
+    margin-right: 20px;
+    border-right: 2px solid;
+}
+
+.flex-child-TES:last-child {
+    padding-left: 20px;
+    border-left: 2px solid;
+}
+
+#add-user1,
+#add-user2,
+#add-user3{
+    width: 50%;
+    text-align: center;
+    background-color: #3B556D;
+    padding: 10px;
+    border-radius: 10px;
+}
