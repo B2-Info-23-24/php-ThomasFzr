@@ -147,10 +147,19 @@ class Database
         }
     }
 
+    public function createAccounts()
+    {
+        $hash1 = password_hash('user', PASSWORD_DEFAULT);
+        $hash2 = password_hash('admin', PASSWORD_DEFAULT);
 
+        $rqt = "INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('user@user.com', :pwd1, 'User', 0);
+                INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('admin@admin.com', :pwd2, 'Admin', 1);";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':pwd1', $hash1, PDO::PARAM_STR);
+        $stmt->bindParam(':pwd2', $hash2, PDO::PARAM_STR);
+        $stmt->execute();
+    }
 
-
-    //===== =================================== =====
 
     //===== SERVICES TYPES LOGEMENT EQUIPEMENTS =====
 

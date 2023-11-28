@@ -7,5 +7,6 @@ if ($database->createTables()) {
     $database->insertFakerDatas();
     $database->insertDataAccomodationTypeEquipmentService();
     $database->insertDataAccomodationEquipmentAccomodationService();
+    $database->createAccounts();
 
 }
