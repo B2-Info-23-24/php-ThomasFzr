@@ -206,7 +206,8 @@ class Database
             $_SESSION['errorMsg'] = "Un compte existe déjà avec cette adresse mail.";
             return false;
         } else {
-            $sql = "INSERT INTO User (mail, pwd) VALUES ('$mail', '$pwd')";
+            $hash = password_hash($pwd, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO User (mail, pwd) VALUES ('$mail', '$hash')";
             $this->conn->exec($sql);
             $_SESSION['isConnected'] = true;
             $_SESSION['mail'] = $mail;
@@ -218,22 +219,26 @@ class Database
     }
 
     //Authentification de connexion et récupération données user
-    public function authenticateUser($email, $password)
+    public function authenticateUser($mail, $password)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM User WHERE mail = :email AND pwd = :password");
-            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt = $this->conn->prepare("SELECT * FROM User WHERE mail = :mail");
+            $stmt->bindParam(':mail', $mail, PDO::PARAM_STR);
             $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($stmt->rowCount() > 0) {
-                $_SESSION['isConnected'] = true;
-                $_SESSION['mail'] = $email;
-                $db = new Database();
-                $_SESSION['userID'] = $db->getUserInfo($email)['userID'];
-                $_SESSION['surname'] = $db->getUserInfo($email)['surname'];
-                $_SESSION['isAdmin'] = $db->getUserInfo($email)['isAdmin'];
-                return true;
+            if (is_array($row)) {
+                if (password_verify($password, $row['pwd'])) {
+                    $_SESSION['isConnected'] = true;
+                    $_SESSION['mail'] = $mail;
+                    $db = new Database();
+                    $_SESSION['userID'] = $db->getUserInfo($mail)['userID'];
+                    $_SESSION['surname'] = $db->getUserInfo($mail)['surname'];
+                    $_SESSION['isAdmin'] = $db->getUserInfo($mail)['isAdmin'];
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -670,7 +675,8 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function deleteReview($reviewID){
+    function deleteReview($reviewID)
+    {
         $rqt = "DELETE FROM Review WHERE reviewID = :reviewID;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
@@ -681,6 +687,5 @@ class Database
             $_SESSION['errorMsg'] = "Commentaire non supprimé.";
             return false;
         }
-
     }
 }
