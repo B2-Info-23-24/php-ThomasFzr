@@ -6,12 +6,41 @@
 <div id="zone-users">
     {% for user in users %}
     <div id="details-users">
-        Adresse mail : {{user.mail}} <br><br>
-        Mdp : {{user.pwd}} <br><br>
-        Nom : {% if user.name != null %} {{user.name}} {%else%} Pas défini {%endif%} <br><br>
-        Prénom : {% if user.surname != null %} {{user.surname}} {%else%} Pas défini {%endif%} <br><br>
-        Numéro de tél : {% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%} <br><br>
-        Compte admin : {% if user.isAdmin == 0 %} Non {%else%} Oui {%endif%} <br><br>
+        <form action="/processUser?action=modify&id={{user.userID}}" method="post">
+            Adresse mail :
+            <input type="email" placeholder="{{user.mail}}" name="mail" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+        <form action="/processUser?action=modify&id={{user.userID}}" method="post">
+            Mdp :
+            <input type="text" placeholder="{{user.pwd}}" name="pwd" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+        <form action="/processUser?action=modify&id={{user.userID}}" method="post">
+            Nom :
+            <input type="text" placeholder="{% if user.name != null %} {{user.name}} {%else%} Pas défini {%endif%}" name="name" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+        <form action="/processUser?action=modify&id={{user.userID}}" method="post">
+            Prénom :
+            <input type="text" placeholder="{% if user.surname != null %} {{user.surname}} {%else%} Pas défini {%endif%}" name="surname" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+        <form action="/processUser?action=modify&id={{user.userID}}" method="post">
+            Numéro de tél :
+            <input type="text" placeholder="{% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%}" name="phoneNbr" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+        <form action="/processUser?action=modify&id={{user.userID}}" method="post">
+            Compte admin :
+            <select name="isAdmin" required>
+                <option disabled> Actuel : {% if user.isAdmin == 0 %} Non {%else%} Oui {%endif%} </option>
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
+        </select>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+
         <a href="/processUser?action=delete&id={{user.userID}}">
             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
         </a>

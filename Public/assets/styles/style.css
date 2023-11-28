@@ -508,7 +508,7 @@ input[type="range"]::-webkit-slider-runnable-track {
     margin-left: 15px;
     display: inline-block;
     margin: 30px 5px 0 5px;
-    text-align: center;
+    text-align: right;
     background-color: #3B556D;
     padding: 10px;
     border-radius: 10px;

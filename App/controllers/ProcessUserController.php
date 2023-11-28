@@ -39,9 +39,52 @@ class ProcessUserController
 
     public function deleteUser($id)
     {
-
         if ($this->db->deleteUser($id)) {
             header("Location: /detailsUtilisateur");
+        }
+    }
+
+    public function modifyUser($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $successMsg = "";
+
+            if (isset($_POST["mail"]) && $_POST["mail"] != '') {
+                $this->db->modifyUser("mail", $_POST["mail"], $id);
+                $successMsg = $successMsg . " Mail";
+            }
+            if (isset($_POST["pwd"]) && $_POST["pwd"] != '') {
+                $hash = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
+                $this->db->modifyUser("pwd", $hash, $id);
+                $successMsg = $successMsg . " MDP";
+            }
+            if (isset($_POST["name"]) && $_POST["name"] != '') {
+                $this->db->modifyUser("name", $_POST["name"], $id);
+                $successMsg = "Nom";
+            }
+            if (isset($_POST["surname"]) && $_POST["surname"] != '') {
+                $this->db->modifyUser("surname", $_POST["surname"], $id);
+                $successMsg = $successMsg . " Prénom";
+            }
+            if (isset($_POST["phoneNbr"]) && $_POST["phoneNbr"] != '') {
+                $this->db->modifyUser("phoneNbr", $_POST["phoneNbr"], $id);
+                $successMsg = $successMsg . " Numéro de téléphone";
+            }
+            if (isset($_POST["isAdmin"]) && $_POST["isAdmin"] != '') {
+                $this->db->modifyUser("isAdmin", $_POST["isAdmin"], $id);
+                $successMsg = $successMsg . " isAdmin";
+            }
+
+            if ((isset($_POST["name"]) && $_POST["name"] != '') || (isset($_POST["surname"]) && $_POST["surname"] != '')
+                || (isset($_POST["phoneNbr"]) && $_POST["phoneNbr"] != '') || (isset($_POST["mail"]) && $_POST["mail"] != '')
+                || (isset($_POST["mail"]) && $_POST["mail"] != '') || (isset($_POST["isAdmin"]) && $_POST["isAdmin"] != '')
+            ) {
+                $_SESSION['successMsg'] = $successMsg . " changé avec succès";
+            }
+
+            header('Location: /detailsUtilisateur');
+        } else {
+            echo "erreur edit info user";
         }
     }
 
@@ -53,6 +96,8 @@ class ProcessUserController
                 $process->addUser();
             } elseif ($action == "delete") {
                 $process->deleteUser($id);
+            } elseif ($action == "modify") {
+                $process->modifyUser($id);
             }
         } else {
             header('Location: /connection');
