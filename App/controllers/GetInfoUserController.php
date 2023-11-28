@@ -11,10 +11,10 @@ class GetInfoUserController
     public function getInfoUser()
     {
         if(isset($_SESSION['userID'])){
-        require_once __DIR__ . '/../models/Database.php';
-        $database = new Database();
+        require_once __DIR__ . '/../models/User.php';
+        $user = new User();
 
-        $infoUser = $database->getUserInfo($_SESSION['mail']);
+        $infoUser = $user->getUserInfo($_SESSION['mail']);
         echo $this->twig->render('detailsCompteView.php', ['infoUser' => $infoUser]);
         }else{
             header('Location: /connection');

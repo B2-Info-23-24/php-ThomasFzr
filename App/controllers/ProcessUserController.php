@@ -1,11 +1,11 @@
 <?php
 class ProcessUserController
 {
-    private $db;
+    private $user;
     function __construct()
     {
-        require_once __DIR__ . '/../models/Database.php';
-        $this->db = new Database();
+        require_once __DIR__ . '/../models/User.php';
+        $this->user = new User();
     }
 
     public function addUser()
@@ -29,7 +29,7 @@ class ProcessUserController
                 $phoneNbr = $_POST["phoneNbr"];
             }
 
-            if ($this->db->addUser($mail, $pwd, $isAdmin, $name, $surname, $phoneNbr)) {
+            if ($this->user->addUser($mail, $pwd, $isAdmin, $name, $surname, $phoneNbr)) {
                 header('Location: /detailsUtilisateur');
             } else {
                 header('Location: /detailsUtilisateur');
@@ -39,7 +39,7 @@ class ProcessUserController
 
     public function deleteUser($id)
     {
-        if ($this->db->deleteUser($id)) {
+        if ($this->user->deleteUser($id)) {
             header("Location: /detailsUtilisateur");
         }
     }
@@ -50,28 +50,28 @@ class ProcessUserController
             $successMsg = "";
 
             if (isset($_POST["mail"]) && $_POST["mail"] != '') {
-                $this->db->modifyUser("mail", $_POST["mail"], $id);
+                $this->user->modifyUser("mail", $_POST["mail"], $id);
                 $successMsg = $successMsg . " Mail";
             }
             if (isset($_POST["pwd"]) && $_POST["pwd"] != '') {
                 $hash = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
-                $this->db->modifyUser("pwd", $hash, $id);
+                $this->user->modifyUser("pwd", $hash, $id);
                 $successMsg = $successMsg . " MDP";
             }
             if (isset($_POST["name"]) && $_POST["name"] != '') {
-                $this->db->modifyUser("name", $_POST["name"], $id);
+                $this->user->modifyUser("name", $_POST["name"], $id);
                 $successMsg = "Nom";
             }
             if (isset($_POST["surname"]) && $_POST["surname"] != '') {
-                $this->db->modifyUser("surname", $_POST["surname"], $id);
+                $this->user->modifyUser("surname", $_POST["surname"], $id);
                 $successMsg = $successMsg . " Prénom";
             }
             if (isset($_POST["phoneNbr"]) && $_POST["phoneNbr"] != '') {
-                $this->db->modifyUser("phoneNbr", $_POST["phoneNbr"], $id);
+                $this->user->modifyUser("phoneNbr", $_POST["phoneNbr"], $id);
                 $successMsg = $successMsg . " Numéro de téléphone";
             }
             if (isset($_POST["isAdmin"]) && $_POST["isAdmin"] != '') {
-                $this->db->modifyUser("isAdmin", $_POST["isAdmin"], $id);
+                $this->user->modifyUser("isAdmin", $_POST["isAdmin"], $id);
                 $successMsg = $successMsg . " isAdmin";
             }
 

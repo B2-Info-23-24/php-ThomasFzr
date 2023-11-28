@@ -12,7 +12,11 @@ class HomeController
     function getInfoHome($typeLogement, $selectedEquipements, $selectedServices, $city, $minPrice, $maxPrice)
     {
         require_once __DIR__ . '/../models/Database.php';
+        require_once __DIR__ . '/../models/Accomodation.php';
+
         $database = new Database();
+        $accomodation = new Accomodation();
+
         $conditions = [];
 
         if ($minPrice == '') {
@@ -50,7 +54,7 @@ class HomeController
             $whereClause = 'WHERE ' . implode(' AND ', $conditions);
         }
         // echo $whereClause; //TODO
-        $tabAnnonce = $database->getAnnonce($whereClause);
+        $tabAnnonce = $accomodation->getAnnonce($whereClause);
         $tabTypeLogement = $database->getTypeLogement();
         $tabService = $database->getService();
         $tabEquipement = $database->getEquipement();

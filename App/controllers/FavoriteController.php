@@ -11,10 +11,10 @@ class FavoriteController{
     function loadAnnonceFavorite()
     {
         if(isset($_SESSION['userID'])){
-        require_once __DIR__ . '/../models/Database.php';
-        $database = new Database();
+        require_once __DIR__ . '/../models/Favorite.php';
+        $favorite = new Favorite();
 
-        $tabAnnonce = $database->getFavorite($_SESSION['userID']);
+        $tabAnnonce = $favorite->getFavorite($_SESSION['userID']);
         echo $this->twig->render('favoriteView.php', ['annonces' => $tabAnnonce]);
         }else{
             header('Location: /connection');

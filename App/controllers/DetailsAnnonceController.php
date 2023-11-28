@@ -14,12 +14,19 @@ class DetailsAnnonceController
     public function getDetailsAnnonce($annonceID)
     {
         require_once __DIR__ . '/../models/Database.php';
-        $database = new Database();
+        require_once __DIR__ . '/../models/Favorite.php';
+        require_once __DIR__ . '/../models/Review.php';
+        require_once __DIR__ . '/../models/Accomodation.php';
 
-        $infoAnnonce = $database->getDetailsAnnonce($annonceID);
+        $database = new Database();
+        $favorite = new Favorite();
+        $review = new Review();
+        $accomodation = new Accomodation();
+
+        $infoAnnonce = $accomodation->getDetailsAnnonce($annonceID);
         $tabService = $database->getServiceFromAnnonce($annonceID);
         $tabEquipement = $database->getEquipementFromAnnonce($annonceID);
-        $tabAvis = $database->getReviewFromAnnonce($annonceID);
+        $tabAvis = $review->getReviewFromAnnonce($annonceID);
         $averageGrade = $this->calculateAverageGrade($tabAvis);
         $userID = null;
         $isInFavorite = null;
@@ -28,7 +35,7 @@ class DetailsAnnonceController
 
         if (isset($_SESSION['userID'])) {
             $userID = $_SESSION['userID'];
-            $isInFavorite = $database->isInFavorite($annonceID);
+            $isInFavorite = $favorite->isInFavorite($annonceID);
         }
         echo $this->twig->render('detailsAnnonceView.php', [
             'infoAnnonce' => $infoAnnonce,

@@ -7,9 +7,9 @@ class LoginController
             $email = $_POST["email"];
             $password = $_POST["password"];
 
-            require_once __DIR__ . '/../models/Database.php';
-            $database = new Database();
-            if ($database->authenticateUser($email, $password)) {
+            require_once __DIR__ . '/../models/Connection.php';
+            $connection = new Connection();
+            if ($connection->authenticateUser($email, $password)) {
                 $_SESSION['successMsg'] = "Connexion réussie!";
                 header('Location: /');
                 exit;

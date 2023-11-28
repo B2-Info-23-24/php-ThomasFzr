@@ -12,9 +12,9 @@ class GetAllUserController
     public function getAllUser()
     {
         if (isset($_SESSION['isAdmin'])) {
-            require_once __DIR__ . '/../models/Database.php';
-            $db = new Database();
-            $users = $db->getAllUser();
+            require_once __DIR__ . '/../models/User.php';
+            $user = new User();
+            $users = $user->getAllUser();
 
             echo $this->twig->render(
                 'allUserView.php',

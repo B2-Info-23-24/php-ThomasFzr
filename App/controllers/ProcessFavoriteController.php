@@ -2,22 +2,22 @@
 class ProcessFavoriteController
 {
 
-    private $db;
+    private $favorite;
     function __construct()
     {
-        require_once __DIR__ . '/../models/Database.php';
-        $this->db = new Database();
+        require_once __DIR__ . '/../models/Favorite.php';
+        $this->favorite = new Favorite();
     }
 
     function addToFavorite($id)
     {
-        $this->db->addToFavorite($id);
+        $this->favorite->addToFavorite($id);
         header("Location: /detailsLogement/$id");
     }
 
     function removeFromFavorite($id)
     {
-        $this->db->removeFromFavorite($id);
+        $this->favorite->removeFromFavorite($id);
         header("Location: /detailsLogement/$id");
     }
 
