@@ -1,51 +1,33 @@
 {% extends "templates/template.php" %}
 
 {% block content %}
+<h3>Mon profil: </h3>
 <div id="profil-user">
-    <h3>Mon profil: </h3>
-
-    <div>
-        Nom: {% if infoUser.name %}
-        {{infoUser.name}}
-        {% else %}
-        Pas encore définis
-        {% endif %}
-
-    </div>
-    <div>
-        <br>Prénom: {% if infoUser.surname %}
-        {{infoUser.surname}}
-        {% else %}
-        Pas encore définis
-        {% endif %}
-    </div>
-    <div>
-        <br>Numéro de téléphone: {% if infoUser.phoneNbr %}
-        {{infoUser.phoneNbr}}
-        {% else %}
-        Pas encore définis
-        {% endif %}
-    </div>
-    <div>
-        <br>Mail : {% if infoUser.mail %}
-        {{infoUser.mail}}
-        {% else %}
-        Pas encore définis
-        {% endif %}
-
-    </div>
-</div>
-
-<div id="profil-user-modif">
-    <h3>Modif: </h3>
     <form action="/editInfoUser" method="post">
-        <input type="text" id="name" name="name" placeholder="Nom"> <br>
-        <input type="text" id="surname" name="surname" placeholder="Prénom"><br>
-        <input type="number" id="name" name="phoneNbr" placeholder="Numéro de téléphone"><br>
-        <input type="email" id="mail" name="mail" placeholder="Adresse mail"><br>
-        <input type="submit" value="Modifier">
-    </form>
-
+        Adresse mail :
+        <input type="email" placeholder="{{infoUser.mail}}" name="mail" required>
+        <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+    </form><br>
+    <form action="/editInfoUser" method="post">
+        Mdp :
+        <input type="text" placeholder="{{infoUser.pwd}}" name="pwd" required>
+        <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+    </form><br>
+    <form action="/editInfoUser" method="post">
+        Nom :
+        <input type="text" placeholder="{% if infoUser.name %}{{infoUser.name}}{% else %}Pas encore définis{% endif %}" name="name" required>
+        <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+    </form><br>
+    <form action="/editInfoUser" method="post">
+        Prénom :
+        <input type="text" placeholder="{% if infoUser.surname %}{{infoUser.surname}}{% else %}Pas encore définis{% endif %}" name="surname" required>
+        <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+    </form><br>
+    <form action="/editInfoUser" method="post">
+        Numéro de tél :
+        <input type="text" placeholder="{% if infoUser.phoneNbr %}{{infoUser.phoneNbr}}{% else %}Pas encore définis{% endif %}" name="phoneNbr" required>
+        <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+    </form><br>
 </div>
 
 {% endblock %}
