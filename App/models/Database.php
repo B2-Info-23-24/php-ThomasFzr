@@ -664,6 +664,19 @@ class Database
         }
     }
 
+    function modifyUser($column, $value, $userID)
+    {
+        $rqt = "UPDATE User SET $column = :value WHERE userID=:userID";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam('value', $value, PDO::PARAM_STR);
+        $stmt->bindParam('userID', $userID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function getAllReview()
     {
         $rqt = "SELECT r.*, a.*, u.*
