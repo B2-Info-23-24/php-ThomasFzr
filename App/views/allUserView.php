@@ -33,11 +33,15 @@
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Compte admin :
-            <select name="isAdmin" required>
-                <option disabled> Actuel : {% if user.isAdmin == 0 %} Non {%else%} Oui {%endif%} </option>
-            <option value="0">Non</option>
-            <option value="1">Oui</option>
-        </select>
+            <select name="isAdmin" required>           
+                {% if user.isAdmin == 0 %}
+                <option value="0" selected>Non</option>
+                <option value="1">Oui</option>
+                {%else%}
+                <option value="1" selected>Oui</option>
+                <option value="0">Non</option>
+                {%endif%}
+            </select>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
 

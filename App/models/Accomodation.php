@@ -57,6 +57,9 @@ class Accomodation
      {
          $rqt = "DELETE FROM ServiceAnnonce WHERE annonceID = :annonceID;
                  DELETE FROM EquipementAnnonce WHERE annonceID = :annonceID;
+                 DELETE FROM Favorite WHERE annonceID = :annonceID;
+                 DELETE FROM Review WHERE annonceID = :annonceID;
+                 DELETE FROM Reservation WHERE annonceID = :annonceID;
                  DELETE FROM Annonce WHERE annonceID = :annonceID;";
          $stmt = $this->conn->prepare($rqt);
          $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
