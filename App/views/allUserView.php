@@ -12,7 +12,7 @@
         Prénom : {% if user.surname != null %} {{user.surname}} {%else%} Pas défini {%endif%} <br><br>
         Numéro de tél : {% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%} <br><br>
         Compte admin : {% if user.isAdmin == 0 %} Non {%else%} Oui {%endif%} <br><br>
-        <a href="/deleteUser?id={{user.userID}}">
+        <a href="/processUser?action=delete&id={{user.userID}}">
             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
         </a>
     </div>
@@ -25,7 +25,7 @@
 </a>
 
 <div id="add-user" class="profil-card" style="display: none;">
-    <form action="/addUser" method="post">
+    <form action="/processUser?action=add" method="post">
         Adresse mail: <input type="email" name="mail" placeholder="Mail" required> <br><br>
         Mdp: <input type="text" name="pwd" placeholder="Mdp" required> <br><br>
         Compte admin : <select name="isAdmin" required>
