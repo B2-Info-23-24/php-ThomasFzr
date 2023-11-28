@@ -1,5 +1,5 @@
 <?php
-class DetailsTypesLogementEquipementsServicesController
+class DetailsEquipmentServiceAccomodationTypeController
 {
     private $twig;
 
@@ -13,12 +13,12 @@ class DetailsTypesLogementEquipementsServicesController
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Database.php';
             $db = new Database();
-            $equipements = $db->getEquipement();
+            $equipements = $db->getEquipment();
             $services = $db->getService();
-            $typesLogement = $db->getTypeLogement();
+            $typesLogement = $db->getAccomodationType();
 
             echo $this->twig->render(
-                'detailsEquipementsServicesView.php',
+                'detailsEquipmentServiceAccomodationType.php',
                 [
                     'equipements' => $equipements,
                     'services' => $services,

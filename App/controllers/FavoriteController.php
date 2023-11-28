@@ -8,14 +8,14 @@ class FavoriteController{
         $this->twig = $twig;
     }
 
-    function loadAnnonceFavorite()
+    function loadAccomodationFavorite()
     {
         if(isset($_SESSION['userID'])){
         require_once __DIR__ . '/../models/Favorite.php';
         $favorite = new Favorite();
 
-        $tabAnnonce = $favorite->getFavorite($_SESSION['userID']);
-        echo $this->twig->render('favoriteView.php', ['annonces' => $tabAnnonce]);
+        $tabAccomodation = $favorite->getFavorite($_SESSION['userID']);
+        echo $this->twig->render('favoriteView.php', ['accomodations' => $tabAccomodation]);
         }else{
             header('Location: /connection');
         }

@@ -11,7 +11,7 @@
     <h2>Connexion</h2>
     <form id="login-form" action="/process_login" method="post">
         <p>
-            <input type="email" id="email" name="email" placeholder="Adresse mail" required><i class="validation"><span></span><span></span></i>
+            <input type="email" id="email" name="email" placeholder="Adresse mail" required autofocus><i class="validation"><span></span><span></span></i>
         </p>
         <p>
             <input type="password" id="password" name="password" placeholder="Mot de passe" required><i class="validation"><span></span><span></span></i>

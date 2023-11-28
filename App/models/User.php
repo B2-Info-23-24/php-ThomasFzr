@@ -73,10 +73,10 @@ class User
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
         if ($stmt->execute()) {
-            $_SESSION['successMsg'] = "User supprimé!";
+            $_SESSION['successMsg'] = "Utilisateur supprimé!";
             return true;
         } else {
-            $_SESSION['errorMsg'] = "User non supprimé.";
+            $_SESSION['errorMsg'] = "Utilisateur non supprimé.";
             return false;
         }
     }

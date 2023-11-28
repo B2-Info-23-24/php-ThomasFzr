@@ -40,7 +40,7 @@ class EditInfoUserController
                     $_SESSION['successMsg'] = $successMsg . " changé avec succès";
                 }
 
-                header('Location: /detailsCompte');
+                header('Location: /myAccount');
             } else {
                 echo "erreur edit info user";
             }

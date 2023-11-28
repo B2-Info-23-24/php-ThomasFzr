@@ -12,13 +12,13 @@ class ProcessFavoriteController
     function addToFavorite($id)
     {
         $this->favorite->addToFavorite($id);
-        header("Location: /detailsLogement/$id");
+        header("Location: /accomodation/$id");
     }
 
     function removeFromFavorite($id)
     {
         $this->favorite->removeFromFavorite($id);
-        header("Location: /detailsLogement/$id");
+        header("Location: /accomodation/$id");
     }
 
 

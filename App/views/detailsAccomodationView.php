@@ -6,7 +6,7 @@
 <div class="flex-container-details-logement">
 
     <div class="flex-child-details-logement left">
-        {% for info in infoAnnonce %}
+        {% for info in infoAccomodation %}
         <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
         <br>
         <h3>{{ info.title }} ({{info.price}}€/nuit)</h3>
@@ -15,10 +15,10 @@
             {% endfor %}
 
             Equipements disponibles:
-            {% if equipements is not empty %}
+            {% if equipments is not empty %}
             <ul>
-                {% for equipement in equipements %}
-                <li> {{equipement.name}}</li>
+                {% for equipment in equipments %}
+                <li> {{equipment.name}}</li>
                 {% endfor%}
             </ul>
             {% else %}
@@ -40,16 +40,16 @@
         <br>
 
         <div id="nombre-etoile-commentaire-logement">
-            {{ tabAvis|length == 0 ? 'Pas encore de note' : averageGrade }} ⭐ -
-            ({{ tabAvis|length }} commentaire{{ tabAvis|length <= 1 ? '' : 's' }})
+            {{ tabReview|length == 0 ? 'Pas encore de note' : averageGrade }} ⭐ -
+            ({{ tabReview|length }} commentaire{{ tabReview|length <= 1 ? '' : 's' }})
         </div><br>
 
 
 
         {% if userID is not null %}
-        {% for info in infoAnnonce %}
+        {% for info in infoAccomodation %}
         <div id="zone-laisser-avis">
-            <form action="/process_avis?id={{info.annonceID}}" method="post">
+            <form action="/process_review?id={{info.accomodationID}}" method="post">
                 <input type="number" name="grade" placeholder="Note" required min="0" max="5">
                 <input type="text" name="comment" placeholder="Laisser un commentaire" required>
                 <input type="submit" value="ENVOYER L'AVIS">
@@ -63,7 +63,7 @@
 
         <br>
         <ul>
-            {% for avis in tabAvis %}
+            {% for avis in tabReview %}
 
             <div id="details-commentaires-notes">
                 <li>{{ avis.grade }}⭐ -
@@ -83,16 +83,16 @@
         </ul>
     </div>
 
-    {% for info in infoAnnonce %}
+    {% for info in infoAccomodation %}
     <div class="flex-child-details-logement right">
 
         {% if userID is not null %}
         {% if isInFavorite %}
-        <form action="/process_favorite?action=remove&id={{ info.annonceID }}" method="post">
+        <form action="/process_favorite?action=remove&id={{ info.accomodationID }}" method="post">
             <input type="submit" value="RETIRER DES FAVORIS 💔"><br><br>
         </form>
         {% else %}
-        <form action="/process_favorite?action=add&id={{ info.annonceID }}" method="post">
+        <form action="/process_favorite?action=add&id={{ info.accomodationID }}" method="post">
             <input type="submit" value="AJOUTER EN FAVORIS 🩷"><br><br>
         </form>
         {% endif %}
@@ -103,9 +103,10 @@
         {% if userID is not null %}
         {{ info.price }} € x <span id="differenceInDays"> 1</span><br><br>
 
-        <form action="/process_reservation?id={{info.annonceID}}" method="post">
-            Date de début: <input type="date" name="dateDebut" id="dateDebut" required> <br>
-            Date de fin: <input type="date" name="dateFin" id="dateFin" required> <br><br>
+        <form action="/process_reservation?id={{info.accomodationID}}" method="post">
+            Date de début: <input type="date" name="startDate" id="startDate" required> <br>
+            Date de fin: <input type="date" name="endDate" id="endDate" required> <br><br>
+            <input type="hidden" name="price" value="{{ info.price }}">
             <input type="submit" value="RESERVER">
         </form>
         {% else %}
@@ -116,8 +117,8 @@
 
         {% if isAdmin %}
         <br><br>
-        {% for info in infoAnnonce %}
-        <a href="/processAnnonce?action=delete&id={{ info.annonceID }}">
+        {% for info in infoAccomodation %}
+        <a href="/processAccomodation?action=delete&id={{ info.accomodationID }}">
             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
         </a>
         {% endfor %}

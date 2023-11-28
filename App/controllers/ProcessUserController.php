@@ -30,9 +30,9 @@ class ProcessUserController
             }
 
             if ($this->user->addUser($mail, $pwd, $isAdmin, $name, $surname, $phoneNbr)) {
-                header('Location: /detailsUtilisateur');
+                header('Location: /allUsers');
             } else {
-                header('Location: /detailsUtilisateur');
+                header('Location: /allUsers');
             }
         }
     }
@@ -40,7 +40,7 @@ class ProcessUserController
     public function deleteUser($id)
     {
         if ($this->user->deleteUser($id)) {
-            header("Location: /detailsUtilisateur");
+            header("Location: /allUsers");
         }
     }
 
@@ -82,9 +82,9 @@ class ProcessUserController
                 $_SESSION['successMsg'] = $successMsg . " changé avec succès";
             }
 
-            header('Location: /detailsUtilisateur');
+            header('Location: /allUsers');
         } else {
-            echo "erreur edit info user";
+            echo "Erreur edit info user";
         }
     }
 

@@ -10,15 +10,15 @@ class ReviewController
     }
 
 
-    function getAvis()
+    function getReview()
     {
         if (isset($_SESSION['userID'])) {
             require_once __DIR__ . '/../models/Review.php';
             $review = new Review();
-            $tabAvisAnnonces = $review->getReviewFromUser();
+            $tabReviewAccomodations = $review->getReviewFromUser();
 
-            echo $this->twig->render('avisView.php', [
-                'tabAvisAnnonces' => $tabAvisAnnonces,
+            echo $this->twig->render('reviewView.php', [
+                'tabReviewAccomodations' => $tabReviewAccomodations,
             ]);
         } else {
             header('Location: /connection');

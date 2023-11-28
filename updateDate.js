@@ -6,36 +6,36 @@ const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
 const formattedDateTomorrow = tomorrow.toISOString().split('T')[0];
 
-const dateDebutInput = document.getElementById("dateDebut");
-const dateFinInput = document.getElementById("dateFin");
+const startDateInput = document.getElementById("startDate");
+const endDateInput = document.getElementById("endDate");
 const differenceInDaysElement = document.getElementById("differenceInDays");
 
-dateDebutInput.value = today;
-dateDebutInput.min = today;
+startDateInput.value = today;
+startDateInput.min = today;
 
-dateFinInput.value = formattedDateTomorrow;
-dateFinInput.min = formattedDateTomorrow;
+endDateInput.value = formattedDateTomorrow;
+endDateInput.min = formattedDateTomorrow;
 
-function updateDateFinMin() {
-  const dateDebutValue = dateDebutInput.value;
-  let dateFinValue = dateFinInput.value;
+function updateendDateMin() {
+  const startDateValue = startDateInput.value;
+  let endDateValue = endDateInput.value;
 
-  const minDateFin = new Date(dateDebutValue);
-  minDateFin.setDate(minDateFin.getDate() + 1);
-  if (new Date(dateFinValue) < minDateFin) {
-    dateFinValue = minDateFin.toISOString().split('T')[0];
+  const minendDate = new Date(startDateValue);
+  minendDate.setDate(minendDate.getDate() + 1);
+  if (new Date(endDateValue) < minendDate) {
+    endDateValue = minendDate.toISOString().split('T')[0];
   }
 
-  dateFinInput.min = dateDebutValue;
-  dateFinInput.value = dateFinValue;
+  endDateInput.min = startDateValue;
+  endDateInput.value = endDateValue;
 
-  const diffInDays = calculateDateDifferenceInDays(dateDebutValue, dateFinValue);
+  const diffInDays = calculateDateDifferenceInDays(startDateValue, endDateValue);
   differenceInDaysElement.textContent = diffInDays;
 }
 
 
-dateDebutInput.addEventListener("input", updateDateFinMin); 
-dateFinInput.addEventListener("input", updateDateFinMin);
+startDateInput.addEventListener("input", updateendDateMin); 
+endDateInput.addEventListener("input", updateendDateMin);
 
 function calculateDateDifferenceInDays(startDate, endDate) {
   const start = new Date(startDate);

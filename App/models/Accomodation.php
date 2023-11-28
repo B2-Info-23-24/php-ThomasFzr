@@ -11,29 +11,29 @@ class Accomodation
     }
 
     //Récupérer toutes les annonces
-    public function getAnnonce($requete)
+    public function getAccomodation($requete)
     {
-        $rqt = "SELECT * FROM Annonce $requete";
+        $rqt = "SELECT * FROM Accomodation $requete";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //Récupérer détails d'une annonce
-    public function getDetailsAnnonce($annonceID)
+    public function getDetailsAccomodation($accomodationID)
     {
-        $rqt = "SELECT * FROM Annonce WHERE annonceID = :annonceID";
+        $rqt = "SELECT * FROM Accomodation WHERE accomodationID = :accomodationID";
         $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
      //===== ADD ANNONCE =====
 
-     function insertAnnonce($title, $city, $price, $typeLogement, $image)
+     function insertAccomodation($title, $city, $price, $typeLogement, $image)
      {
-         $rqt = "INSERT INTO Annonce (title, city, price, typeLogement, image)
+         $rqt = "INSERT INTO Accomodation (title, city, price, typeLogement, image)
            VALUES (:title, :city, :price, :typeLogement, :image);";
          $stmt = $this->conn->prepare($rqt);
          $stmt->bindParam(':title', $title, PDO::PARAM_STR);
@@ -43,26 +43,26 @@ class Accomodation
          $stmt->bindParam(':image', $image, PDO::PARAM_STR);
  
          if ($stmt->execute()) {
-             $_SESSION['successMsg'] = "Annonce bien ajoutée!";
+             $_SESSION['successMsg'] = "Annonce ajoutée!";
              return true;
          } else {
-             $_SESSION['errorMsg'] = "Annonce pas ajoutée.";
+             $_SESSION['errorMsg'] = "Annonce non ajoutée.";
              return false;
          }
      }
  
      //===== DELETE ANNONCE =====
 
-     function deleteAnnonce($annonceID)
+     function deleteAccomodation($accomodationID)
      {
-         $rqt = "DELETE FROM ServiceAnnonce WHERE annonceID = :annonceID;
-                 DELETE FROM EquipementAnnonce WHERE annonceID = :annonceID;
-                 DELETE FROM Favorite WHERE annonceID = :annonceID;
-                 DELETE FROM Review WHERE annonceID = :annonceID;
-                 DELETE FROM Reservation WHERE annonceID = :annonceID;
-                 DELETE FROM Annonce WHERE annonceID = :annonceID;";
+         $rqt = "DELETE FROM ServiceAccomodation WHERE accomodationID = :accomodationID;
+                 DELETE FROM EquipmentAccomodation WHERE accomodationID = :accomodationID;
+                 DELETE FROM Favorite WHERE accomodationID = :accomodationID;
+                 DELETE FROM Review WHERE accomodationID = :accomodationID;
+                 DELETE FROM Reservation WHERE accomodationID = :accomodationID;
+                 DELETE FROM Accomodation WHERE accomodationID = :accomodationID;";
          $stmt = $this->conn->prepare($rqt);
-         $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+         $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
          if ($stmt->execute()) {
              $_SESSION['successMsg'] = "Annonce supprimée!";
              return true;

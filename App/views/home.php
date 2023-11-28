@@ -7,8 +7,8 @@
         <nav class="navigation">
             <ul>
                 <li><a href="/">Tout</a></li>
-                {% for typeLogement in typeLogements %}
-                <li><a href="/?typeLogement={{ typeLogement.name }}">{{ typeLogement.name }}</a></li>
+                {% for accomodationType in accomodationTypes %}
+                <li><a href="/?accomodationType={{ accomodationType.name }}">{{ accomodationType.name }}</a></li>
                 {% endfor %}
             </ul>
         </nav>
@@ -22,7 +22,7 @@
 
     <div id="filtre-deroulant" class="hidden">
         <form method="get" action="/">
-            <input type="hidden" name="typeLogement" value="{{ typeLogement }}">
+            <input type="hidden" name="accomodationType" value="{{ accomodationType }}">
 
             Services:
             <nav class="navigation">
@@ -41,11 +41,11 @@
             Equipements:
             <nav class="navigation">
                 <ul>
-                    {% for equipement in equipements %}
+                    {% for equipment in equipments %}
                     <li>
                         <label>
-                            {{ equipement.name }}
-                            <input type="checkbox" name="selectedEquipements[]" value="{{ equipement.equipementID }}">
+                            {{ equipment.name }}
+                            <input type="checkbox" name="selectedEquipments[]" value="{{ equipment.equipmentID }}">
                         </label>
                     </li>
                     {% endfor %}
@@ -68,14 +68,14 @@
 <br><br>
 
 <div class="zone-annonce">
-    {% if annonces is not empty %}
-    {% for annonce in annonces %}
-    <a href="/detailsLogement/{{ annonce.annonceID }}" id="lien-annonce">
+    {% if accomodations is not empty %}
+    {% for accomodation in accomodations %}
+    <a href="/accomodation/{{ accomodation.accomodationID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="Public/assets/images/{{annonce.image}}" id="img-annonce-home" alt="image-{{ info.image }}">
-            <div class="zone-prix">{{annonce.price}} €/nuit</div>
+            <img src="Public/assets/images/{{accomodation.image}}" id="img-annonce-home" alt="image-{{ info.image }}">
+            <div class="zone-prix">{{accomodation.price}} €/nuit</div>
             <div class="description">
-                <h4>{{annonce.title}}</h4>
+                <h4>{{accomodation.title}}</h4>
             </div>
         </div>
     </a>
@@ -87,7 +87,7 @@
 
 {% if isAdmin %}
 <div class="zone-annonce">
-    <a href="/addAnnonce" id="lien-annonce">
+    <a href="/addaccomodation" id="lien-annonce">
         <div class="annonce">
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-annonce-home">
             <div class="description">

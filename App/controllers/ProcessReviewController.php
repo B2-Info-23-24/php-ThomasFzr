@@ -1,9 +1,9 @@
 <?php
-class ProcessAvisController
+class ProcessReviewController
 {
 
 
-    public function insertAvis($annonceID)
+    public function insertAvis($accomodationID)
     {
         if (isset($_SESSION['userID'])) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,8 +13,8 @@ class ProcessAvisController
                 $date = new DateTime('now');
                 $date = $date->format('Y-m-d');
 
-                $review->insertReview($annonceID,  $_POST["grade"], $_POST["comment"], $date);
-                header("Location: /detailsLogement/$annonceID");
+                $review->insertReview($accomodationID,  $_POST["grade"], $_POST["comment"], $date);
+                header("Location: /detailsLogement/$accomodationID");
             }
         } else {
             header('Location: /connection');

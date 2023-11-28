@@ -12,15 +12,15 @@ class AddAnnonceController
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Database.php';
             $db = new Database();
-            $typesLogement = $db->getTypeLogement();
-            $equipements = $db->getEquipement();
+            $typesLogement = $db->getAccomodationType();
+            $equipments = $db->getEquipment();
             $services = $db->getService();
 
             echo $this->twig->render(
-                'addAnnonceView.php',
+                'addAccomodationView.php',
                 [
                     'typesLogement' => $typesLogement,
-                    'equipements' => $equipements,
+                    'equipments' => $equipments,
                     'services' => $services
                 ]
             );

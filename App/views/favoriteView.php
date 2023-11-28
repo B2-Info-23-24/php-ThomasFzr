@@ -6,15 +6,15 @@
 <h3> Mes logements favoris: </h3>
 
 
-{% if annonces is not empty %}
+{% if accomodations is not empty %}
 <div class="zone-annonce">
-    {% for annonce in annonces %}
-    <a href="/detailsLogement/{{ annonce.annonceID }}" id="lien-annonce">
+    {% for accomodation in accomodations %}
+    <a href="/accomodation/{{ accomodation.accomodationID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="Public/assets/images/{{annonce.image}}" id="img-annonce-home" alt="image-{{ annonce.image }}">
-            <div class="zone-prix">{{annonce.price}} €/nuit</div>
+            <img src="Public/assets/images/{{accomodation.image}}" id="img-annonce-home" alt="image-{{ accomodation.image }}">
+            <div class="zone-prix">{{accomodation.price}} €/nuit</div>
             <div class="description">
-                <h4>{{annonce.title}}</h4>
+                <h4>{{accomodation.title}}</h4>
             </div>
         </div>
     </a>

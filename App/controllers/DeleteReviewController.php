@@ -7,7 +7,7 @@ class DeleteReviewController
             require_once __DIR__ . '/../models/Review.php';
             $review = new Review();
             if ($review->deleteReview($id)) {
-                header("Location: /detailsAvis");
+                header("Location: /allReviews");
             }
         } else {
             header('Location: /');

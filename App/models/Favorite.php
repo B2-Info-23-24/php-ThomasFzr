@@ -13,9 +13,9 @@ class Favorite
     //Récupérer les annonces ajoutées en favoris par le user actuel
     public function getFavorite($userID)
     {
-        $rqt = "SELECT Annonce.*
-                FROM Annonce
-                JOIN Favorite ON Annonce.annonceID = Favorite.annonceID
+        $rqt = "SELECT Accomodation.*
+                FROM Accomodation
+                JOIN Favorite ON Accomodation.accomodationID = Favorite.accomodationID
                 JOIN User ON Favorite.userID = User.userID
                 WHERE User.userID = :userID;";
         $stmt = $this->conn->prepare($rqt);
@@ -25,14 +25,14 @@ class Favorite
     }
 
     //Ajouter en favoris une annonce
-    public function addToFavorite($annonceID)
+    public function addToFavorite($accomodationID)
     {
         $userID = $_SESSION['userID'];
 
-        $rqt = "INSERT INTO Favorite (userID, annonceID) VALUES (:userID, :annonceID)";
+        $rqt = "INSERT INTO Favorite (userID, accomodationID) VALUES (:userID, :accomodationID)";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return true;
@@ -43,14 +43,14 @@ class Favorite
 
 
     //Retirer une annonce des favoris
-    public function removeFromFavorite($annonceID)
+    public function removeFromFavorite($accomodationID)
     {
         $userID = $_SESSION['userID'];
-        $rqt = "DELETE FROM Favorite WHERE userID = :userID AND annonceID = :annonceID";
+        $rqt = "DELETE FROM Favorite WHERE userID = :userID AND accomodationID = :accomodationID";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
 
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_STR);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_STR);
         if ($stmt->execute()) {
             return true;
         } else {
@@ -59,20 +59,20 @@ class Favorite
     }
 
     //Tester si une annonce a été ajouté en favoris par le user actuel
-    public function isInFavorite($annonceID)
+    public function isInFavorite($accomodationID)
     {
         $userID = $_SESSION['userID'];
 
         $rqt = "SELECT Favorite.*
             FROM Favorite
-            JOIN Annonce ON Annonce.annonceID = Favorite.annonceID
+            JOIN Accomodation ON Accomodation.accomodationID = Favorite.accomodationID
             JOIN User ON Favorite.userID = User.userID
             WHERE User.userID = :userID
-              AND Annonce.annonceID = :annonceID";
+              AND Accomodation.accomodationID = :accomodationID";
 
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -1,5 +1,5 @@
 <?php
-class ProcessAnnonceController
+class ProcessAccomodationController
 {
 
     private $accomodation;
@@ -9,7 +9,7 @@ class ProcessAnnonceController
         $this->accomodation = new Accomodation();
     }
 
-    public function addAnnonce()
+    public function addAccomodation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $title = $_POST["title"];
@@ -21,7 +21,7 @@ class ProcessAnnonceController
                 $image = $_POST["image"];
             }
 
-            if ($this->accomodation->insertAnnonce($title, $city, $price, $typeLogement, $image)) {
+            if ($this->accomodation->insertAccomodation($title, $city, $price, $typeLogement, $image)) {
                 header('Location: /');
             } else {
                 header('Location: /addAnnonce');
@@ -29,9 +29,9 @@ class ProcessAnnonceController
         }
     }
 
-    function deleteAnnonce($id)
+    function deleteAccomodation($id)
     {
-        if ($this->accomodation->deleteAnnonce($id)) {
+        if ($this->accomodation->deleteAccomodation($id)) {
             header("Location: /");
         } else {
             header("Location: /detailsLogement/$id");
@@ -42,11 +42,11 @@ class ProcessAnnonceController
     function processAnnonce($action, $id)
     {
         if (isset($_SESSION['isAdmin'])) {
-            $process = new ProcessAnnonceController();
+            $process = new ProcessAccomodationController();
             if ($action == "add") {
-                $process->addAnnonce();
+                $process->addAccomodation();
             } elseif ($action == "delete") {
-                $process->deleteAnnonce($id);
+                $process->deleteAccomodation($id);
             }
         } else {
             header('Location: /connection');

@@ -6,7 +6,7 @@
 <div class="flex-container-details-logement">
     <div class="flex-child-details-logement left">
 
-        <form action="/processAnnonce?action=add" method="post">
+        <form action="/processAccomodation?action=add" method="post">
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-details-annonce">
             <br>
             <div class="description-annonce">
@@ -23,8 +23,8 @@
                 </select><br><br>
 
                 Equipements disponibles:<br><br>
-                {% for equipement in equipements%}
-                {{equipement.name}} <input type="checkbox" value="{{equipement.equipementID}}">
+                {% for equipment in equipements%}
+                {{equipment.name}} <input type="checkbox" value="{{equipment.equipmentID}}">
                 {% endfor %}<br><br>
 
                 Services disponibles:<br><br>

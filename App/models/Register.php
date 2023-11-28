@@ -3,11 +3,14 @@ class Register
 {
 
     private $conn;
+    private $user;
     function __construct()
     {
         require_once __DIR__ . '/../models/Database.php';
+        require_once __DIR__ . '/../models/User.php';
         $db = new Database();
         $this->conn = $db->conn;
+        $this->user = new User();
     }
 
     //Insert inscription et récupération données user
@@ -26,8 +29,7 @@ class Register
             $this->conn->exec($sql);
             $_SESSION['isConnected'] = true;
             $_SESSION['mail'] = $mail;
-            $db = new Database();
-            $_SESSION['userID'] = $db->getUserInfo($mail)['userID'];
+            $_SESSION['userID'] = $this->user->getUserInfo($mail)['userID'];
             $_SESSION['successMsg'] = "Bienvenue!";
             return true;
         }

@@ -11,18 +11,18 @@ class Reservation
     }
 
 
-    public function insertReservation($annonceID, $dateDebut, $dateFin)
+    public function insertReservation($accomodationID, $startDate, $endDate, $totalPrice)
     {
-        $rqt = "SELECT * FROM Reservation WHERE annonceID = :annonceID 
-                AND (:dateDebut BETWEEN dateDebut AND dateFin
-                  OR :dateFin BETWEEN dateDebut AND dateFin
-                  OR dateDebut BETWEEN :dateDebut AND :dateFin
-                  OR dateFin BETWEEN :dateDebut AND :dateFin)";
+        $rqt = "SELECT * FROM Reservation WHERE accomodationID = :accomodationID 
+                AND (:startDate BETWEEN startDate AND endDate
+                  OR :endDate BETWEEN startDate AND endDate
+                  OR startDate BETWEEN :startDate AND :endDate
+                  OR endDate BETWEEN :startDate AND :endDate)";
 
         $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
-        $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->bindParam(':startDate', $startDate, PDO::PARAM_STR);
+        $stmt->bindParam(':endDate', $endDate, PDO::PARAM_STR);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
         $stmt->execute();
 
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -31,12 +31,14 @@ class Reservation
         } else {
             $userID = $_SESSION['userID'];
 
-            $rqt = "INSERT INTO Reservation (userID, annonceID, dateDebut, dateFin) VALUES (:userID, :annonceID, :dateDebut, :dateFin)";
+            $rqt = "INSERT INTO Reservation (userID, accomodationID, startDate, endDate, totalPrice) VALUES (:userID, :accomodationID, :startDate, :endDate, :totalPrice)";
             $stmt = $this->conn->prepare($rqt);
             $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-            $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
-            $stmt->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
-            $stmt->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
+            $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+            $stmt->bindParam(':startDate', $startDate, PDO::PARAM_STR);
+            $stmt->bindParam(':endDate', $endDate, PDO::PARAM_STR);
+            $stmt->bindParam(':totalPrice', $totalPrice, PDO::PARAM_INT);
+
 
             if ($stmt->execute()) {
                 return true;
@@ -51,31 +53,31 @@ class Reservation
     public function getReservation($userID)
     {
         $rqt = "SELECT * FROM Reservation r
-                JOIN Annonce a ON a.annonceID = r.annonceID
+                JOIN Accomodation a ON a.accomodationID = r.accomodationID
                 WHERE r.userID = :userID
-                ORDER BY r.dateDebut asc;";
+                ORDER BY r.startDate asc;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function checkUserReservation($userID, $annonceID)
+    public function checkUserReservation($userID, $accomodationID)
     {
-        $rqt = "SELECT dateFin, hasReviewed FROM Reservation WHERE userID = :userID AND annonceID = :annonceID";
+        $rqt = "SELECT endDate, hasReviewed FROM Reservation WHERE userID = :userID AND accomodationID = :accomodationID";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result !== false) {
-            $dateFin = $result['dateFin'];
+            $endDate = $result['endDate'];
             $hasReviewed = $result['hasReviewed'];
-            $dateFinObj = new DateTime($dateFin);
+            $endDateObj = new DateTime($endDate);
             $dateToday = new DateTime('now');
-            return $dateFinObj < $dateToday && !$hasReviewed;
+            return $endDateObj < $dateToday && !$hasReviewed;
         } else {
             return false;
         }

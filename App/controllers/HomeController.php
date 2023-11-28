@@ -9,7 +9,7 @@ class HomeController
         $this->twig = $twig;
     }
 
-    function getInfoHome($typeLogement, $selectedEquipements, $selectedServices, $city, $minPrice, $maxPrice)
+    function getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $city, $minPrice, $maxPrice)
     {
         require_once __DIR__ . '/../models/Database.php';
         require_once __DIR__ . '/../models/Accomodation.php';
@@ -27,45 +27,45 @@ class HomeController
         }
         $conditions[] = "price BETWEEN '$minPrice' AND '$maxPrice'";
 
-        if ($typeLogement != '') {
-            $conditions[] = "typeLogement = '$typeLogement'";
+        if ($accomodationType != '') {
+            $conditions[] = "accomodationType = '$accomodationType'";
         }
         if ($city != '') {
             $conditions[] = "city = '$city'";
         }
 
-        if (!empty($selectedEquipements)) {
-            $equipementsCondition = implode(',', $selectedEquipements);
-            $nbEquipements = count($selectedEquipements);
-            $conditions[] = "annonceID IN (SELECT annonceID FROM EquipementAnnonce WHERE equipementID IN ($equipementsCondition)
-                                            GROUP BY annonceID
-                                            HAVING COUNT(annonceID) = $nbEquipements)";
+        if (!empty($selectedEquipments)) {
+            $equipmentsCondition = implode(',', $selectedEquipments);
+            $nbEquipments = count($selectedEquipments);
+            $conditions[] = "accomodationID IN (SELECT accomodationID FROM EquipmentAccomodation WHERE equipmentID IN ($equipmentsCondition)
+                                            GROUP BY accomodationID
+                                            HAVING COUNT(accomodationID) = $nbEquipments)";
         }
         if (!empty($selectedServices)) {
             $servicesCondition = implode(',', $selectedServices);
             $nbServices = count($selectedServices);
-            $conditions[] = "annonceID IN (SELECT annonceID FROM ServiceAnnonce WHERE serviceID IN ($servicesCondition)
-                                             GROUP BY annonceID
-                                            HAVING COUNT(annonceID) = $nbServices)";
+            $conditions[] = "accomodationID IN (SELECT accomodationID FROM ServiceAccomodation WHERE serviceID IN ($servicesCondition)
+                                             GROUP BY accomodationID
+                                            HAVING COUNT(accomodationID) = $nbServices)";
         }
         $whereClause = '';
 
         if (!empty($conditions)) {
             $whereClause = 'WHERE ' . implode(' AND ', $conditions);
         }
-        // echo $whereClause; //TODO
-        $tabAnnonce = $accomodation->getAnnonce($whereClause);
-        $tabTypeLogement = $database->getTypeLogement();
+        //echo $whereClause; //TODO
+        $tabAccomodation = $accomodation->getAccomodation($whereClause);
+        $tabAccomodationType = $database->getAccomodationType();
         $tabService = $database->getService();
-        $tabEquipement = $database->getEquipement();
+        $tabEquipment = $database->getEquipment();
 
         echo $this->twig->render(
             'home.php',
             [
-                'annonces' => $tabAnnonce,
-                'typeLogements' => $tabTypeLogement,
+                'accomodations' => $tabAccomodation,
+                'accomodationTypes' => $tabAccomodationType,
                 'services' => $tabService,
-                'equipements' => $tabEquipement
+                'equipments' => $tabEquipment
             ]
         );
     }

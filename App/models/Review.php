@@ -20,7 +20,7 @@ class Review
 
         $rqt = "SELECT r.*, a.* 
             FROM Review r
-            JOIN Annonce a on a.annonceID = r.annonceID
+            JOIN Accomodation a on a.accomodationID = r.accomodationID
             WHERE userID = :userID
             ORDER BY r.grade desc;";
 
@@ -35,16 +35,16 @@ class Review
         }
     }
 
-    public function getReviewFromAnnonce($annonceID)
+    public function getReviewFromAccomodation($accomodationID)
     {
 
         $rqt = "SELECT r.*, u.name, u.surname 
             FROM Review r
             JOIN User u on u.userID = r.userID
-            WHERE r.annonceID = :annonceID";
+            WHERE r.accomodationID = :accomodationID";
 
         $stmt = $this->conn->prepare($rqt);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -54,11 +54,11 @@ class Review
         }
     }
 
-    public function insertReview($annonceID, $grade, $comment, $date)
+    public function insertReview($accomodationID, $grade, $comment, $date)
     {
         $userID = $_SESSION['userID'];
-        $existingRecord = $this->getExistingReview($userID, $annonceID, $date);
-        $hasReservation = $this->reservation->checkUserReservation($userID, $annonceID);
+        $existingRecord = $this->getExistingReview($userID, $accomodationID, $date);
+        $hasReservation = $this->reservation->checkUserReservation($userID, $accomodationID);
 
 
         if ($existingRecord) {
@@ -67,19 +67,19 @@ class Review
         }
 
         if ($hasReservation) {
-            $rqt = "INSERT INTO Review (userID, annonceID, grade, comment, date) VALUES (:userID, :annonceID, :grade, :comment, :date)";
+            $rqt = "INSERT INTO Review (userID, accomodationID, grade, comment, date) VALUES (:userID, :accomodationID, :grade, :comment, :date)";
             $stmt = $this->conn->prepare($rqt);
             $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-            $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+            $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
             $stmt->bindParam(':grade', $grade, PDO::PARAM_INT);
             $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
             $stmt->bindParam(':date', $date, PDO::PARAM_STR);
 
             if ($stmt->execute()) {
-                $updateRqt = "UPDATE Reservation SET hasReviewed = TRUE WHERE userID = :userID AND annonceID = :annonceID";
+                $updateRqt = "UPDATE Reservation SET hasReviewed = TRUE WHERE userID = :userID AND accomodationID = :accomodationID";
                 $updateStmt = $this->conn->prepare($updateRqt);
                 $updateStmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-                $updateStmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+                $updateStmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
                 $updateStmt->execute();
                 $_SESSION['successMsg'] = "Avis bien posté";
                 return true;
@@ -92,12 +92,12 @@ class Review
         }
     }
 
-    private function getExistingReview($userID, $annonceID, $date)
+    private function getExistingReview($userID, $accomodationID, $date)
     {
-        $rqt = "SELECT * FROM Review WHERE userID = :userID AND annonceID = :annonceID AND date = :date";
+        $rqt = "SELECT * FROM Review WHERE userID = :userID AND accomodationID = :accomodationID AND date = :date";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':annonceID', $annonceID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -108,9 +108,9 @@ class Review
     {
         $rqt = "SELECT r.*, a.*, u.*
                 FROM Review r
-                JOIN Annonce a on a.annonceID = r.annonceID
+                JOIN Accomodation a on a.accomodationID = r.accomodationID
                 JOIN User u on u.userID = r.userID
-                ORDER BY r.annonceID asc;";
+                ORDER BY r.accomodationID asc;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

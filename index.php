@@ -43,12 +43,12 @@ if (isset($_SESSION['errorMsg'])) {
     unset($_SESSION['errorMsg']);
 }
 
-if (isset($_GET['typeLogement'])) {
-    $typeLogement = $_GET['typeLogement'];
-    $twig->addGlobal('typeLogement', $typeLogement);
+if (isset($_GET['accomodationType'])) {
+    $accomodationType = $_GET['accomodationType'];
+    $twig->addGlobal('accomodationType', $accomodationType);
 } else {
-    $typeLogement = '';
-    $twig->addGlobal('typeLogement', $typeLogement);
+    $accomodationType = '';
+    $twig->addGlobal('accomodationType', $accomodationType);
 }
 
 
@@ -64,13 +64,13 @@ switch ($route) {
     case '':
     case '/':
         $controller = new HomeController($twig);
-        $typeLogement = isset($_GET['typeLogement']) ? $_GET['typeLogement'] : '';
+        $accomodationType = isset($_GET['accomodationType']) ? $_GET['accomodationType'] : '';
         $ville = isset($_GET['city']) ? $_GET['city'] : '';
         $minPrice = isset($_GET['min-price']) ? $_GET['min-price'] : '';
         $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : '';
-        $selectedEquipements = isset($_GET['selectedEquipements']) ? $_GET['selectedEquipements'] : [];
+        $selectedEquipments = isset($_GET['selectedEquipments']) ? $_GET['selectedEquipments'] : [];
         $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
-        $controller->getInfoHome($typeLogement, $selectedEquipements, $selectedServices, $ville, $minPrice, $maxPrice);
+        $controller->getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $ville, $minPrice, $maxPrice);
 
         break;
 
@@ -79,30 +79,30 @@ switch ($route) {
         break;
 
     case '/inscription':
-        echo $twig->render('inscriptionView.php');
+        echo $twig->render('registerView.php');
         break;
 
-    case '/detailsLogement':
-        $controller = new DetailsAnnonceController($twig);
-        $controller->getDetailsAnnonce($id);
+    case '/accomodation':
+        $controller = new DetailsAccomodationController($twig);
+        $controller->getDetailsAccomodation($id);
         break;
 
-    case '/detailsCompte':
+    case '/myAccount':
         $controller = new GetInfoUserController($twig);
         $controller->getInfoUser();
         break;
 
-    case '/favoris':
+    case '/myFavorites':
         $controller = new FavoriteController($twig);
-        $controller->loadAnnonceFavorite();
+        $controller->loadAccomodationFavorite();
         break;
 
-    case '/avis':
+    case '/myReviews':
         $controller = new ReviewController($twig);
-        $controller->getAvis();
+        $controller->getReview();
         break;
 
-    case '/reservation':
+    case '/myReservations':
         $controller = new ReservationController($twig);
         $controller->getReservation();
         break;
@@ -122,8 +122,8 @@ switch ($route) {
         $controller->processFavorite($_GET['action'], $_GET['id']);
         break;
 
-    case '/process_avis':
-        $controller = new ProcessAvisController();
+    case '/process_review':
+        $controller = new ProcessReviewController();
         $controller->insertAvis($_GET['id']);
         break;
 
@@ -148,18 +148,18 @@ switch ($route) {
         $controller->processDeconnection();
         break;
 
-    case '/addAnnonce':
+    case '/addAccomodation':
         $controller = new AddAnnonceController($twig);
         $controller->addAnnonce();
         break;
 
-    case '/processAnnonce':
+    case '/processAccomodation':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $controller = new ProcessAnnonceController();
+        $controller = new ProcessAccomodationController();
         $controller->processAnnonce($_GET['action'], $id);
         break;
 
-    case '/detailsUtilisateur':
+    case '/allUsers':
         $controller = new GetAllUserController($twig);
         $controller->getAllUser();
         break;
@@ -170,7 +170,7 @@ switch ($route) {
         $controller->processUser($_GET['action'], $id);
         break;
 
-    case '/detailsAvis':
+    case '/allReviews':
         $controller = new GetAllReviewController($twig);
         $controller->getAllReview();
         break;
@@ -180,8 +180,8 @@ switch ($route) {
         $controller->deleteReview($_GET['id']);
         break;
 
-    case '/detailsTypesLogementEquipementsServices':
-        $controller = new DetailsTypesLogementEquipementsServicesController($twig);
+    case '/detailsEquipmentServiceAccomodationType':
+        $controller = new DetailsEquipmentServiceAccomodationTypeController($twig);
         $controller->getTypesLogementEquipementsServices();
         break;
 

@@ -7,7 +7,7 @@
 <div class="zone-annonce">
     {% for review in reviews %}
 
-    <a href="/detailsLogement/{{ review.annonceID }}" id="lien-annonce">
+    <a href="/detailsLogement/{{ review.accomodationID }}" id="lien-annonce">
         <div class="annonce">
             <img src="Public/assets/images/{{review.image}}" id="img-annonce-home" alt="image-{{ review.image }}">
             <div class="zone-prix">{{ review.price }} €/nuit</div>
