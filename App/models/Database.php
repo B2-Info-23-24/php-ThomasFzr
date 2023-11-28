@@ -624,10 +624,11 @@ class Database
             $_SESSION['errorMsg'] = "Un compte existe déjà avec cette adresse mail.";
             return false;
         } else {
+            $hash = password_hash($pwd, PASSWORD_DEFAULT);
             $sql = "INSERT INTO User (mail, pwd, isAdmin, name, surname, phoneNbr) VALUES (:mail,:pwd,:isAdmin,:name,:surname,:phoneNbr)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':mail', $mail, PDO::PARAM_STR);
-            $stmt->bindParam(':pwd', $pwd, PDO::PARAM_STR);
+            $stmt->bindParam(':pwd', $hash, PDO::PARAM_STR);
             $stmt->bindParam(':isAdmin', $isAdmin, PDO::PARAM_INT);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':surname', $surname, PDO::PARAM_STR);

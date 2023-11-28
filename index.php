@@ -164,14 +164,10 @@ switch ($route) {
         $controller->addAnnonce();
         break;
 
-    case '/processAddAnnonce':
-        $controller = new ProcessAddAnnonceController();
-        $controller->addAnnonce();
-        break;
-
-    case '/deleteAnnonce':
-        $controller = new DeleteAnnonceController();
-        $controller->deleteAnnonce($_GET['id']);
+    case '/processAnnonce':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessAnnonceController();
+        $controller->processAnnonce($_GET['action'], $id);
         break;
 
     case '/detailsUtilisateur':
@@ -179,14 +175,10 @@ switch ($route) {
         $controller->getAllUser();
         break;
 
-    case '/addUser':
-        $controller = new AddUserController();
-        $controller->addUser();
-        break;
-
-    case '/deleteUser':
-        $controller = new DeleteUserController();
-        $controller->deleteUser($_GET['id']);
+    case '/processUser':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessUserController();
+        $controller->processUser($_GET['action'], $id);
         break;
 
     case '/detailsAvis':

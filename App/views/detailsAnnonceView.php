@@ -117,7 +117,7 @@
         {% if isAdmin %}
         <br><br>
         {% for info in infoAnnonce %}
-        <a href="/deleteAnnonce?id={{ info.annonceID }}">
+        <a href="/processAnnonce?action=delete&id={{ info.annonceID }}">
             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
         </a>
         {% endfor %}

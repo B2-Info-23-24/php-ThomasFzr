@@ -6,14 +6,9 @@
 <div class="flex-container-details-logement">
     <div class="flex-child-details-logement left">
 
-        <form action="/processAddAnnonce" method="post">
+        <form action="/processAnnonce?action=add" method="post">
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-details-annonce">
             <br>
-
-
-
-
-
             <div class="description-annonce">
                 Image: <input type="file" name="image" accept="image/png, image/jpeg" /><br>
                 Titre: <input type="text" name="title" placeholder="Nom" required> <br><br>

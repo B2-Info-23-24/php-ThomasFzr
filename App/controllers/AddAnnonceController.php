@@ -1,16 +1,11 @@
 <?php
 class AddAnnonceController
 {
-
-
     private $twig;
-
-
     public function __construct($twig)
     {
         $this->twig = $twig;
     }
-
 
     public function addAnnonce()
     {

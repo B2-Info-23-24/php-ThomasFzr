@@ -14,7 +14,7 @@
             <input type="email" id="email" name="email" placeholder="Adresse mail" required autofocus><i class="validation"><span></span><span></span></i>
         </p>
         <p>
-            <input type="text" id="password" name="password" placeholder="Mot de passe" required><i class="validation"><span></span><span></span></i>
+            <input type="password" id="password" name="password" placeholder="Mot de passe" required><i class="validation"><span></span><span></span></i>
         </p>
         <p>
             <input type="submit" id="register" value="S'INSCRIRE">
