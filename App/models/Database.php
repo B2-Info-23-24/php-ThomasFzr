@@ -46,9 +46,9 @@ class Database
                 CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID), UNIQUE (userID, accomodationID));
                 CREATE TABLE AccomodationType (accomodationTypeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
                 CREATE TABLE Equipment (equipmentID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
-                CREATE TABLE EquipmentAccomodation (equipmentAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipmentID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (equipmentID) REFERENCES Equipment(equipmentID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID));
+                CREATE TABLE EquipmentAccomodation (equipmentAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipmentID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (equipmentID) REFERENCES Equipment(equipmentID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID) UNIQUE (equipmentID, accomodationID));
                 CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
-                CREATE TABLE ServiceAccomodation (serviceAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID));";
+                CREATE TABLE ServiceAccomodation (serviceAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID) UNIQUE (serviceID, accomodationID));";
                 $this->conn->exec($sql);
                 return true;
             } else {

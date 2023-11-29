@@ -19,24 +19,67 @@
             {% if equipments is not empty %}
             <ul>
                 {% for equipment in equipments %}
-                <li> {{equipment.name}}</li>
+                <li> {{equipment.name}}
+                    {% if isAdmin %}
+                    {% for info in infoAccomodation %}
+                    <a href="/processAccomodation?action=deleteEquipment&id={{info.accomodationID}}&equipmentID={{equipment.equipmentID}}">
+                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                    </a>
+                    {% endfor%}
+                    {% endif%}
+                </li>
                 {% endfor%}
             </ul>
             {% else %}
             <br><br>Aucun équipement disponible. <br><br>
             {% endif%}
 
+            {% if isAdmin %}
+            {% for info in infoAccomodation %}
+            <form action="/processAccomodation?action=addEquipment&id={{info.accomodationID}}" method="post">
+                {% endfor %}
+                <select name="equipmentID" required>
+                    <option disabled> Choisir un équipement</option>
+                    {% for equipment in allEquipments%}
+                    <option value="{{equipment.equipmentID}}">{{equipment.name}}</option>
+                    {%endfor%}
+                </select>
+                <input type="submit" value="Ajouter">
+            </form><br>
+            {% endif %}
 
             Services disponibles:
             {% if services is not empty %}
             <ul>
                 {% for service in services %}
-                <li> {{service.name}}</li>
+                <li> {{service.name}}
+                    {% if isAdmin %}
+                    {% for info in infoAccomodation %}
+                    <a href="/processAccomodation?action=deleteService&id={{info.accomodationID}}&serviceID={{service.serviceID}}">
+                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                    </a>
+                    {% endfor%}
+                    {% endif%}
+                </li>
                 {% endfor%}
             </ul>
             {% else %}
             <br><br>Aucun service disponible.<br>
             {% endif%}
+
+            {% if isAdmin %}
+            {% for info in infoAccomodation %}
+            <form action="/processAccomodation?action=addService&id={{ info.accomodationID }}" method="post">
+                {% endfor%}
+                <select name="serviceID" required>
+                    <option disabled> Choisir un service</option>
+                    {% for service in allServices %}
+                    <option value="{{service.serviceID}}">{{service.name}}</option>
+                    {%endfor%}
+                </select>
+                <input type="submit" value="Ajouter">
+            </form><br>
+            {% endif %}
         </div>
         <br>
 
@@ -119,8 +162,9 @@
         {% if isAdmin %}
         <br><br>
         {% for info in infoAccomodation %}
-        <a href="/processAccomodation?action=delete&id={{ info.accomodationID }}">
+        <a href="/processAccomodation?action=deleteAccomodation&id={{ info.accomodationID }}">
             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+            Supprimer l'annonce
         </a>
         {% endfor %}
         {% endif %}

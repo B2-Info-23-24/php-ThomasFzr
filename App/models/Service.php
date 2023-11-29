@@ -105,4 +105,51 @@ class Service
             return false;
         }
     }
+
+    //Ajouter un service a une annonce
+    public function addServiceToAccomodation($accomodationID, $serviceID,)
+    {
+        $rowExist = "SELECT * FROM ServiceAccomodation
+                    WHERE serviceID=:serviceID 
+                    AND accomodationID=:accomodationID;";
+        $count = $this->conn->prepare($rowExist);
+        $count->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
+        $count->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $count->execute();
+        if ($count->rowCount() > 0) {
+            $_SESSION['errorMsg'] = "Service déjà présent dans cette annonce.";
+            return false;
+        } else {
+            $rqt = "INSERT INTO ServiceAccomodation (serviceID,  accomodationID)
+                VALUES (:serviceID, :accomodationID);";
+            $stmt = $this->conn->prepare($rqt);
+            $stmt->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
+            $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                $_SESSION['successMsg'] = "Equipement ajouté à cette annonce!";
+                return true;
+            } else {
+                $_SESSION['errorMsg'] = "Equipement non ajouté à cette annonce.";
+                return false;
+            }
+        }
+    }
+
+    //Ajouter un service a une annonce
+    public function deleteServiceOfAccomodation($accomodationID, $serviceID)
+    {
+        $rqt = "DELETE FROM ServiceAccomodation 
+                WHERE serviceID = :serviceID
+                AND accomodationID = :accomodationID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "Service supprimé de cette annonce!";
+            return true;
+        } else {
+            $_SESSION['errorMsg'] = "Service non supprimé de cette annonce.";
+            return false;
+        }
+    }
 }

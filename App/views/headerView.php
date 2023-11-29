@@ -11,7 +11,7 @@
                 <div id="container-rightheader-topleft">
 
                     {% if isAdmin %}
-                    Compte admin
+                    Compte admin 🔧
                     {% elseif surname is defined %}
                     Bonjour, {{surname}}!
                     {% else %}
