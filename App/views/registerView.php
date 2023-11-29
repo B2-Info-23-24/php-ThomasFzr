@@ -9,7 +9,7 @@
 </br></br>
 <div id="register-form-wrap">
     <h2>Inscription</h2>
-    <form id="register-form" action="/process_register" method="post">
+    <form id="register-form" action="/processRegister" method="post">
         <p>
             <input type="email" id="email" name="email" placeholder="Adresse mail" required autofocus><i class="validation"><span></span><span></span></i>
         </p>

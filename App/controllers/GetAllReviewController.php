@@ -12,13 +12,22 @@ class GetAllReviewController
     {
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Review.php';
+            require_once __DIR__ . '/../models/User.php';
+            require_once __DIR__ . '/../models/Accomodation.php';
             $review = new Review();
+            $user = new User();
+            $accomodation = new Accomodation();
+
             $reviews = $review->getAllReview();
+            $users = $user->getAllUser();
+            $accomodations = $accomodation->getAccomodation(''); 
 
             echo $this->twig->render(
                 'allReviewView.php',
                 [
                     'reviews' => $reviews,
+                    'users' => $users,
+                    'accomodations' => $accomodations
                 ]
             );
         } else {

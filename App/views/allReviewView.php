@@ -7,7 +7,7 @@
 <div class="zone-annonce">
     {% for review in reviews %}
 
-    <a href="/detailsLogement/{{ review.accomodationID }}" id="lien-annonce">
+    <a href="/accomodation/{{ review.accomodationID }}" id="lien-annonce">
         <div class="annonce">
             <img src="Public/assets/images/{{review.image}}" id="img-annonce-home" alt="image-{{ review.image }}">
             <div class="zone-prix">{{ review.price }} €/nuit</div>
@@ -28,7 +28,7 @@
                     <br>
                     {{ review.comment }}<br>
 
-                    <a href="/deleteReview?id={{review.reviewID}}">
+                    <a href="/processReview?action=delete&id={{review.reviewID}}">
                         <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                     </a>
 
@@ -36,8 +36,53 @@
             </div>
         </div>
     </a>
-
     {% endfor %}
+
+    <a href="javascript:void(0)" id="btn-plus">
+        <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+    </a>
+
+    <div id="add-user" class="profil-card" style="display: none;">
+        <form action="/processReview?action=add" method="post">
+            Utilisateur : <select name="userID" required>
+                <option disabled> Choisir un utilisateur</option>
+                {% for user in users%}
+                <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
+                {%endfor%}
+            </select><br><br>
+            Annonce: <select name="accomodationID" required>
+                <option disabled> Choisir une annonce</option>
+                {% for accomodation in accomodations%}
+                <option value="{{accomodation.accomodationID}}">{{accomodation.title}}, Id: {{accomodation.accomodationID}}</option>
+                {%endfor%}
+            </select><br><br>
+            Note: <input type="number" name="grade" placeholder="/5" min="0" max="5" required> <br><br>
+            Commentaire: <input type="text" name="comment" placeholder="Ajouter un commentaire" required> <br><br>
+            Date: <input type="date" name="date" required><br><br>
+            <input type="submit" value="Ajouter">
+        </form>
+    </div>
 </div>
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var btnPlus = document.getElementById('btn-plus');
+        var addUser = document.getElementById('add-user');
+
+        btnPlus.addEventListener('click', function() {
+            console.log('Button clicked!');
+            console.log('Before toggle:', addUser.style.display);
+
+            if (addUser.style.display === 'none' || addUser.style.display === '') {
+                addUser.style.display = 'block';
+            } else {
+                addUser.style.display = 'none';
+            }
+
+            console.log('After toggle:', addUser.style.display);
+        });
+
+    });
+</script>
 {% endblock %}

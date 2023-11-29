@@ -9,7 +9,7 @@
 </br></br>
 <div id="login-form-wrap">
     <h2>Connexion</h2>
-    <form id="login-form" action="/process_login" method="post">
+    <form id="login-form" action="/processLogin" method="post">
         <p>
             <input type="email" id="email" name="email" placeholder="Adresse mail" required autofocus><i class="validation"><span></span><span></span></i>
         </p>

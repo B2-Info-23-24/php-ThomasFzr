@@ -50,7 +50,7 @@
         {% if userID is not null %}
         {% for info in infoAccomodation %}
         <div id="zone-laisser-avis">
-            <form action="/process_review?id={{info.accomodationID}}" method="post">
+            <form action="/addUniqueReview?id={{info.accomodationID}}" method="post">
                 <input type="number" name="grade" placeholder="Note" required min="0" max="5">
                 <input type="text" name="comment" placeholder="Laisser un commentaire" required>
                 <input type="submit" value="ENVOYER L'AVIS">
@@ -89,11 +89,11 @@
 
         {% if userID is not null %}
         {% if isInFavorite %}
-        <form action="/process_favorite?action=remove&id={{ info.accomodationID }}" method="post">
+        <form action="/processFavorite?action=remove&id={{ info.accomodationID }}" method="post">
             <input type="submit" value="RETIRER DES FAVORIS 💔"><br><br>
         </form>
         {% else %}
-        <form action="/process_favorite?action=add&id={{ info.accomodationID }}" method="post">
+        <form action="/processFavorite?action=add&id={{ info.accomodationID }}" method="post">
             <input type="submit" value="AJOUTER EN FAVORIS 🩷"><br><br>
         </form>
         {% endif %}
@@ -104,7 +104,7 @@
         {% if userID is not null %}
         {{ info.price }} € x <span id="differenceInDays"> 1</span><br><br>
 
-        <form action="/process_reservation?id={{info.accomodationID}}" method="post">
+        <form action="/processReservation?id={{info.accomodationID}}" method="post">
             Date de début: <input type="date" name="startDate" id="startDate" required> <br>
             Date de fin: <input type="date" name="endDate" id="endDate" required> <br><br>
             <input type="hidden" name="price" value="{{ info.price }}">

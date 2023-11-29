@@ -16,7 +16,7 @@
                 Prix: <input type="number" name="price" placeholder="Prix à la nuit" required><br><br>
                 Type de logement:
                 <select name="typeLogement" required>
-                    <option value="">Choisir un type de logement</option>
+                    <option disabled>Choisir un type de logement</option>
                     {% for accomodationType in accomodationTypes%}
                     <option value="{{accomodationType.name}}">{{accomodationType.name}}</option>
                     {% endfor %}
