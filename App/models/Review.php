@@ -103,7 +103,9 @@ class Review
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    //ADMIN
+    //===== ADMIN =====
+
+    //Recuperer tous les avis
     function getAllReview()
     {
         $rqt = "SELECT r.*, a.*, u.*
@@ -116,17 +118,43 @@ class Review
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //Ajouter un avis
+    function addReview($userID, $accomodationID, $grade, $comment, $date)
+    {
+        $rqt = "INSERT INTO Review (userID, accomodationID, grade, comment, date) VALUES (:userID, :accomodationID, :grade, :comment, :date);";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $stmt->bindParam(':grade', $grade, PDO::PARAM_INT);
+        $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "Avis ajouté!";
+            return true;
+        } else {
+            $_SESSION['errorMsg'] = "Avis non ajouté.";
+            return false;
+        }
+    }
+
+    //Supprimer un avis
     function deleteReview($reviewID)
     {
         $rqt = "DELETE FROM Review WHERE reviewID = :reviewID;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':reviewID', $reviewID, PDO::PARAM_INT);
         if ($stmt->execute()) {
-            $_SESSION['successMsg'] = "Commentaire supprimé!";
+            $_SESSION['successMsg'] = "Avis supprimé!";
             return true;
         } else {
-            $_SESSION['errorMsg'] = "Commentaire non supprimé.";
+            $_SESSION['errorMsg'] = "Avis non supprimé.";
             return false;
         }
+    }
+
+    //Modifier un avis
+    function modifyReview($userID, $accomodationID, $grade, $comment, $date, $reviewId)
+    {
     }
 }

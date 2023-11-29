@@ -108,27 +108,27 @@ switch ($route) {
         $controller->getReservation();
         break;
 
-    case '/process_login':
+    case '/processLogin':
         $controller = new LoginController();
         $controller->processLogin();
         break;
 
-    case '/process_register':
+    case '/processRegister':
         $controller = new RegisterController();
         $controller->processRegister();
         break;
 
-    case '/process_favorite':
+    case '/processFavorite':
         $controller = new ProcessFavoriteController();
         $controller->processFavorite($_GET['action'], $_GET['id']);
         break;
 
-    case '/process_review':
-        $controller = new ProcessReviewController();
-        $controller->insertAvis($_GET['id']);
+    case '/addUniqueReview':
+        $controller = new addUniqueReviewController();
+        $controller->addReview($_GET['id']);
         break;
 
-    case '/process_reservation':
+    case '/processReservation':
         $controller = new ProcessReservationController();
         $controller->insertReservation($_GET['id']);
         break;
@@ -150,8 +150,8 @@ switch ($route) {
         break;
 
     case '/addAccomodation':
-        $controller = new AddAnnonceController($twig);
-        $controller->addAnnonce();
+        $controller = new AddAccomodationController($twig);
+        $controller->AddAccomodation();
         break;
 
     case '/processAccomodation':
@@ -176,9 +176,10 @@ switch ($route) {
         $controller->getAllReview();
         break;
 
-    case '/deleteReview':
-        $controller = new DeleteReviewController();
-        $controller->deleteReview($_GET['id']);
+    case '/processReview':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessReviewController();
+        $controller->processReview($_GET['action'], $id);
         break;
 
     case '/detailsEquipmentServiceAccomodationType':

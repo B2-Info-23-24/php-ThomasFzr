@@ -16,20 +16,20 @@
                 Prix: <input type="number" name="price" placeholder="Prix à la nuit" required><br><br>
                 Type de logement:
                 <select name="typeLogement" required>
-                    <option value="">Choisir un type de logement</option>
-                    {% for typeLogement in typesLogement%}
-                    <option value="{{typeLogement.name}}">{{typeLogement.name}}</option>
+                    <option disabled>Choisir un type de logement</option>
+                    {% for accomodationType in accomodationTypes%}
+                    <option value="{{accomodationType.name}}">{{accomodationType.name}}</option>
                     {% endfor %}
                 </select><br><br>
 
                 Equipements disponibles:<br><br>
-                {% for equipment in equipements%}
-                {{equipment.name}} <input type="checkbox" value="{{equipment.equipmentID}}">
+                {% for equipment in equipments%}
+                {{equipment.name}} <input type="checkbox" value="{{equipment.equipmentID}}" name="selectedEquipment[]">
                 {% endfor %}<br><br>
 
                 Services disponibles:<br><br>
                 {% for service in services %}
-                {{service.name}} <input type="checkbox" value="{{service.serviceID}}">
+                {{service.name}} <input type="checkbox" value="{{service.serviceID}}" name="selectedService[]">
                 {% endfor %}<br><br>
 
                 <input type="submit">

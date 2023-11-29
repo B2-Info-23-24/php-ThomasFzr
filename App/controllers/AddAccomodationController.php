@@ -1,5 +1,5 @@
 <?php
-class AddAnnonceController
+class AddAccomodationController
 {
     private $twig;
     public function __construct($twig)
@@ -7,19 +7,24 @@ class AddAnnonceController
         $this->twig = $twig;
     }
 
-    public function addAnnonce()
+    public function AddAccomodation()
     {
         if (isset($_SESSION['isAdmin'])) {
-            require_once __DIR__ . '/../models/Database.php';
-            $db = new Database();
-            $typesLogement = $db->getAccomodationType();
-            $equipments = $db->getEquipment();
-            $services = $db->getService();
+            require_once __DIR__ . '/../models/AccomodationType.php';
+            require_once __DIR__ . '/../models/Service.php';
+            require_once __DIR__ . '/../models/Equipment.php';
+            $accoType = new AccomodationType();
+            $service = new Service();
+            $equipment = new Equipment();
+
+            $accomodationTypes = $accoType->getAccomodationType();
+            $equipments = $equipment->getEquipment();
+            $services = $service->getService();
 
             echo $this->twig->render(
                 'addAccomodationView.php',
                 [
-                    'typesLogement' => $typesLogement,
+                    'accomodationTypes' => $accomodationTypes,
                     'equipments' => $equipments,
                     'services' => $services
                 ]
