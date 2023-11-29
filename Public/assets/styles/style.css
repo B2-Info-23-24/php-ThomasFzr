@@ -529,10 +529,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 .flex-container-TES {
     display: flex;
     margin-left: 50px;
+    margin-top: 50px;
 }
 
 .flex-child-TES {
     flex: 1;
+    margin-left: 30px;
+
 }
 
 .flex-child-TES:first-child {
@@ -541,7 +544,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .flex-child-TES:last-child {
-    padding-left: 20px;
+    padding-left: 50px;
     border-left: 2px solid;
 }
 
@@ -559,6 +562,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .flex-container-favoReser {
     display: flex;
     margin-left: 50px;
+    margin-top: 50px;
 }
 
 .flex-child-favoReser {
@@ -568,4 +572,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .flex-child-favoReser:first-child {
     margin-right: 20px;
     border-right: 2px solid;
+}
+.flex-child-favoReser:last-child {
+    margin-left: 30px;
 }

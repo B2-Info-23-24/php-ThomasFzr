@@ -105,4 +105,51 @@ class Equipment
             return false;
         }
     }
+
+    //Ajouter un equipment a une annonce
+    public function addEquipmentToAccomodation($accomodationID, $equipmentID,)
+    {
+        $rowExist = "SELECT * FROM EquipmentAccomodation
+                    WHERE equipmentID=:equipmentID 
+                    AND accomodationID=:accomodationID;";
+        $count = $this->conn->prepare($rowExist);
+        $count->bindParam(':equipmentID', $equipmentID, PDO::PARAM_INT);
+        $count->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $count->execute();
+        if ($count->rowCount() > 0) {
+            $_SESSION['errorMsg'] = "Equipement déjà présent dans cette annonce.";
+            return false;
+        } else {
+            $rqt = "INSERT INTO EquipmentAccomodation (equipmentID,  accomodationID)
+                VALUES (:equipmentID, :accomodationID);";
+            $stmt = $this->conn->prepare($rqt);
+            $stmt->bindParam(':equipmentID', $equipmentID, PDO::PARAM_INT);
+            $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                $_SESSION['successMsg'] = "Equipement ajouté à cette annonce!";
+                return true;
+            } else {
+                $_SESSION['errorMsg'] = "Equipement non ajouté à cette annonce.";
+                return false;
+            }
+        }
+    }
+
+    //Ajouter un equipment a une annonce
+    public function deleteEquipmentOfAccomodation($accomodationID, $equipmentID)
+    {
+        $rqt = "DELETE FROM EquipmentAccomodation 
+                WHERE equipmentID = :equipmentID
+                AND accomodationID = :accomodationID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':equipmentID', $equipmentID, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "Equipement supprimé de cette annonce!";
+            return true;
+        } else {
+            $_SESSION['errorMsg'] = "Equipement non supprimé de cette annonce.";
+            return false;
+        }
+    }
 }

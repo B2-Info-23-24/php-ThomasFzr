@@ -32,6 +32,9 @@ class DetailsAccomodationController
         $tabEquipment = $equipment->getEquipmentFromAccomodation($accomodationID);
         $tabReview = $review->getReviewFromAccomodation($accomodationID);
         $averageGrade = $this->calculateAverageGrade($tabReview);
+        $allEquipments = $equipment->getEquipment();
+        $allServices = $service->getService();
+
         $userID = null;
         $isInFavorite = null;
 
@@ -46,7 +49,10 @@ class DetailsAccomodationController
             'isInFavorite' => $isInFavorite,
             'tabReview' => $tabReview,
             'averageGrade' => $averageGrade,
-            'userID' => $userID
+            'userID' => $userID,
+            'allEquipments' => $allEquipments,
+            'allServices' => $allServices
+
         ]);
     }
 

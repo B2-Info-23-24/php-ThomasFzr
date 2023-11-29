@@ -187,10 +187,10 @@ switch ($route) {
         $controller->getTypesLogementEquipementsServices();
         break;
 
-        case '/allFavoritesReservations':
-            $controller = new GetAllFavoriteReservationController($twig);
-            $controller->getTypesLogementEquipementsServices();
-            break;
+    case '/allFavoritesReservations':
+        $controller = new GetAllFavoriteReservationController($twig);
+        $controller->getTypesLogementEquipementsServices();
+        break;
 
     case '/processAccomodationType':
         $id = isset($_GET['id']) ? $_GET['id'] : '';

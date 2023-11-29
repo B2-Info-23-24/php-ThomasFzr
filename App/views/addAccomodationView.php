@@ -6,7 +6,7 @@
 <div class="flex-container-details-logement">
     <div class="flex-child-details-logement left">
 
-        <form action="/processAccomodation?action=add" method="post">
+        <form action="/processAccomodation?action=addAccomodation" method="post">
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-details-annonce">
             <br>
             <div class="description-annonce">
