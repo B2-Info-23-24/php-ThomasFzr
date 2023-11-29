@@ -13,7 +13,7 @@ class ProcessAccomodationTypeController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $accoTypeName = $_POST["accoTypeName"];
             if ($this->accoType->addAccomodationType($accoTypeName)) {
-                header('Location: /detailsEquipmentServiceAccomodationType');
+                header('Location: /allEquipmentServiceAccomodationType');
             }
         }
     }
@@ -21,7 +21,7 @@ class ProcessAccomodationTypeController
     function deleteAccomodationType($id)
     {
         if ($this->accoType->deleteAccomodationType($id)) {
-            header("Location: /detailsEquipmentServiceAccomodationType");
+            header("Location: /allEquipmentServiceAccomodationType");
         }
     }
 
@@ -29,7 +29,7 @@ class ProcessAccomodationTypeController
     {
         $value = $_POST['accoTypeName'];
         if ($this->accoType->modifyAccomodationType($value, $id)) {
-            header("Location: /detailsEquipmentServiceAccomodationType");
+            header("Location: /allEquipmentServiceAccomodationType");
         }
     }
 

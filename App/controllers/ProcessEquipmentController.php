@@ -13,7 +13,7 @@ class ProcessEquipmentController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $equipmentName = $_POST["equipmentName"];
             if ($this->equipment->addEquipment($equipmentName)) {
-                header('Location: /detailsEquipmentServiceAccomodationType');
+                header('Location: /allEquipmentServiceAccomodationType');
             }
         }
     }
@@ -21,7 +21,7 @@ class ProcessEquipmentController
     function deleteEquipment($id)
     {
         if ($this->equipment->deleteEquipment($id)) {
-            header("Location: /detailsEquipmentServiceAccomodationType");
+            header("Location: /allEquipmentServiceAccomodationType");
         }
     }
 
@@ -29,7 +29,7 @@ class ProcessEquipmentController
     {
         $value = $_POST['equipmentName'];
         if ($this->equipment->modifyEquipment($value, $id)) {
-            header("Location: /detailsEquipmentServiceAccomodationType");
+            header("Location: /allEquipmentServiceAccomodationType");
         }
     }
 
