@@ -55,7 +55,12 @@
                 {% for service in services %}
 
                 <tr>
-                    <td>{{ service.name }}</td>
+                    <td>
+                        <form action="/processService?action=modify&id={{service.serviceID}}" method="post">
+                            <input type="text" placeholder="{{ service.name }}" name="serviceName" required>
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                        </form><br>
+                    </td>
                     <td>
                         <a href="/processService?action=delete&id={{service.serviceID}}">
                             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">

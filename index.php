@@ -195,13 +195,13 @@ switch ($route) {
     case '/processService':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $controller = new ProcessServiceController();
-        // $controller->processUser($_GET['action'], $id);
+        $controller->processService($_GET['action'], $id);
         break;
 
     case '/processEquipment':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $controller = new ProcessEquipmentController();
-        // $controller->processUser($_GET['action'], $id);
+        // $controller->processEquipment($_GET['action'], $id);
         break;
 
     default:
