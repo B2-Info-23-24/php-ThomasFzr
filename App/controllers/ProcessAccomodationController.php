@@ -39,7 +39,7 @@ class ProcessAccomodationController
     }
 
 
-    function processAnnonce($action, $id)
+    function processAccomodation($action, $id)
     {
         if (isset($_SESSION['isAdmin'])) {
             $process = new ProcessAccomodationController();

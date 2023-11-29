@@ -157,7 +157,7 @@ switch ($route) {
     case '/processAccomodation':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $controller = new ProcessAccomodationController();
-        $controller->processAnnonce($_GET['action'], $id);
+        $controller->processAccomodation($_GET['action'], $id);
         break;
 
     case '/allUsers':
@@ -184,6 +184,24 @@ switch ($route) {
     case '/detailsEquipmentServiceAccomodationType':
         $controller = new DetailsEquipmentServiceAccomodationTypeController($twig);
         $controller->getTypesLogementEquipementsServices();
+        break;
+
+    case '/processAccomodationType':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessAccomodationTypeController();
+        $controller->processAccomodationType($_GET['action'], $id);
+        break;
+
+    case '/processService':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessServiceController();
+        // $controller->processUser($_GET['action'], $id);
+        break;
+
+    case '/processEquipment':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessEquipmentController();
+        // $controller->processUser($_GET['action'], $id);
         break;
 
     default:
