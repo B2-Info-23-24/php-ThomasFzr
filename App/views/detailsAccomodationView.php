@@ -11,6 +11,7 @@
         <br>
         <h3>{{ info.title }} ({{info.price}}€/nuit)</h3>
         <div class="description-annonce">
+            Type de logement : {{ info.accomodationType }}<br><br>
             Ville: {{ info.city }}<br><br>
             {% endfor %}
 

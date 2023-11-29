@@ -12,11 +12,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for typeLogement in typesLogement %}
+                {% for accomodationType in accomodationTypes %}
                 <tr>
-                    <td>{{ typeLogement.name }}</td>
                     <td>
-                        <a href="/deleteTypeLogement?id={{typeLogement.typeLogementID}}">
+                        <form action="/processAccomodationType?action=modify&id={{accomodationType.accomodationTypeID}}" method="post">
+                            <input type="text" placeholder="{{accomodationType.name}}" name="accoTypeName" required>
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                        </form><br>
+                    </td>
+                    <td>
+                        <a href="/processAccomodationType?action=delete&id={{accomodationType.accomodationTypeID}}">
                             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                         </a>
                     </td>
@@ -32,8 +37,8 @@
             </tbody>
         </table>
         <div id="add-user1" class="profil-card" style="display: none;">
-            <form action="/addTypeLogement" method="post">
-                Type logement: <input type="text" name="typeLogementName" placeholder="Nom" required> <br><br>
+            <form action="/processAccomodationType?action=add" method="post">
+                Type logement: <input type="text" name="accoTypeName" placeholder="Nom" required> <br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </div>
@@ -50,9 +55,14 @@
                 {% for service in services %}
 
                 <tr>
-                    <td>{{ service.name }}</td>
                     <td>
-                        <a href="/deleteService?id={{service.serviceID}}">
+                        <form action="/processService?action=modify&id={{service.serviceID}}" method="post">
+                            <input type="text" placeholder="{{ service.name }}" name="serviceName" required>
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                        </form><br>
+                    </td>
+                    <td>
+                        <a href="/processService?action=delete&id={{service.serviceID}}">
                             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                         </a>
                     </td>
@@ -68,7 +78,7 @@
             </tbody>
         </table>
         <div id="add-user2" class="profil-card" style="display: none;">
-            <form action="/addService" method="post">
+            <form action="/processService?action=add" method="post">
                 Service: <input type="text" name="serviceName" placeholder="Nom" required> <br><br>
                 <input type="submit" value="Ajouter">
             </form>
@@ -83,11 +93,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for equipement in equipements %}
+                {% for equipment in equipments %}
                 <tr>
-                    <td>{{ equipement.name }}</td>
                     <td>
-                        <a href="/deleteEquipement?id={{equipement.equipementID}}">
+                        <form action="/processEquipment?action=modify&id={{equipment.equipmentID}}" method="post">
+                            <input type="text" placeholder="{{ equipment.name }}" name="equipmentName" required>
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                        </form><br>
+                    </td>
+                    <td>
+                        <a href="/processEquipment?action=delete&id={{equipment.equipmentID}}">
                             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                         </a>
                     </td>
@@ -103,8 +118,8 @@
             </tbody>
         </table>
         <div id="add-user3" class="profil-card" style="display: none;">
-            <form action="/addEquipement" method="post">
-                Equipement : <input type="text" name="equipementName" placeholder="Nom" required> <br><br>
+            <form action="/processEquipment?action=add" method="post">
+                Equipement : <input type="text" name="equipmentName" placeholder="Nom" required> <br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </div>

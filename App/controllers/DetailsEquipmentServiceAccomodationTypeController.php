@@ -12,17 +12,24 @@ class DetailsEquipmentServiceAccomodationTypeController
     {
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Database.php';
+            require_once __DIR__ . '/../models/AccomodationType.php';
+            require_once __DIR__ . '/../models/Service.php';
+            require_once __DIR__ . '/../models/Equipment.php';
             $db = new Database();
-            $equipements = $db->getEquipment();
-            $services = $db->getService();
-            $typesLogement = $db->getAccomodationType();
+            $accoType = new AccomodationType();
+            $service = new Service();
+            $equipment = new Equipment();
+
+            $equipements = $equipment->getEquipment();
+            $services = $service->getService();
+            $typesLogement = $accoType->getAccomodationType();
 
             echo $this->twig->render(
                 'detailsEquipmentServiceAccomodationType.php',
                 [
-                    'equipements' => $equipements,
+                    'equipments' => $equipements,
                     'services' => $services,
-                    'typesLogement' => $typesLogement
+                    'accomodationTypes' => $typesLogement
                 ]
             );
         } else {
