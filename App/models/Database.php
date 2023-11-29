@@ -160,67 +160,6 @@ class Database
         $stmt->execute();
     }
 
-
-    //===== SERVICES TYPES LOGEMENT EQUIPEMENTS =====
-
-    //Récupérer les types de logement
-    public function getAccomodationType()
-    {
-        $rqt = "SELECT * FROM AccomodationType";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    //Récupérer les services
-    public function getService()
-    {
-        $rqt = "SELECT * FROM Service";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    //Récupérer les équipements
-    public function getEquipment()
-    {
-        $rqt = "SELECT * FROM Equipment";
-        $stmt = $this->conn->prepare($rqt);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // Récupérer les services d'une annonce avec leur nom
-    public function getServiceFromAccomodation($accomodationID)
-    {
-        $sql = "SELECT s.* FROM Service s
-            JOIN ServiceAccomodation sa ON s.serviceID = sa.serviceID
-            WHERE sa.accomodationID = :accomodationID";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // Récupérer les équipements d'une annonce avec leur nom
-    public function getEquipmentFromAccomodation($accomodationID)
-    {
-        $sql = "SELECT e.* FROM Equipment e
-            JOIN EquipmentAccomodation ea ON e.equipmentID = ea.equipmentID
-            WHERE ea.accomodationID = :accomodationID";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
-
-
     //===== GENERALES =====
 
     //Update d'une table

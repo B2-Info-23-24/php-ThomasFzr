@@ -17,15 +17,19 @@ class DetailsAccomodationController
         require_once __DIR__ . '/../models/Favorite.php';
         require_once __DIR__ . '/../models/Review.php';
         require_once __DIR__ . '/../models/Accomodation.php';
+        require_once __DIR__ . '/../models/Service.php';
+        require_once __DIR__ . '/../models/Equipment.php';
 
         $database = new Database();
         $favorite = new Favorite();
         $review = new Review();
         $accomodation = new Accomodation();
+        $service = new Service();
+        $equipment = new Equipment();
 
         $infoAccomodation = $accomodation->getDetailsAccomodation($accomodationID);
-        $tabService = $database->getServiceFromAccomodation($accomodationID);
-        $tabEquipment = $database->getEquipmentFromAccomodation($accomodationID);
+        $tabService = $service->getServiceFromAccomodation($accomodationID);
+        $tabEquipment = $equipment->getEquipmentFromAccomodation($accomodationID);
         $tabReview = $review->getReviewFromAccomodation($accomodationID);
         $averageGrade = $this->calculateAverageGrade($tabReview);
         $userID = null;

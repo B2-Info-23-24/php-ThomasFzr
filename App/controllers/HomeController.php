@@ -13,9 +13,15 @@ class HomeController
     {
         require_once __DIR__ . '/../models/Database.php';
         require_once __DIR__ . '/../models/Accomodation.php';
+        require_once __DIR__ . '/../models/AccomodationType.php';
+        require_once __DIR__ . '/../models/Equipment.php';
+        require_once __DIR__ . '/../models/Service.php';
 
         $database = new Database();
         $accomodation = new Accomodation();
+        $accoType = new AccomodationType();
+        $equipment = new Equipment();
+        $service = new Service();
 
         $conditions = [];
 
@@ -58,9 +64,9 @@ class HomeController
         }
         //echo $whereClause; //TODO
         $tabAccomodation = $accomodation->getAccomodation($whereClause);
-        $tabAccomodationType = $database->getAccomodationType();
-        $tabService = $database->getService();
-        $tabEquipment = $database->getEquipment();
+        $tabAccomodationType = $accoType->getAccomodationType();
+        $tabService = $service->getService();
+        $tabEquipment = $equipment->getEquipment();
 
         echo $this->twig->render(
             'home.php',
