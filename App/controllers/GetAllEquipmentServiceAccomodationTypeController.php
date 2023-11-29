@@ -1,5 +1,5 @@
 <?php
-class DetailsEquipmentServiceAccomodationTypeController
+class GetAllEquipmentServiceAccomodationTypeController
 {
     private $twig;
 
@@ -25,7 +25,7 @@ class DetailsEquipmentServiceAccomodationTypeController
             $typesLogement = $accoType->getAccomodationType();
 
             echo $this->twig->render(
-                'detailsEquipmentServiceAccomodationType.php',
+                'allEquipmentServiceAccomodationType.php',
                 [
                     'equipments' => $equipements,
                     'services' => $services,

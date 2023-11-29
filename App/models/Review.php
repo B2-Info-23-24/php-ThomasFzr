@@ -112,7 +112,8 @@ class Review
                 FROM Review r
                 JOIN Accomodation a on a.accomodationID = r.accomodationID
                 JOIN User u on u.userID = r.userID
-                ORDER BY r.accomodationID asc;";
+                ORDER BY r.accomodationID asc,
+                r.grade desc;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -128,7 +129,7 @@ class Review
         $stmt->bindParam(':grade', $grade, PDO::PARAM_INT);
         $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-        
+
         if ($stmt->execute()) {
             $_SESSION['successMsg'] = "Avis ajouté!";
             return true;

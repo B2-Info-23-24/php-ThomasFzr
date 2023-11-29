@@ -41,7 +41,6 @@ class Favorite
         }
     }
 
-
     //Retirer une annonce des favoris
     public function removeFromFavorite($accomodationID)
     {
@@ -84,5 +83,15 @@ class Favorite
         } else {
             return false;
         }
+    }
+
+    function getAllFavorite()
+    {
+        $rqt = "SELECT * FROM Favorite
+                JOIN User u on Favorite.userID = u.userID
+                JOIN Accomodation a on a.accomodationID = Favorite.accomodationID";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

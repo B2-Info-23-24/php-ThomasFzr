@@ -182,10 +182,15 @@ switch ($route) {
         $controller->processReview($_GET['action'], $id);
         break;
 
-    case '/detailsEquipmentServiceAccomodationType':
-        $controller = new DetailsEquipmentServiceAccomodationTypeController($twig);
+    case '/allEquipmentServiceAccomodationType':
+        $controller = new GetAllEquipmentServiceAccomodationTypeController($twig);
         $controller->getTypesLogementEquipementsServices();
         break;
+
+        case '/allFavoritesReservations':
+            $controller = new GetAllFavoriteReservationController($twig);
+            $controller->getTypesLogementEquipementsServices();
+            break;
 
     case '/processAccomodationType':
         $id = isset($_GET['id']) ? $_GET['id'] : '';

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3>Tous les users: </h3>
+<h3>Tous les utilisateurs: </h3>
 <div id="zone-users">
     {% for user in users %}
     <div id="details-users">

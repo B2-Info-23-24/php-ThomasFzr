@@ -83,4 +83,13 @@ class Reservation
         }
     }
 
+    function getAllReservation()
+    {
+        $rqt = "SELECT * FROM Reservation 
+                JOIN User u on Reservation.userID = u.userID
+                JOIN Accomodation a on a.accomodationID = Reservation.accomodationID";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -46,8 +46,8 @@
                         {% if isAdmin %}
                         <a href="/allUsers" id="liens-profil-card">UTILISATEURS</a><br>
                         <a href="/allReviews" id="liens-profil-card">AVIS</a><br>
-                        <!-- <a href="/detailsTypesLogement" id="liens-profil-card">TYPES LOGEMENT</a><br> -->
-                        <a href="/detailsEquipmentServiceAccomodationType" id="liens-profil-card">EQUIP/SERV/LOG</a><br>
+                        <a href="/allFavoritesReservations" id="liens-profil-card">FAVORIS/RESERVATIONS</a><br>
+                        <a href="/allEquipmentServiceAccomodationType" id="liens-profil-card">TYPE/SERVICE/EQUIPEMENT</a><br>
                         {%else%}
                         <a href="/myAccount" id="liens-profil-card">MON COMPTE</a><br>
                         <a href="/myReservations" id="liens-profil-card">MES RESERVATIONS</a><br>
