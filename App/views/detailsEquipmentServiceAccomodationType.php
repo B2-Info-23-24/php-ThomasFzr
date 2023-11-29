@@ -95,7 +95,12 @@
             <tbody>
                 {% for equipment in equipments %}
                 <tr>
-                    <td>{{ equipment.name }}</td>
+                    <td>
+                        <form action="/processEquipment?action=modify&id={{equipment.equipmentID}}" method="post">
+                            <input type="text" placeholder="{{ equipment.name }}" name="equipmentName" required>
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                        </form><br>
+                    </td>
                     <td>
                         <a href="/processEquipment?action=delete&id={{equipment.equipmentID}}">
                             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
@@ -114,7 +119,7 @@
         </table>
         <div id="add-user3" class="profil-card" style="display: none;">
             <form action="/processEquipment?action=add" method="post">
-                Equipement : <input type="text" name="equipementName" placeholder="Nom" required> <br><br>
+                Equipement : <input type="text" name="equipmentName" placeholder="Nom" required> <br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </div>
