@@ -65,12 +65,13 @@ switch ($route) {
     case '/':
         $controller = new HomeController($twig);
         $accomodationType = isset($_GET['accomodationType']) ? $_GET['accomodationType'] : '';
+        $accomodationTitle = isset($_GET['accomodationTitle']) ? $_GET['accomodationTitle'] : '';
         $ville = isset($_GET['city']) ? $_GET['city'] : '';
         $minPrice = isset($_GET['min-price']) ? $_GET['min-price'] : '';
         $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : '';
         $selectedEquipments = isset($_GET['selectedEquipments']) ? $_GET['selectedEquipments'] : [];
         $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
-        $controller->getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $ville, $minPrice, $maxPrice);
+        $controller->getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $ville, $minPrice, $maxPrice, $accomodationTitle);
 
         break;
 

@@ -9,7 +9,7 @@ class HomeController
         $this->twig = $twig;
     }
 
-    function getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $city, $minPrice, $maxPrice)
+    function getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $city, $minPrice, $maxPrice, $accomodationTitle)
     {
         require_once __DIR__ . '/../models/Database.php';
         require_once __DIR__ . '/../models/Accomodation.php';
@@ -29,6 +29,9 @@ class HomeController
 
         if ($accomodationType != '') {
             $conditions[] = "accomodationType = '$accomodationType'";
+        }
+        if ($accomodationTitle != '') {
+            $conditions[] = " title like '%$accomodationTitle%'";
         }
         if ($city != '') {
             $conditions[] = "city = '$city'";
