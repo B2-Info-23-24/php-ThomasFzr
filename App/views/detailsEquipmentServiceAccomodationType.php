@@ -38,7 +38,7 @@
         </table>
         <div id="add-user1" class="profil-card" style="display: none;">
             <form action="/processAccomodationType?action=add" method="post">
-                Type logement: <input type="text" name="accoTypeName" placeholder="Nom" required> <br><br>
+                Type logement: <input type="text" name="accoTypeName" placeholder="Nom" required autofocus> <br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </div>
@@ -79,7 +79,7 @@
         </table>
         <div id="add-user2" class="profil-card" style="display: none;">
             <form action="/processService?action=add" method="post">
-                Service: <input type="text" name="serviceName" placeholder="Nom" required> <br><br>
+                Service: <input type="text" name="serviceName" placeholder="Nom" required autofocus> <br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </div>
@@ -119,7 +119,7 @@
         </table>
         <div id="add-user3" class="profil-card" style="display: none;">
             <form action="/processEquipment?action=add" method="post">
-                Equipement : <input type="text" name="equipmentName" placeholder="Nom" required> <br><br>
+                Equipement : <input type="text" name="equipmentName" placeholder="Nom" required autofocus> <br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </div>

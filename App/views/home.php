@@ -101,7 +101,7 @@
 
 {% if isAdmin %}
 <div class="zone-annonce">
-    <a href="/addaccomodation" id="lien-annonce">
+    <a href="/addAccomodation" id="lien-annonce">
         <div class="annonce">
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-annonce-home">
             <div class="description">

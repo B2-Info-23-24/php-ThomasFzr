@@ -150,8 +150,8 @@ switch ($route) {
         break;
 
     case '/addAccomodation':
-        $controller = new AddAnnonceController($twig);
-        $controller->addAnnonce();
+        $controller = new AddAccomodationController($twig);
+        $controller->AddAccomodation();
         break;
 
     case '/processAccomodation':
