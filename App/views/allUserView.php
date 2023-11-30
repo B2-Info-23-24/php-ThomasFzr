@@ -8,27 +8,27 @@
     <div id="details-users">
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Adresse mail :
-            <input type="email" placeholder="{{user.mail}}" name="mail" required>
+            <input type="email" value="{{user.mail}}" name="mail" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Mdp :
-            <input type="text" placeholder="{{user.pwd}}" name="pwd" required>
+            <input type="text" value="{{user.pwd}}" name="pwd" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Nom :
-            <input type="text" placeholder="{% if user.name != null %} {{user.name}} {%else%} Pas défini {%endif%}" name="name" required>
+            <input type="text" value="{% if user.name != null %} {{user.name}} {%else%} Pas défini {%endif%}" name="name" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Prénom :
-            <input type="text" placeholder="{% if user.surname != null %} {{user.surname}} {%else%} Pas défini {%endif%}" name="surname" required>
+            <input type="text" value="{% if user.surname != null %} {{user.surname}} {%else%} Pas défini {%endif%}" name="surname" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Numéro de tél :
-            <input type="text" placeholder="{% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%}" name="phoneNbr" required>
+            <input type="text" value="{% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%}" name="phoneNbr" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">

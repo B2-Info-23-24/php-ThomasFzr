@@ -107,7 +107,7 @@ class Service
     }
 
     //Ajouter un service a une annonce
-    public function addServiceToAccomodation($accomodationID, $serviceID,)
+    public function addServiceToAccomodation($accomodationID, $serviceID)
     {
         $rowExist = "SELECT * FROM ServiceAccomodation
                     WHERE serviceID=:serviceID 
@@ -135,7 +135,21 @@ class Service
         }
     }
 
-    //Ajouter un service a une annonce
+    public function addServiceToNewAccomodation($accomodationID, $serciceId)
+    {
+        $rqt = "INSERT INTO ServiceAccomodation (serviceID,  accomodationID)
+                VALUES (:serviceID, :accomodationID);";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':serviceID', $serciceId, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Supprimer un service d'une annonce
     public function deleteServiceOfAccomodation($accomodationID, $serviceID)
     {
         $rqt = "DELETE FROM ServiceAccomodation 

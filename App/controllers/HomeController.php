@@ -26,10 +26,10 @@ class HomeController
         $conditions = [];
 
         if ($minPrice == '') {
-            $minPrice = 100;
+            $minPrice = 0;
         }
         if ($maxPrice == '') {
-            $maxPrice = 1000;
+            $maxPrice = 1000000;
         }
         $conditions[] = "price BETWEEN '$minPrice' AND '$maxPrice'";
 

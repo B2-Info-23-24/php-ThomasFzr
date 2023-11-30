@@ -16,7 +16,7 @@
                 <tr>
                     <td>
                         <form action="/processAccomodationType?action=modify&id={{accomodationType.accomodationTypeID}}" method="post">
-                            <input type="text" placeholder="{{accomodationType.name}}" name="accoTypeName" required>
+                            <input type="text" value="{{accomodationType.name}}" name="accoTypeName" required>
                             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
                         </form><br>
                     </td>
@@ -57,7 +57,7 @@
                 <tr>
                     <td>
                         <form action="/processService?action=modify&id={{service.serviceID}}" method="post">
-                            <input type="text" placeholder="{{ service.name }}" name="serviceName" required>
+                            <input type="text" value="{{ service.name }}" name="serviceName" required>
                             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
                         </form><br>
                     </td>
@@ -97,7 +97,7 @@
                 <tr>
                     <td>
                         <form action="/processEquipment?action=modify&id={{equipment.equipmentID}}" method="post">
-                            <input type="text" placeholder="{{ equipment.name }}" name="equipmentName" required>
+                            <input type="text" value="{{ equipment.name }}" name="equipmentName" required>
                             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
                         </form><br>
                     </td>
