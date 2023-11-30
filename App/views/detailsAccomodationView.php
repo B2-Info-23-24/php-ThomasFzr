@@ -10,9 +10,27 @@
         <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
         <br>
         <h3>{{ info.title }} ({{info.price}}€/nuit)</h3>
+        {% if isAdmin %}
+        <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+            Titre: <input type="text" placeholder="{{info.title}}" name="title" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+        <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+            Prix: <input type="number" placeholder="{{info.price}} €/nuit" name="price" min="0" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form><br>
+        {% endif%}
+
+
         <div class="description-annonce">
             Type de logement : {{ info.accomodationType }}<br><br>
             Ville: {{ info.city }}<br><br>
+            {% if isAdmin %}
+            <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+                Ville: <input type="text" placeholder="{{info.city}}" name="city" required>
+                <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            </form><br>
+            {% endif%}
             {% endfor %}
 
             Equipements disponibles:

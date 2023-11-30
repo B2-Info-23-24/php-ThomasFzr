@@ -43,7 +43,7 @@ class ProcessAccomodationController
             header("Location: /accomodation/$id");
         }
     }
-    
+
     //Equipement
     function addEquipmentToAccomodation($id)
     {
@@ -72,6 +72,36 @@ class ProcessAccomodationController
         }
     }
 
+    function modifyAccomodation($id)
+    {
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $successMsg = "";
+
+            if (isset($_POST["price"]) && $_POST["price"] != '') {
+                $this->accomodation->modifyAccomodation("price", $_POST["price"], $id);
+                $successMsg = "Prix";
+            }
+            if (isset($_POST["title"]) && $_POST["title"] != '') {
+                $this->accomodation->modifyAccomodation("title", $_POST["title"], $id);
+                $successMsg = $successMsg . " Titre";
+            }
+            if (isset($_POST["city"]) && $_POST["city"] != '') {
+                $this->accomodation->modifyAccomodation("city", $_POST["city"], $id);
+                $successMsg = $successMsg . " Ville";
+            }
+
+            if ((isset($_POST["title"]) && $_POST["title"] != '') || (isset($_POST["city"]) && $_POST["city"] != '')
+                || (isset($_POST["price"]) && $_POST["price"] != '')
+            ) {
+                $_SESSION['successMsg'] = $successMsg . " changé avec succès";
+            }
+
+            header("Location: /accomodation/$id");
+        } else {
+            echo "Erreur edit info annonce";
+        }
+    }
 
     function processAccomodation($action, $id)
     {
@@ -82,6 +112,10 @@ class ProcessAccomodationController
 
                 case 'addAccomodation':
                     $process->addAccomodation();
+                    break;
+
+                case 'modifyAccomodation':
+                    $process->modifyAccomodation($id);
                     break;
 
                 case 'deleteAccomodation':
