@@ -49,4 +49,6 @@ class ProcessAccomodationTypeController
             header('Location: /connection');
         }
     }
+
+    
 }
