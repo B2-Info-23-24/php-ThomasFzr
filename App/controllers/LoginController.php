@@ -14,7 +14,7 @@ class LoginController
                 header('Location: /');
                 exit;
             } else {
-                $_SESSION['errorMsg'] = "Mail ou mdp invalide!";
+                $_SESSION['errorMsg'] = "Mail ou mot de passe invalide!";
                 header('Location: /connection');
                 exit;
             }
