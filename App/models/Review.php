@@ -155,7 +155,16 @@ class Review
     }
 
     //Modifier un avis
-    function modifyReview($userID, $accomodationID, $grade, $comment, $date, $reviewId)
+    function modifyReview($column, $value, $reviewId)
     {
+        $rqt = "UPDATE Review SET $column = :value WHERE reviewId=:reviewId";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam('value', $value, PDO::PARAM_STR);
+        $stmt->bindParam('reviewId', $reviewId, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

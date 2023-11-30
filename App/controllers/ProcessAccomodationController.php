@@ -21,15 +21,26 @@ class ProcessAccomodationController
             $title = $_POST["title"];
             $city = $_POST["city"];
             $price = $_POST["price"];
-            $typeLogement = $_POST["typeLogement"];
+            $typeLogement = $_POST["accoType"];
             $image = null;
             if (isset($_POST["image"])) {
                 $image = $_POST["image"];
             }
+            $selectedEquipments = isset($_POST['selectedEquipments']) ? $_POST['selectedEquipments'] : [];
+            $selectedServices = isset($_POST['selectedServices']) ? $_POST['selectedServices'] : [];
 
             if ($this->accomodation->insertAccomodation($title, $city, $price, $typeLogement, $image)) {
+                $accomodationID = $this->accomodation->getLastAccomodationId();
+                foreach ($selectedEquipments as $equipmentId) {
+                    $this->equipment->addEquipmentToNewAccomodation($accomodationID, $equipmentId);
+                }
+                foreach ($selectedServices as $serciceId) {
+                    $this->service->addServiceToNewAccomodation($accomodationID, $serciceId);
+                }
+                $_SESSION['successMsg'] = "Annonce ajoutée!";
                 header('Location: /');
             } else {
+                $_SESSION['errorMsg'] = "Annonce non ajoutée.";
                 header('Location: /addAnnonce');
             }
         }
@@ -90,9 +101,18 @@ class ProcessAccomodationController
                 $this->accomodation->modifyAccomodation("city", $_POST["city"], $id);
                 $successMsg = $successMsg . " Ville";
             }
+            if (isset($_POST["image"]) && $_POST["image"] != '') {
+                $this->accomodation->modifyAccomodation("image", $_POST["image"], $id);
+                $successMsg = $successMsg . " Image";
+            }
+            if (isset($_POST["accoType"]) && $_POST["accoType"] != '') {
+                $this->accomodation->modifyAccomodation("accomodationType", $_POST["accoType"], $id);
+                $successMsg = $successMsg . " Type de logement";
+            }
 
             if ((isset($_POST["title"]) && $_POST["title"] != '') || (isset($_POST["city"]) && $_POST["city"] != '')
-                || (isset($_POST["price"]) && $_POST["price"] != '')
+                || (isset($_POST["price"]) && $_POST["price"] != '') || (isset($_POST["image"]) && $_POST["image"] != '')
+                || (isset($_POST["accoType"]) && $_POST["accoType"] != '')
             ) {
                 $_SESSION['successMsg'] = $successMsg . " changé avec succès";
             }

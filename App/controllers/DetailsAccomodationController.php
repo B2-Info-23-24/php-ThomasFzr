@@ -19,6 +19,7 @@ class DetailsAccomodationController
         require_once __DIR__ . '/../models/Accomodation.php';
         require_once __DIR__ . '/../models/Service.php';
         require_once __DIR__ . '/../models/Equipment.php';
+        require_once __DIR__ . '/../models/AccomodationType.php';
 
         $database = new Database();
         $favorite = new Favorite();
@@ -26,6 +27,7 @@ class DetailsAccomodationController
         $accomodation = new Accomodation();
         $service = new Service();
         $equipment = new Equipment();
+        $accoType = new AccomodationType();
 
         $infoAccomodation = $accomodation->getDetailsAccomodation($accomodationID);
         $tabService = $service->getServiceFromAccomodation($accomodationID);
@@ -34,6 +36,9 @@ class DetailsAccomodationController
         $averageGrade = $this->calculateAverageGrade($tabReview);
         $allEquipments = $equipment->getEquipment();
         $allServices = $service->getService();
+        $allAccomodationTypes = $accoType->getAccomodationType();
+        $allImages = $database->getImage();
+        $allCities = $database->getCity();
 
         $userID = null;
         $isInFavorite = null;
@@ -51,7 +56,10 @@ class DetailsAccomodationController
             'averageGrade' => $averageGrade,
             'userID' => $userID,
             'allEquipments' => $allEquipments,
-            'allServices' => $allServices
+            'allServices' => $allServices,
+            'allAccomodationTypes' => $allAccomodationTypes,
+            'allImages' => $allImages,
+            'allCities' => $allCities
 
         ]);
     }

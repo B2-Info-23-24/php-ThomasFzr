@@ -10,12 +10,22 @@
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-details-annonce">
             <br>
             <div class="description-annonce">
-                Image: <input type="file" name="image" accept="image/png, image/jpeg" /><br>
+                Image: <select name="image" required>
+                    <option disabled>Choisir une image</option>
+                    {% for image in allImages%}
+                    <option value="{{image.name}}">{{image.name}}</option>
+                    {% endfor %}
+                </select><br>
                 Titre: <input type="text" name="title" placeholder="Nom" required> <br><br>
-                Ville: <input type="text" name="city" placeholder="Titre" required> <br><br>
-                Prix: <input type="number" name="price" placeholder="Prix à la nuit" required><br><br>
+                Ville: <select name="city" required>
+                    <option disabled>Choisir une ville</option>
+                    {% for city in allCities%}
+                    <option value="{{city.name}}">{{city.name}}</option>
+                    {% endfor %}
+                </select> <br><br>
+                Prix: <input type="number" name="price" placeholder="Prix à la nuit" required> €/nuit<br><br>
                 Type de logement:
-                <select name="typeLogement" required>
+                <select name="accoType" required>
                     <option disabled>Choisir un type de logement</option>
                     {% for accomodationType in accomodationTypes%}
                     <option value="{{accomodationType.name}}">{{accomodationType.name}}</option>
@@ -24,12 +34,12 @@
 
                 Equipements disponibles:<br><br>
                 {% for equipment in equipments%}
-                {{equipment.name}} <input type="checkbox" value="{{equipment.equipmentID}}" name="selectedEquipment[]">
+                {{equipment.name}} <input type="checkbox" value="{{equipment.equipmentID}}" name="selectedEquipments[]">
                 {% endfor %}<br><br>
 
                 Services disponibles:<br><br>
                 {% for service in services %}
-                {{service.name}} <input type="checkbox" value="{{service.serviceID}}" name="selectedService[]">
+                {{service.name}} <input type="checkbox" value="{{service.serviceID}}" name="selectedServices[]">
                 {% endfor %}<br><br>
 
                 <input type="submit">

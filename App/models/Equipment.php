@@ -107,7 +107,7 @@ class Equipment
     }
 
     //Ajouter un equipment a une annonce
-    public function addEquipmentToAccomodation($accomodationID, $equipmentID,)
+    public function addEquipmentToAccomodation($accomodationID, $equipmentID)
     {
         $rowExist = "SELECT * FROM EquipmentAccomodation
                     WHERE equipmentID=:equipmentID 
@@ -132,6 +132,20 @@ class Equipment
                 $_SESSION['errorMsg'] = "Equipement non ajouté à cette annonce.";
                 return false;
             }
+        }
+    }
+
+    public function addEquipmentToNewAccomodation($accomodationID, $equipmentId)
+    {
+        $rqt = "INSERT INTO EquipmentAccomodation (equipmentID,  accomodationID)
+    VALUES (:equipmentID, :accomodationID);";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':equipmentID', $equipmentId, PDO::PARAM_INT);
+        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
         }
     }
 

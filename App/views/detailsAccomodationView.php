@@ -8,28 +8,57 @@
     <div class="flex-child-details-logement left">
         {% for info in infoAccomodation %}
         <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
+        {% if isAdmin %}
+        <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+            Modifier l'image: <select name="image" required>
+                <option disabled>Actuel : {{ info.image }}</option>
+                {% for image in allImages%}
+                <option value="{{image.name}}">{{image.name}}</option>
+                {% endfor %}
+            </select>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form>
+        {% endif%}
+
         <br>
         <h3>{{ info.title }} ({{info.price}}€/nuit)</h3>
         {% if isAdmin %}
         <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
-            Titre: <input type="text" placeholder="{{info.title}}" name="title" required>
+            Titre: <input type="text" value="{{info.title}}" name="title" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
-            Prix: <input type="number" placeholder="{{info.price}} €/nuit" name="price" min="0" required>
+            Prix: <input type="number" value="{{info.price}}" name="price" min="0" required> €/nuit
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         {% endif%}
 
 
         <div class="description-annonce">
-            Type de logement : {{ info.accomodationType }}<br><br>
-            Ville: {{ info.city }}<br><br>
+
             {% if isAdmin %}
+
             <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
-                Ville: <input type="text" placeholder="{{info.city}}" name="city" required>
+                Type de logement : <select name="accoType" required>
+                    <option disabled>Actuel : {{ info.accomodationType }}</option>
+                    {% for accomodationType in allAccomodationTypes%}
+                    <option value="{{accomodationType.name}}">{{accomodationType.name}}</option>
+                    {% endfor %}
+                </select>
                 <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
             </form><br>
+            <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+                Ville: <select name="city" required>
+                <option disabled>Actuel : {{ info.city }}</option>
+                {% for city in allCities%}
+                <option value="{{city.name}}">{{city.name}}</option>
+                {% endfor %}
+            </select>
+                <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            </form><br>
+            {%else%}
+            Type de logement : {{ info.accomodationType }}<br><br>
+            Ville: {{ info.city }}<br><br>
             {% endif%}
             {% endfor %}
 

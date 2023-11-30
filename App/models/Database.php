@@ -48,7 +48,9 @@ class Database
                 CREATE TABLE Equipment (equipmentID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
                 CREATE TABLE EquipmentAccomodation (equipmentAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipmentID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (equipmentID) REFERENCES Equipment(equipmentID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID) UNIQUE (equipmentID, accomodationID));
                 CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
-                CREATE TABLE ServiceAccomodation (serviceAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID) UNIQUE (serviceID, accomodationID));";
+                CREATE TABLE ServiceAccomodation (serviceAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID) UNIQUE (serviceID, accomodationID));
+                CREATE TABLE City (cityID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
+                CREATE TABLE Image (imageID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);";
                 $this->conn->exec($sql);
                 return true;
             } else {
@@ -58,6 +60,49 @@ class Database
             echo "Erreur : " . $e->getMessage();
             return false;
         }
+    }
+
+    //Remplir la table ville
+    public function insertCity()
+    {
+        $sql = "INSERT INTO City (name) VALUES ('Nantes'),('Montpellier'),('Strasbourg'),('Angers'),('Lille'),('Rennes'),('Nice'),
+                ('Lyon'),('Paris'),('Marseille'),('Toulouse'),('Lille'),('Rennes'),('Bordeaux');";
+        if ($this->conn->exec($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Recuper les villes
+    public function getCity()
+    {
+        $rqt = "SELECT name FROM City";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    //Remplir les images
+    public function insertImage()
+    {
+        $sql = "INSERT INTO Image (name) VALUES ('Appartement1.png'),('Appartement2.png'),('Appartement3.png'),('Cabane1.png'),('Cabane2.png'),('Cabane3.png'),('Car1.png'),
+                ('Car2.png'),('Car3.png'),('Chalet1.png'),('Chalet2.png'),('Chalet3.png'),('Igloo1.png'),('Igloo2.png'),('Igloo3.png'),('Maison1.png'),('Maison2.png'),('Maison3.png'),
+                ('Péniche1.png'),('Péniche2.png'),('Péniche3.png'),('Tente1.png'),('Tente2.png'),('Tente3.png'),('Villa1.png'),('Villa2.png'),('Villa3.png'),('Yourte1.png'),('Yourte2.png'),('Yourte3.png');";
+        if ($this->conn->exec($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Recuper les images
+    public function getImage()
+    {
+        $rqt = "SELECT name FROM Image";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //Remplir les tables de services type de logement et equipements
@@ -133,8 +178,15 @@ class Database
     public function insertFakerDatas()
     {
         $homeNames = [' calme', ' lumineux', ' spacieuse', ' moderne', ' rustique', ' industriel', ' de campagne', ' élégant', ' contemporain', ' charmant', ' en bord de mer', ' accueillante', ' majestueux', ' paisible', ' pittoresque', ' confortable', ' de luxe', ' chaleureuse', ' montagnard'];
-        $typesLogements = ['Appartement', 'Maison', 'Chalet', 'Villa', 'Péniche', 'Yourte', 'Cabane', 'Igloo', 'Tente', 'Car'];
-        $cities = ['Lyon', 'Paris', 'Marseille', 'Grenoble', 'Toulouse', 'Bordeaux', 'Limoge', 'Perpignan', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Angers', 'Lille', 'Rennes', 'Caen'];
+
+        $sql = "SELECT name FROM AccomodationType";
+        $result = $this->conn->query($sql);
+        $typesLogements = $result->fetchAll(PDO::FETCH_COLUMN);
+
+        $sql = "SELECT name FROM City";
+        $result = $this->conn->query($sql);
+        $cities = $result->fetchAll(PDO::FETCH_COLUMN);
+
         for ($i = 0; $i < 50; $i++) {
             $city = $this->faker->randomElement($cities);
             $price = $this->faker->numberBetween(100, 1000);
@@ -142,7 +194,7 @@ class Database
             $title = $typeLogement . $this->faker->randomElement($homeNames);
             $imageURL = $typeLogement . $this->faker->numberBetween(1, 3) . ".png";
 
-            $stmt = $this->conn->prepare("INSERT INTO Accomodation (city, price, typeLogement, title, image) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare("INSERT INTO Accomodation (city, price, accomodationType, title, image) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$city, $price, $typeLogement, $title, $imageURL]);
         }
     }

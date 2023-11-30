@@ -36,8 +36,7 @@ a:active:hover {
     transition: all 0.2s ease;
 }
 
-.btn-connection-home,
-.btn-retourHome {
+.btn-connection-home {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -48,8 +47,7 @@ a:active:hover {
 }
 
 input[type="submit"],
-.btn-connection-home,
-.btn-retourHome {
+.btn-connection-home{
     border: none;
     display: block;
     background-color: #5FC2BA;
@@ -167,11 +165,6 @@ input[type="range"]::-webkit-slider-runnable-track {
     border-radius: 3px;
     border: none;
 }
-
-.btn-retourHome {
-    width: 10%;
-}
-
 
 /* === Zone filtres === */
 
