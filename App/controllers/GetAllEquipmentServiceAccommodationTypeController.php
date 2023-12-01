@@ -33,7 +33,7 @@ class GetAllEquipmentServiceAccommodationTypeController
                 ]
             );
         } else {
-            header('Location: /');
+            header('Location: /connection');
         }
     }
 }
