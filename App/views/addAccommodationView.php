@@ -6,7 +6,7 @@
 <div class="flex-container-details-logement">
     <div class="flex-child-details-logement left">
 
-        <form action="/processAccomodation?action=addAccomodation" method="post">
+        <form action="/processAccommodation?action=addAccommodation" method="post">
             <img src="Public/assets/images/Appartement1.png" id="img-details-annonce">
             <br>
             <div class="description-annonce">
@@ -27,8 +27,8 @@
                 Type de logement:
                 <select name="accoType" required>
                     <option disabled>Choisir un type de logement</option>
-                    {% for accomodationType in accomodationTypes%}
-                    <option value="{{accomodationType.name}}">{{accomodationType.name}}</option>
+                    {% for accommodationType in accommodationTypes%}
+                    <option value="{{accommodationType.name}}">{{accommodationType.name}}</option>
                     {% endfor %}
                 </select><br><br>
 

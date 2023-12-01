@@ -9,7 +9,7 @@
         {% if favorites is not empty %}
         <div class="zone-annonce">
             {% for favorite in favorites %}
-            <a href="/accomodation/{{ favorite.accomodationID }}" id="lien-annonce">
+            <a href="/accommodation/{{ favorite.accommodationID }}" id="lien-annonce">
                 <div class="annonce">
                     <img src="Public/assets/images/{{favorite.image}}" id="img-annonce-home" alt="image-{{ favorite.image }}">
                     <div class="zone-prix">{{favorite.price}} €/nuit</div>
@@ -36,8 +36,8 @@
     <div class="flex-child-favoReser right">
         <h3> Toutes les réservations: </h3>
         {% for reservation in reservations %}
-        {% if accomodation.endDate >= dateToday %}
-        <a href="/accomodation/{{ reservation.accomodationID }}" id="lien-annonce">
+        {% if accommodation.endDate >= dateToday %}
+        <a href="/accommodation/{{ reservation.accommodationID }}" id="lien-annonce">
             <div class="annonce">
                 <img src="Public/assets/images/{{reservation.image}}" id="img-annonce-home" alt="image-{{ reservation.image }}">
                 <div class="zone-prix">{{reservation.price}} €/nuit</div>

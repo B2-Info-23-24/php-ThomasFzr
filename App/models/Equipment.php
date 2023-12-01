@@ -20,14 +20,14 @@ class Equipment
     }
 
     // Récupérer les équipements d'une annonce avec leur nom
-    public function getEquipmentFromAccomodation($accomodationID)
+    public function getEquipmentFromAccommodation($accommodationID)
     {
         $sql = "SELECT e.* FROM Equipment e
-                JOIN EquipmentAccomodation ea ON e.equipmentID = ea.equipmentID
-                WHERE ea.accomodationID = :accomodationID";
+                JOIN EquipmentAccommodation ea ON e.equipmentID = ea.equipmentID
+                WHERE ea.accommodationID = :accommodationID";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -49,12 +49,12 @@ class Equipment
     }
 
     //Avoir les annoncesID qui ont tel equipement
-    public function getAccomodationIdFromEquipmentId($equipmentID)
+    public function getAccommodationIdFromEquipmentId($equipmentID)
     {
-        $rqt = "SELECT a.accomodationID
-                FROM Accomodation a
-                JOIN EquipmentAccomodation sa
-                ON sa.accomodationID = a.accomodationID
+        $rqt = "SELECT a.accommodationID
+                FROM Accommodation a
+                JOIN EquipmentAccommodation sa
+                ON sa.accommodationID = a.accommodationID
                 JOIN Equipment s 
                 ON s.equipmentID = sa.equipmentID
                 WHERE s.equipmentID =:equipmentID;";
@@ -68,12 +68,12 @@ class Equipment
     public function deleteEquipment($equipmentID)
     {
         $model = new Equipment();
-        $accomodationTypeIDs = $model->getAccomodationIdFromEquipmentId($equipmentID);
+        $accommodationTypeIDs = $model->getAccommodationIdFromEquipmentId($equipmentID);
 
-        foreach ($accomodationTypeIDs as $accoID) {
-            $rqt = "DELETE FROM EquipmentAccomodation WHERE accomodationID =:accoID AND equipmentID = :equipmentID";
+        foreach ($accommodationTypeIDs as $accoID) {
+            $rqt = "DELETE FROM EquipmentAccommodation WHERE accommodationID =:accoID AND equipmentID = :equipmentID";
             $stmt = $this->conn->prepare($rqt);
-            $stmt->bindParam(':accoID', $accoID['accomodationID'], PDO::PARAM_INT);
+            $stmt->bindParam(':accoID', $accoID['accommodationID'], PDO::PARAM_INT);
             $stmt->bindParam(':equipmentID', $equipmentID, PDO::PARAM_INT);
             $stmt->execute();
         }
@@ -107,24 +107,24 @@ class Equipment
     }
 
     //Ajouter un equipment a une annonce
-    public function addEquipmentToAccomodation($accomodationID, $equipmentID)
+    public function addEquipmentToAccommodation($accommodationID, $equipmentID)
     {
-        $rowExist = "SELECT * FROM EquipmentAccomodation
+        $rowExist = "SELECT * FROM EquipmentAccommodation
                     WHERE equipmentID=:equipmentID 
-                    AND accomodationID=:accomodationID;";
+                    AND accommodationID=:accommodationID;";
         $count = $this->conn->prepare($rowExist);
         $count->bindParam(':equipmentID', $equipmentID, PDO::PARAM_INT);
-        $count->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $count->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         $count->execute();
         if ($count->rowCount() > 0) {
             $_SESSION['errorMsg'] = "Equipement déjà présent dans cette annonce.";
             return false;
         } else {
-            $rqt = "INSERT INTO EquipmentAccomodation (equipmentID,  accomodationID)
-                VALUES (:equipmentID, :accomodationID);";
+            $rqt = "INSERT INTO EquipmentAccommodation (equipmentID,  accommodationID)
+                VALUES (:equipmentID, :accommodationID);";
             $stmt = $this->conn->prepare($rqt);
             $stmt->bindParam(':equipmentID', $equipmentID, PDO::PARAM_INT);
-            $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+            $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
             if ($stmt->execute()) {
                 $_SESSION['successMsg'] = "Equipement ajouté à cette annonce!";
                 return true;
@@ -135,13 +135,13 @@ class Equipment
         }
     }
 
-    public function addEquipmentToNewAccomodation($accomodationID, $equipmentId)
+    public function addEquipmentToNewAccommodation($accommodationID, $equipmentId)
     {
-        $rqt = "INSERT INTO EquipmentAccomodation (equipmentID,  accomodationID)
-    VALUES (:equipmentID, :accomodationID);";
+        $rqt = "INSERT INTO EquipmentAccommodation (equipmentID,  accommodationID)
+    VALUES (:equipmentID, :accommodationID);";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':equipmentID', $equipmentId, PDO::PARAM_INT);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         if ($stmt->execute()) {
             return true;
         } else {
@@ -150,14 +150,14 @@ class Equipment
     }
 
     //Ajouter un equipment a une annonce
-    public function deleteEquipmentOfAccomodation($accomodationID, $equipmentID)
+    public function deleteEquipmentOfAccommodation($accommodationID, $equipmentID)
     {
-        $rqt = "DELETE FROM EquipmentAccomodation 
+        $rqt = "DELETE FROM EquipmentAccommodation 
                 WHERE equipmentID = :equipmentID
-                AND accomodationID = :accomodationID;";
+                AND accommodationID = :accommodationID;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':equipmentID', $equipmentID, PDO::PARAM_INT);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         if ($stmt->execute()) {
             $_SESSION['successMsg'] = "Equipement supprimé de cette annonce!";
             return true;

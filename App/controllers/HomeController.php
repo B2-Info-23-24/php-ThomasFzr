@@ -9,17 +9,17 @@ class HomeController
         $this->twig = $twig;
     }
 
-    function getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $city, $minPrice, $maxPrice, $accomodationTitle)
+    function getInfoHome($accommodationType, $selectedEquipments, $selectedServices, $city, $minPrice, $maxPrice, $accommodationTitle)
     {
         require_once __DIR__ . '/../models/Database.php';
-        require_once __DIR__ . '/../models/Accomodation.php';
-        require_once __DIR__ . '/../models/AccomodationType.php';
+        require_once __DIR__ . '/../models/Accommodation.php';
+        require_once __DIR__ . '/../models/AccommodationType.php';
         require_once __DIR__ . '/../models/Equipment.php';
         require_once __DIR__ . '/../models/Service.php';
 
         $database = new Database();
-        $accomodation = new Accomodation();
-        $accoType = new AccomodationType();
+        $accommodation = new Accommodation();
+        $accoType = new AccommodationType();
         $equipment = new Equipment();
         $service = new Service();
 
@@ -33,11 +33,11 @@ class HomeController
         }
         $conditions[] = "price BETWEEN '$minPrice' AND '$maxPrice'";
 
-        if ($accomodationType != '') {
-            $conditions[] = "accomodationType = '$accomodationType'";
+        if ($accommodationType != '') {
+            $conditions[] = "accommodationType = '$accommodationType'";
         }
-        if ($accomodationTitle != '') {
-            $conditions[] = " title like '%$accomodationTitle%'";
+        if ($accommodationTitle != '') {
+            $conditions[] = " title like '%$accommodationTitle%'";
         }
         if ($city != '') {
             $conditions[] = "city = '$city'";
@@ -46,16 +46,16 @@ class HomeController
         if (!empty($selectedEquipments)) {
             $equipmentsCondition = implode(',', $selectedEquipments);
             $nbEquipments = count($selectedEquipments);
-            $conditions[] = "accomodationID IN (SELECT accomodationID FROM EquipmentAccomodation WHERE equipmentID IN ($equipmentsCondition)
-                                            GROUP BY accomodationID
-                                            HAVING COUNT(accomodationID) = $nbEquipments)";
+            $conditions[] = "accommodationID IN (SELECT accommodationID FROM EquipmentAccommodation WHERE equipmentID IN ($equipmentsCondition)
+                                            GROUP BY accommodationID
+                                            HAVING COUNT(accommodationID) = $nbEquipments)";
         }
         if (!empty($selectedServices)) {
             $servicesCondition = implode(',', $selectedServices);
             $nbServices = count($selectedServices);
-            $conditions[] = "accomodationID IN (SELECT accomodationID FROM ServiceAccomodation WHERE serviceID IN ($servicesCondition)
-                                             GROUP BY accomodationID
-                                            HAVING COUNT(accomodationID) = $nbServices)";
+            $conditions[] = "accommodationID IN (SELECT accommodationID FROM ServiceAccommodation WHERE serviceID IN ($servicesCondition)
+                                             GROUP BY accommodationID
+                                            HAVING COUNT(accommodationID) = $nbServices)";
         }
         $whereClause = '';
 
@@ -63,16 +63,16 @@ class HomeController
             $whereClause = 'WHERE ' . implode(' AND ', $conditions);
         }
         //echo $whereClause; //TODO
-        $tabAccomodation = $accomodation->getAccomodation($whereClause);
-        $tabAccomodationType = $accoType->getAccomodationType();
+        $tabAccommodation = $accommodation->getAccommodation($whereClause);
+        $tabAccommodationType = $accoType->getAccommodationType();
         $tabService = $service->getService();
         $tabEquipment = $equipment->getEquipment();
 
         echo $this->twig->render(
             'home.php',
             [
-                'accomodations' => $tabAccomodation,
-                'accomodationTypes' => $tabAccomodationType,
+                'accommodations' => $tabAccommodation,
+                'accommodationTypes' => $tabAccommodationType,
                 'services' => $tabService,
                 'equipments' => $tabEquipment
             ]

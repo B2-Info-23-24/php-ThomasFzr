@@ -6,8 +6,8 @@ $database = new Database();
 if ($database->createTables()) {
     $database->insertCity();
     $database->insertImage();
-    $database->insertDataAccomodationTypeEquipmentService();
+    $database->insertDataAccommodationTypeEquipmentService();
     $database->insertFakerDatas();
-    $database->insertDataAccomodationEquipmentAccomodationService();
+    $database->insertDataAccommodationEquipmentAccommodationService();
     $database->createAccounts();
 }

@@ -1,7 +1,7 @@
 <?php
 class addUniqueReviewController
 {
-    public function addReview($accomodationID)
+    public function addReview($accommodationID)
     {
         if (isset($_SESSION['userID'])) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,8 +11,8 @@ class addUniqueReviewController
                 $date = new DateTime('now');
                 $date = $date->format('Y-m-d');
 
-                $review->insertReview($accomodationID,  $_POST["grade"], $_POST["comment"], $date);
-                header("Location: /detailsLogement/$accomodationID");
+                $review->insertReview($accommodationID,  $_POST["grade"], $_POST["comment"], $date);
+                header("Location: /detailsLogement/$accommodationID");
             }
         } else {
             header('Location: /connection');

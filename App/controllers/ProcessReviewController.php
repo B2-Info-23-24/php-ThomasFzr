@@ -13,11 +13,11 @@ class ProcessReviewController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $userID = $_POST['userID'];
-            $accomodationID = $_POST['accomodationID'];
+            $accommodationID = $_POST['accommodationID'];
             $grade = $_POST['grade'];
             $comment = $_POST['comment'];
             $date = $_POST['date'];
-            if ($this->review->addReview($userID, $accomodationID, $grade, $comment, $date)) {
+            if ($this->review->addReview($userID, $accommodationID, $grade, $comment, $date)) {
                 header('Location: /allReviews');
             }
         }

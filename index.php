@@ -43,12 +43,12 @@ if (isset($_SESSION['errorMsg'])) {
     unset($_SESSION['errorMsg']);
 }
 
-if (isset($_GET['accomodationType'])) {
-    $accomodationType = $_GET['accomodationType'];
-    $twig->addGlobal('accomodationType', $accomodationType);
+if (isset($_GET['accommodationType'])) {
+    $accommodationType = $_GET['accommodationType'];
+    $twig->addGlobal('accommodationType', $accommodationType);
 } else {
-    $accomodationType = '';
-    $twig->addGlobal('accomodationType', $accomodationType);
+    $accommodationType = '';
+    $twig->addGlobal('accommodationType', $accommodationType);
 }
 
 
@@ -64,14 +64,14 @@ switch ($route) {
     case '':
     case '/':
         $controller = new HomeController($twig);
-        $accomodationType = isset($_GET['accomodationType']) ? $_GET['accomodationType'] : '';
-        $accomodationTitle = isset($_GET['accomodationTitle']) ? $_GET['accomodationTitle'] : '';
+        $accommodationType = isset($_GET['accommodationType']) ? $_GET['accommodationType'] : '';
+        $accommodationTitle = isset($_GET['accommodationTitle']) ? $_GET['accommodationTitle'] : '';
         $ville = isset($_GET['city']) ? $_GET['city'] : '';
         $minPrice = isset($_GET['min-price']) ? $_GET['min-price'] : '';
         $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : '';
         $selectedEquipments = isset($_GET['selectedEquipments']) ? $_GET['selectedEquipments'] : [];
         $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
-        $controller->getInfoHome($accomodationType, $selectedEquipments, $selectedServices, $ville, $minPrice, $maxPrice, $accomodationTitle);
+        $controller->getInfoHome($accommodationType, $selectedEquipments, $selectedServices, $ville, $minPrice, $maxPrice, $accommodationTitle);
 
         break;
 
@@ -83,9 +83,9 @@ switch ($route) {
         echo $twig->render('registerView.php');
         break;
 
-    case '/accomodation':
-        $controller = new DetailsAccomodationController($twig);
-        $controller->getDetailsAccomodation($id);
+    case '/accommodation':
+        $controller = new DetailsAccommodationController($twig);
+        $controller->getDetailsAccommodation($id);
         break;
 
     case '/myAccount':
@@ -95,7 +95,7 @@ switch ($route) {
 
     case '/myFavorites':
         $controller = new FavoriteController($twig);
-        $controller->loadAccomodationFavorite();
+        $controller->loadAccommodationFavorite();
         break;
 
     case '/myReviews':
@@ -149,15 +149,15 @@ switch ($route) {
         $controller->processDeconnection();
         break;
 
-    case '/addAccomodation':
-        $controller = new AddAccomodationController($twig);
-        $controller->AddAccomodation();
+    case '/addAccommodation':
+        $controller = new AddAccommodationController($twig);
+        $controller->AddAccommodation();
         break;
 
-    case '/processAccomodation':
+    case '/processAccommodation':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $controller = new ProcessAccomodationController();
-        $controller->processAccomodation($_GET['action'], $id);
+        $controller = new ProcessAccommodationController();
+        $controller->processAccommodation($_GET['action'], $id);
         break;
 
     case '/allUsers':
@@ -182,8 +182,8 @@ switch ($route) {
         $controller->processReview($_GET['action'], $id);
         break;
 
-    case '/allEquipmentServiceAccomodationType':
-        $controller = new GetAllEquipmentServiceAccomodationTypeController($twig);
+    case '/allEquipmentServiceAccommodationType':
+        $controller = new GetAllEquipmentServiceAccommodationTypeController($twig);
         $controller->getTypesLogementEquipementsServices();
         break;
 
@@ -192,10 +192,10 @@ switch ($route) {
         $controller->getTypesLogementEquipementsServices();
         break;
 
-    case '/processAccomodationType':
+    case '/processAccommodationType':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $controller = new ProcessAccomodationTypeController();
-        $controller->processAccomodationType($_GET['action'], $id);
+        $controller = new ProcessAccommodationTypeController();
+        $controller->processAccommodationType($_GET['action'], $id);
         break;
 
     case '/processService':
