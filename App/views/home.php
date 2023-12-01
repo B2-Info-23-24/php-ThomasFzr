@@ -82,6 +82,17 @@
 <br><br>
 
 <div class="zone-annonce">
+    {% if isAdmin %}
+    <a href="/addAccomodation" id="lien-annonce">
+        <div class="annonce">
+            <img src="Public/assets/images/iconePlusBlanc.png" id="img-btn-add-accomodation">
+            <div class="zone-prix"> </div><br>
+            <div class="description">
+                <h4>AJOUTER UNE ANNONCE</h4>
+            </div>
+        </div>
+    </a>
+    {% endif %}
     {% if accomodations is not empty %}
     {% for accomodation in accomodations %}
     <a href="/accomodation/{{ accomodation.accomodationID }}" id="lien-annonce">
@@ -99,18 +110,7 @@
     {% endif%}
 </div>
 
-{% if isAdmin %}
-<div class="zone-annonce">
-    <a href="/addAccomodation" id="lien-annonce">
-        <div class="annonce">
-            <img src="Public/assets/images/iconePlusBlanc.png" id="img-annonce-home">
-            <div class="description">
-                <h4>AJOUTER UNE ANNONCE</h4>
-            </div>
-        </div>
-    </a>
-</div>
-{% endif %}
+
 
 <!-- A SUPPRIMER -->
 <form id="gettable-form" action="/test" method="post">

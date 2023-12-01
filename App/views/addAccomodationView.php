@@ -7,10 +7,10 @@
     <div class="flex-child-details-logement left">
 
         <form action="/processAccomodation?action=addAccomodation" method="post">
-            <img src="Public/assets/images/iconePlusBlanc.png" id="img-details-annonce">
+            <img src="Public/assets/images/Appartement1.png" id="img-details-annonce">
             <br>
             <div class="description-annonce">
-                Image: <select name="image" required>
+                Image: <select name="image" onchange="updateImage()" id="imageSelector" required>
                     <option disabled>Choisir une image</option>
                     {% for image in allImages%}
                     <option value="{{image.name}}">{{image.name}}</option>
@@ -42,7 +42,7 @@
                 {{service.name}} <input type="checkbox" value="{{service.serviceID}}" name="selectedServices[]">
                 {% endfor %}<br><br>
 
-                <input type="submit">
+                <input type="submit" value="AJOUTER L'ANNONCE">
             </div>
 
         </form>
@@ -50,5 +50,13 @@
 
     </div>
 </div>
+
+<script>
+    function updateImage() {
+        var selectedImage = document.getElementById("imageSelector").value;
+
+        document.getElementById("img-details-annonce").src = "Public/assets/images/" + selectedImage;
+    }
+</script>
 
 {% endblock %}

@@ -575,3 +575,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 #details-all-reviews{
     text-align: right;
 }
+
+/* add accomodation */
+
+#img-btn-add-accomodation{
+    width: 301px;
+    height: 200px;
+}

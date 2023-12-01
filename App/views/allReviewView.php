@@ -7,28 +7,30 @@
     <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
 </a>
 
-<div id="add-user" class="profil-card" style="display: none;">
-    <form action="/processReview?action=add" method="post">
-        Utilisateur : <select name="userID" required>
-            <option disabled> Choisir un utilisateur</option>
-            {% for user in users%}
-            <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
-            {%endfor%}
-        </select><br><br>
-        Annonce: <select name="accomodationID" required>
-            <option disabled> Choisir une annonce</option>
-            {% for accomodation in accomodations%}
-            <option value="{{accomodation.accomodationID}}">{{accomodation.title}}, Id: {{accomodation.accomodationID}}</option>
-            {%endfor%}
-        </select><br><br>
-        Note: <input type="number" name="grade" placeholder="/5" min="0" max="5" required> <br><br>
-        Commentaire: <input type="text" name="comment" placeholder="Ajouter un commentaire" required> <br><br>
-        Date: <input type="date" name="date" required><br><br>
-        <input type="submit" value="Ajouter">
-    </form>
-</div>
+
 
 <div class="zone-annonce">
+
+    <div id="add-user" class="profil-card" style="display: none;">
+        <form action="/processReview?action=add" method="post">
+            Utilisateur : <select name="userID" required>
+                <option disabled> Choisir un utilisateur</option>
+                {% for user in users%}
+                <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
+                {%endfor%}
+            </select><br><br>
+            Annonce: <select name="accomodationID" required>
+                <option disabled> Choisir une annonce</option>
+                {% for accomodation in accomodations%}
+                <option value="{{accomodation.accomodationID}}">{{accomodation.title}}, Id: {{accomodation.accomodationID}}</option>
+                {%endfor%}
+            </select><br><br>
+            Note: <input type="number" name="grade" placeholder="/5" min="0" max="5" required> <br><br>
+            Commentaire: <input type="text" name="comment" placeholder="Ajouter un commentaire" required> <br><br>
+            Date: <input type="date" name="date" required><br><br>
+            <input type="submit" value="Ajouter">
+        </form>
+    </div>
     {% for review in reviews %}
 
     <a href="/accomodation/{{ review.accomodationID }}" id="lien-annonce">
