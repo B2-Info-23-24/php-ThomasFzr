@@ -1,5 +1,5 @@
 <?php
-class GetAllEquipmentServiceAccomodationTypeController
+class GetAllEquipmentServiceAccommodationTypeController
 {
     private $twig;
 
@@ -12,24 +12,24 @@ class GetAllEquipmentServiceAccomodationTypeController
     {
         if (isset($_SESSION['isAdmin'])) {
             require_once __DIR__ . '/../models/Database.php';
-            require_once __DIR__ . '/../models/AccomodationType.php';
+            require_once __DIR__ . '/../models/AccommodationType.php';
             require_once __DIR__ . '/../models/Service.php';
             require_once __DIR__ . '/../models/Equipment.php';
             $db = new Database();
-            $accoType = new AccomodationType();
+            $accoType = new AccommodationType();
             $service = new Service();
             $equipment = new Equipment();
 
             $equipements = $equipment->getEquipment();
             $services = $service->getService();
-            $typesLogement = $accoType->getAccomodationType();
+            $typesLogement = $accoType->getAccommodationType();
 
             echo $this->twig->render(
-                'allEquipmentServiceAccomodationType.php',
+                'allEquipmentServiceAccommodationTypeView.php',
                 [
                     'equipments' => $equipements,
                     'services' => $services,
-                    'accomodationTypes' => $typesLogement
+                    'accommodationTypes' => $typesLogement
                 ]
             );
         } else {

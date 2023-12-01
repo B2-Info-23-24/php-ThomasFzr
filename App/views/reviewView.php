@@ -5,21 +5,21 @@
 
 <h3> Mes avis: </h3>
 
-{% if tabReviewAccomodations is not empty %}
+{% if tabReviewAccommodations is not empty %}
 <div class="zone-annonce">
-    {% for tabReviewAccomodation in tabReviewAccomodations %}
-    <a href="/accomodation/{{ tabReviewAccomodation.accomodationID }}" id="lien-annonce">
+    {% for tabReviewAccommodation in tabReviewAccommodations %}
+    <a href="/accommodation/{{ tabReviewAccommodation.accommodationID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="Public/assets/images/{{tabReviewAccomodation.image}}" id="img-annonce-home" alt="image-{{ tabReviewAccomodation.image }}">
-            <div class="zone-prix">{{ tabReviewAccomodation.price }} €/nuit</div>
+            <img src="Public/assets/images/{{tabReviewAccommodation.image}}" id="img-annonce-home" alt="image-{{ tabReviewAccommodation.image }}">
+            <div class="zone-prix">{{ tabReviewAccommodation.price }} €/nuit</div>
             <div class="description">
-                <h4>{{ tabReviewAccomodation.title }}</h4>
+                <h4>{{ tabReviewAccommodation.title }}</h4>
             </div>
 
             <div class="avis">
-                {{ tabReviewAccomodation.grade }}/5 ⭐ <br>
-                {{ tabReviewAccomodation.comment }} <br>
-                {{ tabReviewAccomodation.date |date("d/m/Y") }}
+                {{ tabReviewAccommodation.grade }}/5 ⭐ <br>
+                {{ tabReviewAccommodation.comment }} <br>
+                {{ tabReviewAccommodation.date |date("d/m/Y") }}
             </div>
         </div>
     </a>

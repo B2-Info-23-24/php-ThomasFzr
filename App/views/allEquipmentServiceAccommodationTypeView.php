@@ -12,16 +12,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for accomodationType in accomodationTypes %}
+                {% for accommodationType in accommodationTypes %}
                 <tr>
                     <td>
-                        <form action="/processAccomodationType?action=modify&id={{accomodationType.accomodationTypeID}}" method="post">
-                            <input type="text" value="{{accomodationType.name}}" name="accoTypeName" required>
+                        <form action="/processAccommodationType?action=modify&id={{accommodationType.accommodationTypeID}}" method="post">
+                            <input type="text" value="{{accommodationType.name}}" name="accoTypeName" required>
                             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
                         </form><br>
                     </td>
                     <td>
-                        <a href="/processAccomodationType?action=delete&id={{accomodationType.accomodationTypeID}}">
+                        <a href="/processAccommodationType?action=delete&id={{accommodationType.accommodationTypeID}}">
                             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                         </a>
                     </td>
@@ -37,7 +37,7 @@
             </tbody>
         </table>
         <div id="add-user1" class="profil-card" style="display: none;">
-            <form action="/processAccomodationType?action=add" method="post">
+            <form action="/processAccommodationType?action=add" method="post">
                 Type logement: <input type="text" name="accoTypeName" placeholder="Nom" required autofocus> <br><br>
                 <input type="submit" value="Ajouter">
             </form>

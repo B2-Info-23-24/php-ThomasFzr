@@ -1,21 +1,21 @@
 <?php
-class ProcessAccomodationController
+class ProcessAccommodationController
 {
 
-    private $accomodation;
+    private $accommodation;
     private $service;
     private $equipment;
     function __construct()
     {
-        require_once __DIR__ . '/../models/Accomodation.php';
+        require_once __DIR__ . '/../models/Accommodation.php';
         require_once __DIR__ . '/../models/Service.php';
         require_once __DIR__ . '/../models/Equipment.php';
-        $this->accomodation = new Accomodation();
+        $this->accommodation = new Accommodation();
         $this->service = new Service();
         $this->equipment = new Equipment();
     }
 
-    public function addAccomodation()
+    public function addAccommodation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $title = $_POST["title"];
@@ -29,13 +29,13 @@ class ProcessAccomodationController
             $selectedEquipments = isset($_POST['selectedEquipments']) ? $_POST['selectedEquipments'] : [];
             $selectedServices = isset($_POST['selectedServices']) ? $_POST['selectedServices'] : [];
 
-            if ($this->accomodation->insertAccomodation($title, $city, $price, $typeLogement, $image)) {
-                $accomodationID = $this->accomodation->getLastAccomodationId();
+            if ($this->accommodation->insertAccommodation($title, $city, $price, $typeLogement, $image)) {
+                $accommodationID = $this->accommodation->getLastAccommodationId();
                 foreach ($selectedEquipments as $equipmentId) {
-                    $this->equipment->addEquipmentToNewAccomodation($accomodationID, $equipmentId);
+                    $this->equipment->addEquipmentToNewAccommodation($accommodationID, $equipmentId);
                 }
                 foreach ($selectedServices as $serciceId) {
-                    $this->service->addServiceToNewAccomodation($accomodationID, $serciceId);
+                    $this->service->addServiceToNewAccommodation($accommodationID, $serciceId);
                 }
                 $_SESSION['successMsg'] = "Annonce ajoutée!";
                 header('Location: /');
@@ -46,67 +46,67 @@ class ProcessAccomodationController
         }
     }
 
-    function deleteAccomodation($id)
+    function deleteAccommodation($id)
     {
-        if ($this->accomodation->deleteAccomodation($id)) {
+        if ($this->accommodation->deleteAccommodation($id)) {
             header("Location: /");
         } else {
-            header("Location: /accomodation/$id");
+            header("Location: /accommodation/$id");
         }
     }
 
     //Equipement
-    function addEquipmentToAccomodation($id)
+    function addEquipmentToAccommodation($id)
     {
-        $this->equipment->addEquipmentToAccomodation($id, $_POST['equipmentID']);
-        header("Location: /accomodation/$id");
+        $this->equipment->addEquipmentToAccommodation($id, $_POST['equipmentID']);
+        header("Location: /accommodation/$id");
     }
 
-    function deleteEquipmentOfAccomodation($id)
+    function deleteEquipmentOfAccommodation($id)
     {
-        if ($this->equipment->deleteEquipmentOfAccomodation($id, $_GET['equipmentID'])) {
-            header("Location: /accomodation/$id");
+        if ($this->equipment->deleteEquipmentOfAccommodation($id, $_GET['equipmentID'])) {
+            header("Location: /accommodation/$id");
         }
     }
 
     //Service
-    function addServiceToAccomodation($id)
+    function addServiceToAccommodation($id)
     {
-        $this->service->addServiceToAccomodation($id, $_POST['serviceID']);
-        header("Location: /accomodation/$id");
+        $this->service->addServiceToAccommodation($id, $_POST['serviceID']);
+        header("Location: /accommodation/$id");
     }
 
-    function deleteServiceOfAccomodation($id)
+    function deleteServiceOfAccommodation($id)
     {
-        if ($this->service->deleteServiceOfAccomodation($id, $_GET['serviceID'])) {
-            header("Location: /accomodation/$id");
+        if ($this->service->deleteServiceOfAccommodation($id, $_GET['serviceID'])) {
+            header("Location: /accommodation/$id");
         }
     }
 
-    function modifyAccomodation($id)
+    function modifyAccommodation($id)
     {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $successMsg = "";
 
             if (isset($_POST["price"]) && $_POST["price"] != '') {
-                $this->accomodation->modifyAccomodation("price", $_POST["price"], $id);
+                $this->accommodation->modifyAccommodation("price", $_POST["price"], $id);
                 $successMsg = "Prix";
             }
             if (isset($_POST["title"]) && $_POST["title"] != '') {
-                $this->accomodation->modifyAccomodation("title", $_POST["title"], $id);
+                $this->accommodation->modifyAccommodation("title", $_POST["title"], $id);
                 $successMsg = $successMsg . " Titre";
             }
             if (isset($_POST["city"]) && $_POST["city"] != '') {
-                $this->accomodation->modifyAccomodation("city", $_POST["city"], $id);
+                $this->accommodation->modifyAccommodation("city", $_POST["city"], $id);
                 $successMsg = $successMsg . " Ville";
             }
             if (isset($_POST["image"]) && $_POST["image"] != '') {
-                $this->accomodation->modifyAccomodation("image", $_POST["image"], $id);
+                $this->accommodation->modifyAccommodation("image", $_POST["image"], $id);
                 $successMsg = $successMsg . " Image";
             }
             if (isset($_POST["accoType"]) && $_POST["accoType"] != '') {
-                $this->accomodation->modifyAccomodation("accomodationType", $_POST["accoType"], $id);
+                $this->accommodation->modifyAccommodation("accommodationType", $_POST["accoType"], $id);
                 $successMsg = $successMsg . " Type de logement";
             }
 
@@ -117,45 +117,45 @@ class ProcessAccomodationController
                 $_SESSION['successMsg'] = $successMsg . " changé avec succès";
             }
 
-            header("Location: /accomodation/$id");
+            header("Location: /accommodation/$id");
         } else {
             echo "Erreur edit info annonce";
         }
     }
 
-    function processAccomodation($action, $id)
+    function processAccommodation($action, $id)
     {
         if (isset($_SESSION['isAdmin'])) {
-            $process = new ProcessAccomodationController();
+            $process = new ProcessAccommodationController();
 
             switch ($action) {
 
-                case 'addAccomodation':
-                    $process->addAccomodation();
+                case 'addAccommodation':
+                    $process->addAccommodation();
                     break;
 
-                case 'modifyAccomodation':
-                    $process->modifyAccomodation($id);
+                case 'modifyAccommodation':
+                    $process->modifyAccommodation($id);
                     break;
 
-                case 'deleteAccomodation':
-                    $process->deleteAccomodation($id);
+                case 'deleteAccommodation':
+                    $process->deleteAccommodation($id);
                     break;
 
                 case 'addEquipment':
-                    $process->addEquipmentToAccomodation($id);
+                    $process->addEquipmentToAccommodation($id);
                     break;
 
                 case 'deleteEquipment':
-                    $process->deleteEquipmentOfAccomodation($id);
+                    $process->deleteEquipmentOfAccommodation($id);
                     break;
 
                 case 'addService':
-                    $process->addServiceToAccomodation($id);
+                    $process->addServiceToAccommodation($id);
                     break;
 
                 case 'deleteService':
-                    $process->deleteServiceOfAccomodation($id);
+                    $process->deleteServiceOfAccommodation($id);
                     break;
 
                 default:

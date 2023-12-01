@@ -20,14 +20,14 @@ class Service
     }
 
     // Récupérer les services d'une annonce avec leur nom
-    public function getServiceFromAccomodation($accomodationID)
+    public function getServiceFromAccommodation($accommodationID)
     {
         $sql = "SELECT s.* FROM Service s
-            JOIN ServiceAccomodation sa ON s.serviceID = sa.serviceID
-            WHERE sa.accomodationID = :accomodationID";
+            JOIN ServiceAccommodation sa ON s.serviceID = sa.serviceID
+            WHERE sa.accommodationID = :accommodationID";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -49,12 +49,12 @@ class Service
     }
 
     //Avoir les annoncesID qui ont tel service
-    public function getAccomodationIdFromServiceId($serviceID)
+    public function getAccommodationIdFromServiceId($serviceID)
     {
-        $rqt = "SELECT a.accomodationID
-                FROM Accomodation a
-                JOIN ServiceAccomodation sa
-                ON sa.accomodationID = a.accomodationID
+        $rqt = "SELECT a.accommodationID
+                FROM Accommodation a
+                JOIN ServiceAccommodation sa
+                ON sa.accommodationID = a.accommodationID
                 JOIN Service s 
                 ON s.serviceID = sa.serviceID
                 WHERE s.serviceID =:serviceID;";
@@ -68,12 +68,12 @@ class Service
     public function deleteService($serviceID)
     {
         $model = new Service();
-        $accomodationTypeIDs = $model->getAccomodationIdFromServiceId($serviceID);
+        $accommodationTypeIDs = $model->getAccommodationIdFromServiceId($serviceID);
 
-        foreach ($accomodationTypeIDs as $accoID) {
-            $rqt = "DELETE FROM ServiceAccomodation WHERE accomodationID =:accoID AND serviceID = :serviceID";
+        foreach ($accommodationTypeIDs as $accoID) {
+            $rqt = "DELETE FROM ServiceAccommodation WHERE accommodationID =:accoID AND serviceID = :serviceID";
             $stmt = $this->conn->prepare($rqt);
-            $stmt->bindParam(':accoID', $accoID['accomodationID'], PDO::PARAM_INT);
+            $stmt->bindParam(':accoID', $accoID['accommodationID'], PDO::PARAM_INT);
             $stmt->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
             $stmt->execute();
         }
@@ -107,24 +107,24 @@ class Service
     }
 
     //Ajouter un service a une annonce
-    public function addServiceToAccomodation($accomodationID, $serviceID)
+    public function addServiceToAccommodation($accommodationID, $serviceID)
     {
-        $rowExist = "SELECT * FROM ServiceAccomodation
+        $rowExist = "SELECT * FROM ServiceAccommodation
                     WHERE serviceID=:serviceID 
-                    AND accomodationID=:accomodationID;";
+                    AND accommodationID=:accommodationID;";
         $count = $this->conn->prepare($rowExist);
         $count->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
-        $count->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $count->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         $count->execute();
         if ($count->rowCount() > 0) {
             $_SESSION['errorMsg'] = "Service déjà présent dans cette annonce.";
             return false;
         } else {
-            $rqt = "INSERT INTO ServiceAccomodation (serviceID,  accomodationID)
-                VALUES (:serviceID, :accomodationID);";
+            $rqt = "INSERT INTO ServiceAccommodation (serviceID,  accommodationID)
+                VALUES (:serviceID, :accommodationID);";
             $stmt = $this->conn->prepare($rqt);
             $stmt->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
-            $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+            $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
             if ($stmt->execute()) {
                 $_SESSION['successMsg'] = "Equipement ajouté à cette annonce!";
                 return true;
@@ -135,13 +135,13 @@ class Service
         }
     }
 
-    public function addServiceToNewAccomodation($accomodationID, $serciceId)
+    public function addServiceToNewAccommodation($accommodationID, $serciceId)
     {
-        $rqt = "INSERT INTO ServiceAccomodation (serviceID,  accomodationID)
-                VALUES (:serviceID, :accomodationID);";
+        $rqt = "INSERT INTO ServiceAccommodation (serviceID,  accommodationID)
+                VALUES (:serviceID, :accommodationID);";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':serviceID', $serciceId, PDO::PARAM_INT);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         if ($stmt->execute()) {
             return true;
         } else {
@@ -150,14 +150,14 @@ class Service
     }
 
     //Supprimer un service d'une annonce
-    public function deleteServiceOfAccomodation($accomodationID, $serviceID)
+    public function deleteServiceOfAccommodation($accommodationID, $serviceID)
     {
-        $rqt = "DELETE FROM ServiceAccomodation 
+        $rqt = "DELETE FROM ServiceAccommodation 
                 WHERE serviceID = :serviceID
-                AND accomodationID = :accomodationID;";
+                AND accommodationID = :accommodationID;";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':serviceID', $serviceID, PDO::PARAM_INT);
-        $stmt->bindParam(':accomodationID', $accomodationID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
         if ($stmt->execute()) {
             $_SESSION['successMsg'] = "Service supprimé de cette annonce!";
             return true;

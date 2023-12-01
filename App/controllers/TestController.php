@@ -16,8 +16,8 @@ class TestController
         $database->insertImage();
 
         $database->insertFakerDatas();
-        $database->insertDataAccomodationTypeEquipmentService();
-        $database->insertDataAccomodationEquipmentAccomodationService();
+        $database->insertDataAccommodationTypeEquipmentService();
+        $database->insertDataAccommodationEquipmentAccommodationService();
 
         $database->createAccounts();
         header('Location: /');

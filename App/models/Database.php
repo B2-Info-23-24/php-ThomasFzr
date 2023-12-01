@@ -40,15 +40,15 @@ class Database
             $result = $this->conn->query($sql);
             if ($result->rowCount() == 0) {
                 $sql = "CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), surname VARCHAR(255), mail VARCHAR(255) NOT NULL, pwd VARCHAR(255) NOT NULL, phoneNbr INT, isAdmin BOOL NOT NULL DEFAULT false, UNIQUE(mail));
-                CREATE TABLE Accomodation (accomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL, image VARCHAR(255), city VARCHAR(255) NOT NULL, price INT NOT NULL, accomodationType VARCHAR(255) NOT NULL);
-                CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, accomodationID INT NOT NULL, totalPrice INT NOT NULL,startDate DATE NOT NULL, endDate DATE NOT NULL, hasReviewed BOOLEAN DEFAULT FALSE NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID));
-                CREATE TABLE Review (reviewID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, accomodationID INT NOT NULL, grade INT NOT NULL, date DATE NOT NULL, comment VARCHAR(255) NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID), UNIQUE (userID, accomodationID, date));
-                CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID), UNIQUE (userID, accomodationID));
-                CREATE TABLE AccomodationType (accomodationTypeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
+                CREATE TABLE Accommodation (accommodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL, image VARCHAR(255), city VARCHAR(255) NOT NULL, price INT NOT NULL, accommodationType VARCHAR(255) NOT NULL);
+                CREATE TABLE Reservation (reservationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, accommodationID INT NOT NULL, totalPrice INT NOT NULL,startDate DATE NOT NULL, endDate DATE NOT NULL, hasReviewed BOOLEAN DEFAULT FALSE NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (accommodationID) REFERENCES Accommodation(accommodationID));
+                CREATE TABLE Review (reviewID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, accommodationID INT NOT NULL, grade INT NOT NULL, date DATE NOT NULL, comment VARCHAR(255) NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (accommodationID) REFERENCES Accommodation(accommodationID), UNIQUE (userID, accommodationID, date));
+                CREATE TABLE Favorite (favoriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT NOT NULL, accommodationID INT NOT NULL, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (accommodationID) REFERENCES Accommodation(accommodationID), UNIQUE (userID, accommodationID));
+                CREATE TABLE AccommodationType (accommodationTypeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
                 CREATE TABLE Equipment (equipmentID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
-                CREATE TABLE EquipmentAccomodation (equipmentAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipmentID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (equipmentID) REFERENCES Equipment(equipmentID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID), UNIQUE (equipmentID, accomodationID));
+                CREATE TABLE EquipmentAccommodation (equipmentAccommodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, equipmentID INT NOT NULL, accommodationID INT NOT NULL, FOREIGN KEY (equipmentID) REFERENCES Equipment(equipmentID), FOREIGN KEY (accommodationID) REFERENCES Accommodation(accommodationID), UNIQUE (equipmentID, accommodationID));
                 CREATE TABLE Service (serviceID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
-                CREATE TABLE ServiceAccomodation (serviceAccomodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT NOT NULL, accomodationID INT NOT NULL, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (accomodationID) REFERENCES Accomodation(accomodationID), UNIQUE (serviceID, accomodationID));
+                CREATE TABLE ServiceAccommodation (serviceAccommodationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, serviceID INT NOT NULL, accommodationID INT NOT NULL, FOREIGN KEY (serviceID) REFERENCES Service(serviceID), FOREIGN KEY (accommodationID) REFERENCES Accommodation(accommodationID), UNIQUE (serviceID, accommodationID));
                 CREATE TABLE City (cityID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
                 CREATE TABLE Image (imageID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);";
                 $this->conn->exec($sql);
@@ -106,7 +106,7 @@ class Database
     }
 
     //Remplir les tables de services type de logement et equipements
-    public function insertDataAccomodationTypeEquipmentService()
+    public function insertDataAccommodationTypeEquipmentService()
     {
         try {
             $queryService = "SELECT COUNT(*) as count FROM Service";
@@ -116,7 +116,7 @@ class Database
             if ($countService == 0) {
                 $sql = "INSERT INTO Service (name) VALUES ('Transferts aeroport'),('Petit-dejeuner'),('Service de menage'),('Location de voiture'),('Visites guidees'),('Cours de cuisine'),('Loisirs');
                         INSERT INTO Equipment (name) VALUES ('Connexion Wi-Fi'),('Climatiseur'),('Chauffage'),('Machine a laver'),('Seche-linge'),('Television'),('Fer a repasser / Planche a repasser'),('Nintendo Switch'),('PS5'),('Terrasse'),('Balcon'),('Piscine'),('Jardin');
-                        INSERT INTO AccomodationType (name) VALUES ('Appartement'),('Maison'),('Chalet'),('Villa'),('Péniche'),('Yourte'),('Cabane'),('Igloo'),('Tente'),('Car');";
+                        INSERT INTO AccommodationType (name) VALUES ('Appartement'),('Maison'),('Chalet'),('Villa'),('Péniche'),('Yourte'),('Cabane'),('Igloo'),('Tente'),('Car');";
                 $this->conn->exec($sql);
                 return true;
             } else {
@@ -128,17 +128,17 @@ class Database
         }
     }
 
-    //Remplir les tables ServiceAccomodation et EquipmentAccomodation
+    //Remplir les tables ServiceAccommodation et EquipmentAccommodation
 
-    public function insertDataAccomodationEquipmentAccomodationService()
+    public function insertDataAccommodationEquipmentAccommodationService()
     {
-        $sql = "SELECT accomodationID FROM Accomodation";
+        $sql = "SELECT accommodationID FROM Accommodation";
         $result = $this->conn->query($sql);
 
         if ($result !== false) {
-            $accomodationIDs = $result->fetchAll(PDO::FETCH_COLUMN);
+            $accommodationIDs = $result->fetchAll(PDO::FETCH_COLUMN);
 
-            foreach ($accomodationIDs as $accomodationID) {
+            foreach ($accommodationIDs as $accommodationID) {
                 $numEquipments = rand(1, 3);
                 $numServices = rand(1, 3);
 
@@ -147,15 +147,15 @@ class Database
 
                 for ($i = 0; $i < $numEquipments; $i++) {
                     $equipmentID = $this->getUniqueRandomID($usedEquipments, 1, 13);
-                    $rqtEquipment = $this->conn->prepare("INSERT INTO EquipmentAccomodation(equipmentID, accomodationID) VALUES (?, ?);");
-                    $rqtEquipment->execute([$equipmentID, $accomodationID]);
+                    $rqtEquipment = $this->conn->prepare("INSERT INTO EquipmentAccommodation(equipmentID, accommodationID) VALUES (?, ?);");
+                    $rqtEquipment->execute([$equipmentID, $accommodationID]);
                     $usedEquipments[] = $equipmentID;
                 }
 
                 for ($i = 0; $i < $numServices; $i++) {
                     $serviceID = $this->getUniqueRandomID($usedServices, 1, 7);
-                    $rqtService = $this->conn->prepare("INSERT INTO ServiceAccomodation(serviceID, accomodationID) VALUES (?, ?);");
-                    $rqtService->execute([$serviceID, $accomodationID]);
+                    $rqtService = $this->conn->prepare("INSERT INTO ServiceAccommodation(serviceID, accommodationID) VALUES (?, ?);");
+                    $rqtService->execute([$serviceID, $accommodationID]);
                     $usedServices[] = $serviceID;
                 }
             }
@@ -179,7 +179,7 @@ class Database
     {
         $homeNames = [' calme', ' lumineux', ' spacieuse', ' moderne', ' rustique', ' industriel', ' de campagne', ' élégant', ' contemporain', ' charmant', ' en bord de mer', ' accueillante', ' majestueux', ' paisible', ' pittoresque', ' confortable', ' de luxe', ' chaleureuse', ' montagnard'];
 
-        $sql = "SELECT name FROM AccomodationType";
+        $sql = "SELECT name FROM AccommodationType";
         $result = $this->conn->query($sql);
         $typesLogements = $result->fetchAll(PDO::FETCH_COLUMN);
 
@@ -194,7 +194,7 @@ class Database
             $title = $typeLogement . $this->faker->randomElement($homeNames);
             $imageURL = $typeLogement . $this->faker->numberBetween(1, 3) . ".png";
 
-            $stmt = $this->conn->prepare("INSERT INTO Accomodation (city, price, accomodationType, title, image) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare("INSERT INTO Accommodation (city, price, accommodationType, title, image) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$city, $price, $typeLogement, $title, $imageURL]);
         }
     }

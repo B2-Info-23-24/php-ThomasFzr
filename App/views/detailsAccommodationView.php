@@ -6,10 +6,10 @@
 <div class="flex-container-details-logement">
 
     <div class="flex-child-details-logement left">
-        {% for info in infoAccomodation %}
+        {% for info in infoAccommodation %}
         <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
         {% if isAdmin %}
-        <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+        <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
             Modifier l'image: <select name="image" required>
                 <option disabled>Actuel : {{ info.image }}</option>
                 {% for image in allImages%}
@@ -23,11 +23,11 @@
         <br>
         <h3>{{ info.title }} ({{info.price}}€/nuit)</h3>
         {% if isAdmin %}
-        <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+        <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
             Titre: <input type="text" value="{{info.title}}" name="title" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
-        <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+        <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
             Prix: <input type="number" value="{{info.price}}" name="price" min="0" required> €/nuit
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
@@ -38,16 +38,16 @@
 
             {% if isAdmin %}
 
-            <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+            <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
                 Type de logement : <select name="accoType" required>
-                    <option disabled>Actuel : {{ info.accomodationType }}</option>
-                    {% for accomodationType in allAccomodationTypes%}
-                    <option value="{{accomodationType.name}}">{{accomodationType.name}}</option>
+                    <option disabled>Actuel : {{ info.accommodationType }}</option>
+                    {% for accommodationType in allAccommodationTypes%}
+                    <option value="{{accommodationType.name}}">{{accommodationType.name}}</option>
                     {% endfor %}
                 </select>
                 <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
             </form><br>
-            <form action="/processAccomodation?action=modifyAccomodation&id={{info.accomodationID}}" method="post">
+            <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
                 Ville: <select name="city" required>
                 <option disabled>Actuel : {{ info.city }}</option>
                 {% for city in allCities%}
@@ -57,7 +57,7 @@
                 <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
             </form><br>
             {%else%}
-            Type de logement : {{ info.accomodationType }}<br><br>
+            Type de logement : {{ info.accommodationType }}<br><br>
             Ville: {{ info.city }}<br><br>
             {% endif%}
             {% endfor %}
@@ -68,8 +68,8 @@
                 {% for equipment in equipments %}
                 <li> {{equipment.name}}
                     {% if isAdmin %}
-                    {% for info in infoAccomodation %}
-                    <a href="/processAccomodation?action=deleteEquipment&id={{info.accomodationID}}&equipmentID={{equipment.equipmentID}}">
+                    {% for info in infoAccommodation %}
+                    <a href="/processAccommodation?action=deleteEquipment&id={{info.accommodationID}}&equipmentID={{equipment.equipmentID}}">
                         <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                     </a>
                     {% endfor%}
@@ -82,8 +82,8 @@
             {% endif%}
 
             {% if isAdmin %}
-            {% for info in infoAccomodation %}
-            <form action="/processAccomodation?action=addEquipment&id={{info.accomodationID}}" method="post">
+            {% for info in infoAccommodation %}
+            <form action="/processAccommodation?action=addEquipment&id={{info.accommodationID}}" method="post">
                 {% endfor %}
                 <select name="equipmentID" required>
                     <option disabled> Choisir un équipement</option>
@@ -101,8 +101,8 @@
                 {% for service in services %}
                 <li> {{service.name}}
                     {% if isAdmin %}
-                    {% for info in infoAccomodation %}
-                    <a href="/processAccomodation?action=deleteService&id={{info.accomodationID}}&serviceID={{service.serviceID}}">
+                    {% for info in infoAccommodation %}
+                    <a href="/processAccommodation?action=deleteService&id={{info.accommodationID}}&serviceID={{service.serviceID}}">
                         <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                     </a>
                     {% endfor%}
@@ -115,8 +115,8 @@
             {% endif%}
 
             {% if isAdmin %}
-            {% for info in infoAccomodation %}
-            <form action="/processAccomodation?action=addService&id={{ info.accomodationID }}" method="post">
+            {% for info in infoAccommodation %}
+            <form action="/processAccommodation?action=addService&id={{ info.accommodationID }}" method="post">
                 {% endfor%}
                 <select name="serviceID" required>
                     <option disabled> Choisir un service</option>
@@ -138,9 +138,9 @@
 
 
         {% if userID is not null %}
-        {% for info in infoAccomodation %}
+        {% for info in infoAccommodation %}
         <div id="zone-laisser-avis">
-            <form action="/addUniqueReview?id={{info.accomodationID}}" method="post">
+            <form action="/addUniqueReview?id={{info.accommodationID}}" method="post">
                 <input type="number" name="grade" placeholder="Note" required min="0" max="5">
                 <input type="text" name="comment" placeholder="Laisser un commentaire" required>
                 <input type="submit" value="ENVOYER L'AVIS">
@@ -174,16 +174,16 @@
         </ul>
     </div>
 
-    {% for info in infoAccomodation %}
+    {% for info in infoAccommodation %}
     <div class="flex-child-details-logement right">
 
         {% if userID is not null %}
         {% if isInFavorite %}
-        <form action="/processFavorite?action=remove&id={{ info.accomodationID }}" method="post">
+        <form action="/processFavorite?action=remove&id={{ info.accommodationID }}" method="post">
             <input type="submit" value="RETIRER DES FAVORIS 💔"><br><br>
         </form>
         {% else %}
-        <form action="/processFavorite?action=add&id={{ info.accomodationID }}" method="post">
+        <form action="/processFavorite?action=add&id={{ info.accommodationID }}" method="post">
             <input type="submit" value="AJOUTER EN FAVORIS 🩷"><br><br>
         </form>
         {% endif %}
@@ -194,7 +194,7 @@
         {% if userID is not null %}
         {{ info.price }} € x <span id="differenceInDays"> 1</span><br><br>
 
-        <form action="/processReservation?id={{info.accomodationID}}" method="post">
+        <form action="/processReservation?id={{info.accommodationID}}" method="post">
             Date de début: <input type="date" name="startDate" id="startDate" required> <br>
             Date de fin: <input type="date" name="endDate" id="endDate" required> <br><br>
             <input type="hidden" name="price" value="{{ info.price }}">
@@ -208,8 +208,8 @@
 
         {% if isAdmin %}
         <br><br>
-        {% for info in infoAccomodation %}
-        <a href="/processAccomodation?action=deleteAccomodation&id={{ info.accomodationID }}">
+        {% for info in infoAccommodation %}
+        <a href="/processAccommodation?action=deleteAccommodation&id={{ info.accommodationID }}">
             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
             Supprimer l'annonce
         </a>

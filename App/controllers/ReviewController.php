@@ -15,10 +15,10 @@ class ReviewController
         if (isset($_SESSION['userID'])) {
             require_once __DIR__ . '/../models/Review.php';
             $review = new Review();
-            $tabReviewAccomodations = $review->getReviewFromUser();
+            $tabReviewAccommodations = $review->getReviewFromUser();
 
             echo $this->twig->render('reviewView.php', [
-                'tabReviewAccomodations' => $tabReviewAccomodations,
+                'tabReviewAccommodations' => $tabReviewAccommodations,
             ]);
         } else {
             header('Location: /connection');

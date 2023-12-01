@@ -19,10 +19,10 @@
                 <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
                 {%endfor%}
             </select><br><br>
-            Annonce: <select name="accomodationID" required>
+            Annonce: <select name="accommodationID" required>
                 <option disabled> Choisir une annonce</option>
-                {% for accomodation in accomodations%}
-                <option value="{{accomodation.accomodationID}}">{{accomodation.title}}, Id: {{accomodation.accomodationID}}</option>
+                {% for accommodation in accommodations%}
+                <option value="{{accommodation.accommodationID}}">{{accommodation.title}}, Id: {{accommodation.accommodationID}}</option>
                 {%endfor%}
             </select><br><br>
             Note: <input type="number" name="grade" placeholder="/5" min="0" max="5" required> <br><br>
@@ -33,7 +33,7 @@
     </div>
     {% for review in reviews %}
 
-    <a href="/accomodation/{{ review.accomodationID }}" id="lien-annonce">
+    <a href="/accommodation/{{ review.accommodationID }}" id="lien-annonce">
         <div class="annonce">
             <img src="Public/assets/images/{{review.image}}" id="img-annonce-home" alt="image-{{ review.image }}">
             <div class="zone-prix">{{ review.price }} €/nuit</div>

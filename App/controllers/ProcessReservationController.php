@@ -2,7 +2,7 @@
 class ProcessReservationController
 {
 
-    public function insertReservation($accomodationID)
+    public function insertReservation($accommodationID)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             require_once __DIR__ . '/../models/Reservation.php';
@@ -14,11 +14,11 @@ class ProcessReservationController
             $durationInDays = $interval->days;
             $totalPrice = $durationInDays * $pricePerDay;
 
-            if ($reservation->insertReservation($accomodationID,  $_POST["startDate"], $_POST["endDate"], $totalPrice)) {
+            if ($reservation->insertReservation($accommodationID,  $_POST["startDate"], $_POST["endDate"], $totalPrice)) {
                 $_SESSION['successMsg'] = "Réservation validée!";
                 header("Location: /myReservations");
             } else {
-                header("Location: /accomodation/$accomodationID");
+                header("Location: /accommodation/$accommodationID");
             }
         }
     }

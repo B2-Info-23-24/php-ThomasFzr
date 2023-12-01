@@ -7,7 +7,7 @@
         {% if isAdmin%}
         <form action="/" method="GET" class="search-form">
             <div class="search">
-                <input type="text" class="search__input" name="accomodationTitle" placeholder="Nom de logement">
+                <input type="text" class="search__input" name="accommodationTitle" placeholder="Nom de logement">
                 <button type="submit" class="search__button">
                     <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
                         <g>
@@ -21,8 +21,8 @@
         <nav class="navigation">
             <ul>
                 <li><a href="/">Tout</a></li>
-                {% for accomodationType in accomodationTypes %}
-                <li><a href="/?accomodationType={{ accomodationType.name }}">{{ accomodationType.name }}</a></li>
+                {% for accommodationType in accommodationTypes %}
+                <li><a href="/?accommodationType={{ accommodationType.name }}">{{ accommodationType.name }}</a></li>
                 {% endfor %}
             </ul>
         </nav>
@@ -36,7 +36,7 @@
 
     <div id="filtre-deroulant" class="hidden">
         <form method="get" action="/">
-            <input type="hidden" name="accomodationType" value="{{ accomodationType }}">
+            <input type="hidden" name="accommodationType" value="{{ accommodationType }}">
 
             Services:
             <nav class="navigation">
@@ -83,9 +83,9 @@
 
 <div class="zone-annonce">
     {% if isAdmin %}
-    <a href="/addAccomodation" id="lien-annonce">
+    <a href="/addAccommodation" id="lien-annonce">
         <div class="annonce">
-            <img src="Public/assets/images/iconePlusBlanc.png" id="img-btn-add-accomodation">
+            <img src="Public/assets/images/iconePlusBlanc.png" id="img-btn-add-accommodation">
             <div class="zone-prix"> </div><br>
             <div class="description">
                 <h4>AJOUTER UNE ANNONCE</h4>
@@ -93,14 +93,14 @@
         </div>
     </a>
     {% endif %}
-    {% if accomodations is not empty %}
-    {% for accomodation in accomodations %}
-    <a href="/accomodation/{{ accomodation.accomodationID }}" id="lien-annonce">
+    {% if accommodations is not empty %}
+    {% for accommodation in accommodations %}
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-annonce">
         <div class="annonce">
-            <img src="Public/assets/images/{{accomodation.image}}" id="img-annonce-home" alt="image-{{ info.image }}">
-            <div class="zone-prix">{{accomodation.price}} €/nuit</div>
+            <img src="Public/assets/images/{{accommodation.image}}" id="img-annonce-home" alt="image-{{ info.image }}">
+            <div class="zone-prix">{{accommodation.price}} €/nuit</div>
             <div class="description">
-                <h4>{{accomodation.title}}</h4>
+                <h4>{{accommodation.title}}</h4>
             </div>
         </div>
     </a>

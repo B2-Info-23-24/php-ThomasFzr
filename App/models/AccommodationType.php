@@ -1,5 +1,5 @@
 <?php
-class AccomodationType
+class AccommodationType
 {
 
     private $conn;
@@ -11,18 +11,18 @@ class AccomodationType
     }
 
     //Récupérer les types de logement
-    public function getAccomodationType()
+    public function getAccommodationType()
     {
-        $rqt = "SELECT * FROM AccomodationType";
+        $rqt = "SELECT * FROM AccommodationType";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //AJouter un type de logement
-    public function addAccomodationType($value)
+    public function addAccommodationType($value)
     {
-        $rqt = "INSERT INTO AccomodationType (name) VALUES (:value)";
+        $rqt = "INSERT INTO AccommodationType (name) VALUES (:value)";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':value', $value, PDO::PARAM_STR);
         if ($stmt->execute()) {
@@ -36,15 +36,15 @@ class AccomodationType
 
 
     //Avoir les annoncesID qui ont tel service
-    public function getAccomodationIdFromAccomodationTypeId($accomodationTypeId)
+    public function getAccommodationIdFromAccommodationTypeId($accommodationTypeId)
     {
-        $rqt1 = "SELECT a.accomodationID
-                FROM Accomodation a
-                JOIN AccomodationType at
-                ON at.name = a.accomodationType
-                WHERE at.accomodationTypeID = :accomodationTypeId;";
+        $rqt1 = "SELECT a.accommodationID
+                FROM Accommodation a
+                JOIN AccommodationType at
+                ON at.name = a.accommodationType
+                WHERE at.accommodationTypeID = :accommodationTypeId;";
         $stmt1 = $this->conn->prepare($rqt1);
-        $stmt1->bindParam(':accomodationTypeId', $accomodationTypeId, PDO::PARAM_INT);
+        $stmt1->bindParam(':accommodationTypeId', $accommodationTypeId, PDO::PARAM_INT);
         $stmt1->execute();
 
         return $stmt1->fetchAll(PDO::FETCH_ASSOC);
@@ -52,22 +52,22 @@ class AccomodationType
 
 
     //SUpprimer un type de logement
-    public function deleteAccomodationType($id)
+    public function deleteAccommodationType($id)
     {
-        $model = new AccomodationType();
-        $accomodationTypeIDs = $model->getAccomodationIdFromAccomodationTypeId($id);
+        $model = new AccommodationType();
+        $accommodationTypeIDs = $model->getAccommodationIdFromAccommodationTypeId($id);
 
-        foreach ($accomodationTypeIDs as $accoID) {
-            $rqt = "UPDATE Accomodation SET accomodationType = 'UNDEFINED' WHERE accomodationID=:id";
+        foreach ($accommodationTypeIDs as $accoID) {
+            $rqt = "UPDATE Accommodation SET accommodationType = 'UNDEFINED' WHERE accommodationID=:id";
             $stmt = $this->conn->prepare($rqt);
-            $stmt->bindParam(':id', $accoID['accomodationID'], PDO::PARAM_INT);
+            $stmt->bindParam(':id', $accoID['accommodationID'], PDO::PARAM_INT);
             $stmt->execute();
         }
 
-        $model = new AccomodationType();
-        $model->addAccomodationType('UNDEFINED');
+        $model = new AccommodationType();
+        $model->addAccommodationType('UNDEFINED');
 
-        $rqt2 = "DELETE FROM AccomodationType WHERE accomodationTypeID = :id";
+        $rqt2 = "DELETE FROM AccommodationType WHERE accommodationTypeID = :id";
         $stmt2 = $this->conn->prepare($rqt2);
         $stmt2->bindParam(':id', $id, PDO::PARAM_INT);
         if ($stmt2->execute()) {
@@ -80,23 +80,23 @@ class AccomodationType
     }
 
     //Modifier un type de logement
-    public function modifyAccomodationType($value, $accomodationTypeID)
+    public function modifyAccommodationType($value, $accommodationTypeID)
     {
-        $model = new AccomodationType();
-        $accomodationTypeIDs = $model->getAccomodationIdFromAccomodationTypeId($accomodationTypeID);
+        $model = new AccommodationType();
+        $accommodationTypeIDs = $model->getAccommodationIdFromAccommodationTypeId($accommodationTypeID);
 
-        foreach ($accomodationTypeIDs as $accoID) {
-            $rqt = "UPDATE Accomodation SET accomodationType = :value WHERE accomodationID=:accoID";
+        foreach ($accommodationTypeIDs as $accoID) {
+            $rqt = "UPDATE Accommodation SET accommodationType = :value WHERE accommodationID=:accoID";
             $stmt = $this->conn->prepare($rqt);
-            $stmt->bindParam(':accoID', $accoID['accomodationID'], PDO::PARAM_INT);
+            $stmt->bindParam(':accoID', $accoID['accommodationID'], PDO::PARAM_INT);
             $stmt->bindParam(':value', $value, PDO::PARAM_STR);
             $stmt->execute();
         }
 
-        $rqt = "UPDATE AccomodationType SET name = :value WHERE accomodationTypeID=:accomodationTypeID";
+        $rqt = "UPDATE AccommodationType SET name = :value WHERE accommodationTypeID=:accommodationTypeID";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':value', $value, PDO::PARAM_STR);
-        $stmt->bindParam(':accomodationTypeID', $accomodationTypeID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationTypeID', $accommodationTypeID, PDO::PARAM_INT);
         if ($stmt->execute()) {
             $_SESSION['successMsg'] = "Type de logement modifié!";
             return true;

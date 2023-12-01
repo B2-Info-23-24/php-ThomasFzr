@@ -1,5 +1,5 @@
 <?php
-class DetailsAccomodationController
+class DetailsAccommodationController
 {
     private $twig;
 
@@ -11,32 +11,32 @@ class DetailsAccomodationController
 
 
 
-    public function getDetailsAccomodation($accomodationID)
+    public function getDetailsAccommodation($accommodationID)
     {
         require_once __DIR__ . '/../models/Database.php';
         require_once __DIR__ . '/../models/Favorite.php';
         require_once __DIR__ . '/../models/Review.php';
-        require_once __DIR__ . '/../models/Accomodation.php';
+        require_once __DIR__ . '/../models/Accommodation.php';
         require_once __DIR__ . '/../models/Service.php';
         require_once __DIR__ . '/../models/Equipment.php';
-        require_once __DIR__ . '/../models/AccomodationType.php';
+        require_once __DIR__ . '/../models/AccommodationType.php';
 
         $database = new Database();
         $favorite = new Favorite();
         $review = new Review();
-        $accomodation = new Accomodation();
+        $accommodation = new Accommodation();
         $service = new Service();
         $equipment = new Equipment();
-        $accoType = new AccomodationType();
+        $accoType = new AccommodationType();
 
-        $infoAccomodation = $accomodation->getDetailsAccomodation($accomodationID);
-        $tabService = $service->getServiceFromAccomodation($accomodationID);
-        $tabEquipment = $equipment->getEquipmentFromAccomodation($accomodationID);
-        $tabReview = $review->getReviewFromAccomodation($accomodationID);
+        $infoAccommodation = $accommodation->getDetailsAccommodation($accommodationID);
+        $tabService = $service->getServiceFromAccommodation($accommodationID);
+        $tabEquipment = $equipment->getEquipmentFromAccommodation($accommodationID);
+        $tabReview = $review->getReviewFromAccommodation($accommodationID);
         $averageGrade = $this->calculateAverageGrade($tabReview);
         $allEquipments = $equipment->getEquipment();
         $allServices = $service->getService();
-        $allAccomodationTypes = $accoType->getAccomodationType();
+        $allAccommodationTypes = $accoType->getAccommodationType();
         $allImages = $database->getImage();
         $allCities = $database->getCity();
 
@@ -45,10 +45,10 @@ class DetailsAccomodationController
 
         if (isset($_SESSION['userID'])) {
             $userID = $_SESSION['userID'];
-            $isInFavorite = $favorite->isInFavorite($accomodationID);
+            $isInFavorite = $favorite->isInFavorite($accommodationID);
         }
-        echo $this->twig->render('detailsAccomodationView.php', [
-            'infoAccomodation' => $infoAccomodation,
+        echo $this->twig->render('detailsAccommodationView.php', [
+            'infoAccommodation' => $infoAccommodation,
             'services' => $tabService,
             'equipments' => $tabEquipment,
             'isInFavorite' => $isInFavorite,
@@ -57,7 +57,7 @@ class DetailsAccomodationController
             'userID' => $userID,
             'allEquipments' => $allEquipments,
             'allServices' => $allServices,
-            'allAccomodationTypes' => $allAccomodationTypes,
+            'allAccommodationTypes' => $allAccommodationTypes,
             'allImages' => $allImages,
             'allCities' => $allCities
 

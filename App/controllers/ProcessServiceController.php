@@ -13,7 +13,7 @@ class ProcessServiceController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $serviceName = $_POST["serviceName"];
             if ($this->service->addService($serviceName)) {
-                header('Location: /allEquipmentServiceAccomodationType');
+                header('Location: /allEquipmentServiceAccommodationType');
             }
         }
     }
@@ -21,7 +21,7 @@ class ProcessServiceController
     function deleteService($id)
     {
         if ($this->service->deleteService($id)) {
-            header("Location: /allEquipmentServiceAccomodationType");
+            header("Location: /allEquipmentServiceAccommodationType");
         }
     }
 
@@ -29,7 +29,7 @@ class ProcessServiceController
     {
         $value = $_POST['serviceName'];
         if ($this->service->modifyService($value, $id)) {
-            header("Location: /allEquipmentServiceAccomodationType");
+            header("Location: /allEquipmentServiceAccommodationType");
         }
     }
 
