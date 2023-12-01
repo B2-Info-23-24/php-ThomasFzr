@@ -28,7 +28,7 @@
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
-            Prix: <input type="number" value="{{info.price}}" name="price" min="0" required> €/nuit
+            Prix: <input type="number" value="{{info.price}}" name="price" min="0" max="1000000" required> €/nuit
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         {% endif%}

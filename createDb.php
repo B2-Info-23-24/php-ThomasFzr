@@ -10,4 +10,7 @@ if ($database->createTables()) {
     $database->insertFakerDatas();
     $database->insertDataAccommodationEquipmentAccommodationService();
     $database->createAccounts();
+    $database->createFavorite();
+    $database->createReservation();
+    $database->createReview();
 }
