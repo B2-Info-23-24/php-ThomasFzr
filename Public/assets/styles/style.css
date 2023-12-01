@@ -569,3 +569,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 .flex-child-favoReser:last-child {
     margin-left: 30px;
 }
+
+/* reviews */
+
+#details-all-reviews{
+    text-align: right;
+}

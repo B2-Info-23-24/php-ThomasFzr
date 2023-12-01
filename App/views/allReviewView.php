@@ -3,6 +3,30 @@
 {% block content %}
 <h3> Tous les avis: </h3>
 
+<a href="javascript:void(0)" id="btn-plus">
+    <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+</a>
+
+<div id="add-user" class="profil-card" style="display: none;">
+    <form action="/processReview?action=add" method="post">
+        Utilisateur : <select name="userID" required>
+            <option disabled> Choisir un utilisateur</option>
+            {% for user in users%}
+            <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
+            {%endfor%}
+        </select><br><br>
+        Annonce: <select name="accomodationID" required>
+            <option disabled> Choisir une annonce</option>
+            {% for accomodation in accomodations%}
+            <option value="{{accomodation.accomodationID}}">{{accomodation.title}}, Id: {{accomodation.accomodationID}}</option>
+            {%endfor%}
+        </select><br><br>
+        Note: <input type="number" name="grade" placeholder="/5" min="0" max="5" required> <br><br>
+        Commentaire: <input type="text" name="comment" placeholder="Ajouter un commentaire" required> <br><br>
+        Date: <input type="date" name="date" required><br><br>
+        <input type="submit" value="Ajouter">
+    </form>
+</div>
 
 <div class="zone-annonce">
     {% for review in reviews %}
@@ -14,55 +38,40 @@
             <div class="description">
                 <h4>{{ review.title }}</h4>
             </div>
-
-            <div id="details-commentaires-notes">
-                <li>{{ review.grade }}⭐ -
-
-                    {% if review.surname !='' %}
-                    {{ review.surname }} {{ review.name }}
-                    {%else%}
-                    Anonyme
-                    {%endif%}
-
-                    ({{ review.date|date("d/m/Y") }})
-                    <br>
-                    {{ review.comment }}<br>
-
-                    <a href="/processReview?action=delete&id={{review.reviewID}}">
-                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
-                    </a>
-
-                </li>
-            </div>
-        </div>
-    </a>
-    {% endfor %}
-
-    <a href="javascript:void(0)" id="btn-plus">
-        <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
     </a>
 
-    <div id="add-user" class="profil-card" style="display: none;">
-        <form action="/processReview?action=add" method="post">
+    <div id="details-all-reviews">
+        <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
+            Note : <input type="number" value="{{review.grade}}" name="grade" min="0" max="5" required>/5⭐
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form>
+        <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
             Utilisateur : <select name="userID" required>
-                <option disabled> Choisir un utilisateur</option>
+                <option disabled> Actuel : {{review.surname}}, Id: {{review.userID}}</option>
                 {% for user in users%}
                 <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
                 {%endfor%}
-            </select><br><br>
-            Annonce: <select name="accomodationID" required>
-                <option disabled> Choisir une annonce</option>
-                {% for accomodation in accomodations%}
-                <option value="{{accomodation.accomodationID}}">{{accomodation.title}}, Id: {{accomodation.accomodationID}}</option>
-                {%endfor%}
-            </select><br><br>
-            Note: <input type="number" name="grade" placeholder="/5" min="0" max="5" required> <br><br>
-            Commentaire: <input type="text" name="comment" placeholder="Ajouter un commentaire" required> <br><br>
-            Date: <input type="date" name="date" required><br><br>
-            <input type="submit" value="Ajouter">
+            </select>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form>
+        <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
+            Date : <input type="date" value="{{review.date}}" name="date" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form>
+        <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
+            Commentaire : <input type="text" value="{{ review.comment }}" name="comment" required>
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+        </form>
+        <br>
+
+        <a href="/processReview?action=delete&id={{review.reviewID}}">
+            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+        </a>
     </div>
 </div>
+{% endfor %}
+
+
 
 
 <script>

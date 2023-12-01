@@ -38,12 +38,32 @@ class ProcessReviewController
 
     function modifyReview($reviewId)
     {
-        $userID = $_POST['userID'];
-        $accomodationID = $_POST['accomodationID'];
-        $grade = $_POST['grade'];
-        $comment = $_POST['comment'];
-        $date = $_POST['date'];
-        if ($this->review->modifyReview($userID, $accomodationID, $grade, $comment, $date, $reviewId)) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $successMsg = "";
+
+            if (isset($_POST["userID"]) && $_POST["userID"] != '') {
+                $this->review->modifyReview('userID', $_POST['userID'], $reviewId);
+                $successMsg = "Utilisateur";
+            }
+            if (isset($_POST["grade"]) && $_POST["grade"] != '') {
+                $this->review->modifyReview('grade', $_POST['grade'], $reviewId);
+                $successMsg = $successMsg . " Note";
+            }
+            if (isset($_POST["comment"]) && $_POST["comment"] != '') {
+                $this->review->modifyReview('comment', $_POST['comment'], $reviewId);
+                $successMsg = $successMsg . " Commentaire";
+            }
+            if (isset($_POST["date"]) && $_POST["date"] != '') {
+                $this->review->modifyReview('date', $_POST['date'], $reviewId);
+                $successMsg = $successMsg . " Date";
+            }
+
+            if ((isset($_POST["userID"]) && $_POST["userID"] != '') || (isset($_POST["grade"]) && $_POST["grade"] != '')
+                || (isset($_POST["comment"]) && $_POST["comment"] != '') || (isset($_POST["Date"]) && $_POST["Date"] != '')
+            ) {
+                $_SESSION['successMsg'] = $successMsg . " changé avec succès";
+            }
+
             header("Location: /allReviews");
         }
     }
