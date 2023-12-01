@@ -61,7 +61,11 @@ RUN service apache2 restart
 - Relancer le serveur apache : `docker-compose up --build`
 
 - Cloner le repo github: `git clone https://github.com/B2-Info-23-24/php-ThomasFzr.git src`
-- Creer la BDD: `docker exec b21268552815 php createDb.php`
+
+- Chercher son numéro de container: `docker ps`
+- Copier coller le numéro en dessous de CONTAINER ID, qui correspond à l'image php-web (ex: b21268552815)
+
+- Creer la BDD avec cette commande, en remplaçant b21268552815 avec votre CONTAINER ID: `docker exec b21268552815 php createDb.php`
 
 - Aller sur internet et écrire l'url: `http://localhost:8080/`
 - Bienvenue sur mon site!
