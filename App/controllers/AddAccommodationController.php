@@ -36,7 +36,7 @@ class AddAccommodationController
                 ]
             );
         } else {
-            header('Location: /');
+            header('Location: /connection');
         }
     }
 }

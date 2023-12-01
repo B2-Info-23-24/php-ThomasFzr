@@ -52,13 +52,10 @@ if (isset($_GET['accommodationType'])) {
 }
 
 
-
 $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $parts = explode('/', trim($urlPath, '/'));
 $route = "/" . $parts[0];
 $id = $parts[1] ?? null;
-
-// echo "Route: $route, ID: $id";
 
 switch ($route) {
     case '':
@@ -72,7 +69,6 @@ switch ($route) {
         $selectedEquipments = isset($_GET['selectedEquipments']) ? $_GET['selectedEquipments'] : [];
         $selectedServices = isset($_GET['selectedServices']) ? $_GET['selectedServices'] : [];
         $controller->getInfoHome($accommodationType, $selectedEquipments, $selectedServices, $ville, $minPrice, $maxPrice, $accommodationTitle);
-
         break;
 
     case '/connection':
