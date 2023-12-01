@@ -23,7 +23,7 @@
                     <option value="{{city.name}}">{{city.name}}</option>
                     {% endfor %}
                 </select> <br><br>
-                Prix: <input type="number" name="price" placeholder="Prix à la nuit" required> €/nuit<br><br>
+                Prix: <input type="number" name="price" min="0" max="1000000" placeholder="Prix à la nuit" required> €/nuit<br><br>
                 Type de logement:
                 <select name="accoType" required>
                     <option disabled>Choisir un type de logement</option>

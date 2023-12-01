@@ -201,14 +201,81 @@ class Database
 
     public function createAccounts()
     {
-        $hash1 = password_hash('user', PASSWORD_DEFAULT);
-        $hash2 = password_hash('admin', PASSWORD_DEFAULT);
+        $hash1 = password_hash('admin', PASSWORD_DEFAULT);
+        $hash2 = password_hash('elise', PASSWORD_DEFAULT);
+        $hash3 = password_hash('bruce', PASSWORD_DEFAULT);
+        $hash4 = password_hash('joe', PASSWORD_DEFAULT);
+        $hash5 = password_hash('paul', PASSWORD_DEFAULT);
+        $hash6 = password_hash('louis', PASSWORD_DEFAULT);
 
-        $rqt = "INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('user@user.com', :pwd1, 'User', 0);
-                INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('admin@admin.com', :pwd2, 'Admin', 1);";
+        $rqt = "INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('admin@admin.com', :pwd1, 'Admin', 1);
+                INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('elise@elise.com', :pwd2, 'Elise', 0);
+                INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('bruce@bruce.com', :pwd3, 'Bruce', 0);
+                INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('joe@joe.com', :pwd4, 'Joe', 0);
+                INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('paul@paul.com', :pwd5, 'Paul', 0);
+                INSERT INTO User (mail, pwd, surname, isAdmin) VALUES ('louis@louis.com', :pwd6, 'Louis', 0);";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':pwd1', $hash1, PDO::PARAM_STR);
         $stmt->bindParam(':pwd2', $hash2, PDO::PARAM_STR);
+        $stmt->bindParam(':pwd3', $hash3, PDO::PARAM_STR);
+        $stmt->bindParam(':pwd4', $hash4, PDO::PARAM_STR);
+        $stmt->bindParam(':pwd5', $hash5, PDO::PARAM_STR);
+        $stmt->bindParam(':pwd6', $hash6, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function createFavorite()
+    {
+        $rqt = "INSERT INTO Favorite (userID, accommodationID) VALUES (2, 2);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (2, 8);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (3, 5);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (3, 1);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (3, 3);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (4, 1);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (5, 9);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (6, 10);
+                INSERT INTO Favorite (userID, accommodationID) VALUES (6, 11);";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+    }
+
+    public function createReservation()
+    {
+        $rqt1 = $this->conn->query("SELECT price FROM Accommodation WHERE accommodationID = 1;");
+        $price1 = $rqt1->fetchColumn();
+        $rqt2 = $this->conn->query("SELECT price FROM Accommodation WHERE accommodationID = 2;");
+        $price2 = $rqt2->fetchColumn();
+        $rqt3 = $this->conn->query("SELECT price FROM Accommodation WHERE accommodationID = 3;");
+        $price3 = $rqt3->fetchColumn();
+        $rqt4 = $this->conn->query("SELECT price FROM Accommodation WHERE accommodationID = 4;");
+        $price4 = $rqt4->fetchColumn();
+        $rqt5 = $this->conn->query("SELECT price FROM Accommodation WHERE accommodationID = 5;");
+        $price5 = $rqt5->fetchColumn();
+        $rqt6 = $this->conn->query("SELECT price FROM Accommodation WHERE accommodationID = 6;");
+        $price6 = $rqt6->fetchColumn();
+        $rqt11 = $this->conn->query("SELECT price FROM Accommodation WHERE accommodationID = 11;");
+        $price11 = $rqt11->fetchColumn();
+
+        $rqt = "INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (2, 1, '$price1', '2022-12-10', '2022-12-11', 1);
+                INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (2, 2, '$price2', '2023-10-11', '2023-10-12', 0);
+                INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (3, 3, '$price3', '2022-10-10', '2022-10-11', 1);
+                INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (4, 4, '$price4', '2023-05-24', '2023-05-25', 1);
+                INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (4, 5, '$price5', '2021-05-20', '2021-05-21', 1);
+                INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (4, 6, '$price6', '2023-07-01', '2023-07-02', 0);
+                INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (5, 11, '$price11', '2023-12-21', '2023-12-22', 0);
+                INSERT INTO Reservation (userID, accommodationID, totalPrice, startDate, endDate, hasReviewed) VALUES (6, 3, '$price3', '2023-11-12', '2023-11-13', 1);";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->execute();
+    }
+
+    public function createReview()
+    {
+        $rqt = "INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (2, 1, 4, '2022-12-14', 'Vraiment agréable, conforme à la description! Je reviendrai :D');
+                INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (3, 3, 2, '2022-10-12', 'Moyen, les voisins étaient bruyant, le frigo fuyait et il faisait trop chaud.');
+                INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (4, 4, 5, '2023-05-27', 'Très calme, paysage magnifique, très bien équipée!');
+                INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (4, 5, 3, '2021-05-25', 'Génial, rien à dire, cétait juste super, lannée prochaine je serai le premier à réserver!!!');
+                INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (6, 3, 4, '2023-11-14', 'Plutôt moyen, les jeunes du quartier font du bruit toute la nuit...');";
+        $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
     }
 
