@@ -1,5 +1,16 @@
 # Troc Mon Toit, Thomas FOLTZER B2A #
 
+# Présentation du projet
+
+Dans le cadre du module PHP, nous avons dû réalisé un site web pour
+une agence de location (Troc mon Toit) qui souhaite numériser ses services
+et mettre à disposition différents logements qu’elle possède afin d’en tirer des revenus.
+Cette application doit permettre un affichage de l’ensemble des logements disponibles. Ces
+logements, imagés par une photo, doivent pouvoir être recherchables par ville.
+Par ailleurs cet affichage doit permettre de filtrer les logements par prix à la nuit, 
+type de logement, équipements disponibles et services disponibles.
+
+# Guide d'installation
 
 
 # Installation de docker desktop
@@ -11,7 +22,7 @@
 - Créer un dossier qui contiendra votre code.
 - Dans ce dossier, creer un fichier : `docker-compose.yml`
 - Coller dedans (attention aux espaces et aux tabulations):
-===================
+======================================
 
 version: '3'
 
@@ -38,10 +49,10 @@ services:
 volumes:
   db_data:
 
-===================
+======================================
 - Creer un fichier : `Dockerfile`
 - Coller dedans:
-===================
+======================================
   
 FROM php:8.2-apache
 # Install additional PHP extensions
@@ -49,7 +60,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
 RUN service apache2 restart
 
-===================
+======================================
 - Lancer le serveur apache : `docker-compose up -d`
 - Donner les autorisations nécessaires au dossier src : `sudo chmod 777 -R src`
 - 
@@ -65,11 +76,48 @@ RUN service apache2 restart
 - Chercher son numéro de container: `docker ps`
 - Copier coller le numéro en dessous de CONTAINER ID, qui correspond à l'image php-web (ex: b21268552815)
 
-- Creer la BDD avec cette commande, en remplaçant b21268552815 avec votre CONTAINER ID: `docker exec b21268552815 php createDb.php`
+- Creer la BDD avec cette commande, en remplaçant b21268552815 
+  avec votre CONTAINER ID: `docker exec b21268552815 php createDb.php`
 
 - Aller sur internet et écrire l'url: `http://localhost:8080/`
 - Bienvenue sur mon site!
 
   
+# Guide d'utilisation
+
+Lors du lancement du projet, sont créé plusieurs comptes utilisateurs basiques:
+
+    Identifiant : `elise@elise.com`
+    Mdp: `elise`
+
+    Identifiant : `joe@joe.com`
+    Mdp: `joe`
+
+Les utilisateurs s'ils sont connectés peuvent :
+- mettre en favoris un logement
+- réserver un logement si les dates sont disponnibles
+- laisser un unique avis sur sa réservation une fois celle-ci terminée
+- modifier son profil (nom, prénom, num de tél, mail, mdp)
+- voir l'ensemble de ses logements favoris, sont historiques de 
+  réservations et d'avis
+
+Un compte administrateur est également créé:
+
+  Identifiant : `admin@admin.com`
+  Mdp: `admin`
+
+L'administrateur peut:
+- voir l'ensemble des utilisateurs, modifier leur profil, en créer 
+  de nouveaux et en supprimer
+- voir l'ensemble des logements, modifier leur description 
+  (titre, prix, équipements/services dispo, type de logement, etc.), 
+  en créer de nouveaux et un supprimer
+- voir l'ensemble des types de logement, des services et des équipements
+  modifier leur nom, en créer de nouveaux et en supprimer
+- voir l'ensemble des avis, les modifier (date, note, commentaire)
+  en créer de nouveaux et en supprimer
+- voir l'ensemble des réservations et des favoris
+
+
 
 
