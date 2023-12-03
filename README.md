@@ -85,6 +85,20 @@ RUN service apache2 restart
   
 # Guide d'utilisation
 
+Une fois sur le site, nous pouvons soit nous connecté si nous avons déjà 
+un compte, soit nous inscrire.
+
+Sans être connecté nous pouvons voir l'ensemble des logements, voir
+le détails du logement en cliquant dessus (équipements/services, ville, prix, etc.),
+nous pouvons également filtrer les logements par:
+- prix
+- ville
+- équipements
+- services
+- type de logement
+
+Mais nous ne devons pas réserver, ni ajouter en favoris le logement.
+
 Lors du lancement du projet, sont créé plusieurs comptes utilisateurs basiques:
 
     Identifiant : `elise@elise.com`
@@ -103,8 +117,8 @@ Les utilisateurs s'ils sont connectés peuvent :
 
 Un compte administrateur est également créé:
 
-  Identifiant : `admin@admin.com`
-  Mdp: `admin`
+    Identifiant : `admin@admin.com`
+    Mdp: `admin`
 
 L'administrateur peut:
 - voir l'ensemble des utilisateurs, modifier leur profil, en créer 
@@ -117,6 +131,7 @@ L'administrateur peut:
 - voir l'ensemble des avis, les modifier (date, note, commentaire)
   en créer de nouveaux et en supprimer
 - voir l'ensemble des réservations et des favoris
+- filter les logements par nom du logement
 
 
 
