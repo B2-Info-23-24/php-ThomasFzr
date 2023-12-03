@@ -62,12 +62,9 @@ class Favorite
     {
         $userID = $_SESSION['userID'];
 
-        $rqt = "SELECT Favorite.*
-            FROM Favorite
-            JOIN Accommodation ON Accommodation.accommodationID = Favorite.accommodationID
-            JOIN User ON Favorite.userID = User.userID
-            WHERE User.userID = :userID
-              AND Accommodation.accommodationID = :accommodationID";
+        $rqt = "SELECT * FROM Favorite 
+                WHERE userID = :userID
+                AND accommodationID = :accommodationID";
 
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -85,6 +82,7 @@ class Favorite
         }
     }
 
+    //===== ADMIN =====
     function getAllFavorite()
     {
         $rqt = "SELECT * FROM Favorite
