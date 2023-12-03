@@ -31,7 +31,7 @@ class GetAllReviewController
                 ]
             );
         } else {
-            header('Location: /');
+            header('Location: /connection');
         }
     }
 }

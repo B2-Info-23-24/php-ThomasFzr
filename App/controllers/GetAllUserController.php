@@ -23,7 +23,7 @@ class GetAllUserController
                 ]
             );
         } else {
-            header('Location: /');
+            header('Location: /connection');
         }
     }
 }
