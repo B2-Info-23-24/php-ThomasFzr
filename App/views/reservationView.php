@@ -28,13 +28,14 @@
 <div class="zone-annonce">
     {% for accommodation in accommodationReservation %}
     {% if accommodation.endDate < dateToday %}
-    <a href="/detailsLogement/{{ accommodation.accommodationID }}" id="lien-annonce">
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-annonce">
         <div class="annonce">
             <img src="Public/assets/images/{{accommodation.image}}" id="img-annonce-home" alt="image-{{ accommodation.image }}">
             <div class="zone-prix">{{accommodation.price}} €/nuit</div>
             <div class="description">
                 <h4>{{accommodation.name}}</h4>
-                Réservation du {{accommodation.startDate|date("d/m/Y")}} au {{accommodation.endDate|date("d/m/Y")}}.
+                Réservation du {{accommodation.startDate|date("d/m/Y")}} au {{accommodation.endDate|date("d/m/Y")}}
+                <br> Prix total : {{accommodation.totalPrice}} €
             </div>
         </div>
     </a>

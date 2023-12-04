@@ -1,5 +1,5 @@
 <?php
-class addUniqueReviewController
+class AddUniqueReviewController
 {
     public function addReview($accommodationID)
     {
@@ -12,7 +12,7 @@ class addUniqueReviewController
                 $date = $date->format('Y-m-d');
 
                 $review->insertReview($accommodationID,  $_POST["grade"], $_POST["comment"], $date);
-                header("Location: /detailsLogement/$accommodationID");
+                header("Location: /accommodation/$accommodationID");
             }
         } else {
             header('Location: /connection');

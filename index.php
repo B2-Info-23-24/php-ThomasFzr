@@ -120,7 +120,7 @@ switch ($route) {
         break;
 
     case '/addUniqueReview':
-        $controller = new addUniqueReviewController();
+        $controller = new AddUniqueReviewController();
         $controller->addReview($_GET['id']);
         break;
 
