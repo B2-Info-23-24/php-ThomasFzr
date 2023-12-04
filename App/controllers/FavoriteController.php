@@ -15,7 +15,7 @@ class FavoriteController{
         $favorite = new Favorite();
 
         $tabAccommodation = $favorite->getFavorite($_SESSION['userID']);
-        echo $this->twig->render('favoriteView.php', ['accommodations' => $tabAccommodation]);
+        echo $this->twig->render('favoriteView.twig', ['accommodations' => $tabAccommodation]);
         }else{
             header('Location: /connection');
         }

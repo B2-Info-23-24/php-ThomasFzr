@@ -72,11 +72,11 @@ switch ($route) {
         break;
 
     case '/connection':
-        echo $twig->render('connectionView.php');
+        echo $twig->render('connectionView.twig');
         break;
 
     case '/inscription':
-        echo $twig->render('registerView.php');
+        echo $twig->render('registerView.twig');
         break;
 
     case '/accommodation':
@@ -220,6 +220,6 @@ switch ($route) {
 
     default:
         http_response_code(404);
-        include 'App/views/404.php';
+        include 'App/views/404.twig';
         break;
 }

@@ -47,7 +47,7 @@ class DetailsAccommodationController
             $userID = $_SESSION['userID'];
             $isInFavorite = $favorite->isInFavorite($accommodationID);
         }
-        echo $this->twig->render('detailsAccommodationView.php', [
+        echo $this->twig->render('detailsAccommodationView.twig', [
             'infoAccommodation' => $infoAccommodation,
             'services' => $tabService,
             'equipments' => $tabEquipment,

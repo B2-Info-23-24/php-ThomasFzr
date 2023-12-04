@@ -17,7 +17,7 @@ class ReviewController
             $review = new Review();
             $tabReviewAccommodations = $review->getReviewFromUser();
 
-            echo $this->twig->render('reviewView.php', [
+            echo $this->twig->render('reviewView.twig', [
                 'tabReviewAccommodations' => $tabReviewAccommodations,
             ]);
         } else {

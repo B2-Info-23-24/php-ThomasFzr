@@ -27,7 +27,7 @@ class GetAllFavoriteReservationController
             $accommodations = $accommodation->getAccommodation('');
 
             echo $this->twig->render(
-                'allFavoriteReservationView.php',
+                'allFavoriteReservationView.twig',
                 [
                     'favorites' => $favorites,
                     'reservations' => $reservations,
