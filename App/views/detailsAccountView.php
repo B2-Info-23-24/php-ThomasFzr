@@ -25,7 +25,7 @@
     </form><br>
     <form action="/editInfoUser" method="post">
         Numéro de tél :
-        <input type="text" value="{% if infoUser.phoneNbr %}{{infoUser.phoneNbr}}{% else %}Pas encore définis{% endif %}" name="phoneNbr" required>
+        <input type="text" pattern="^0\d{9}$" value="{{ ' ' ~ infoUser.phoneNbr }}" name="phoneNbr" required>
         <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
     </form><br>
 </div>

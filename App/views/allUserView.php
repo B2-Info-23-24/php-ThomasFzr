@@ -28,7 +28,7 @@
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Numéro de tél :
-            <input type="text" value="{% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%}" name="phoneNbr" required>
+            <input type="text" pattern="^0\d{9}$" value="{% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%}" name="phoneNbr" required>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">

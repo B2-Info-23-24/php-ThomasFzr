@@ -49,7 +49,7 @@ class User
             $stmt->bindParam(':isAdmin', $isAdmin, PDO::PARAM_INT);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':surname', $surname, PDO::PARAM_STR);
-            $stmt->bindParam(':phoneNbr', $phoneNbr, PDO::PARAM_INT);
+            $stmt->bindParam(':phoneNbr', $phoneNbr, PDO::PARAM_STR);
             if ($stmt->execute()) {
                 $_SESSION['successMsg'] = "Utilisateur créé!";
                 return true;
