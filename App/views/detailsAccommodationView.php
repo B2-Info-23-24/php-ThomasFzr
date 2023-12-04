@@ -179,11 +179,11 @@
 
         {% if userID is not null %}
         {% if isInFavorite %}
-        <form action="/processFavorite?action=remove&id={{ info.accommodationID }}" method="post">
+        <form action="/actionFavorite?action=remove&id={{ info.accommodationID }}" method="post">
             <input type="submit" value="RETIRER DES FAVORIS 💔"><br><br>
         </form>
         {% else %}
-        <form action="/processFavorite?action=add&id={{ info.accommodationID }}" method="post">
+        <form action="/actionFavorite?action=add&id={{ info.accommodationID }}" method="post">
             <input type="submit" value="AJOUTER EN FAVORIS 🩷"><br><br>
         </form>
         {% endif %}
@@ -194,7 +194,7 @@
         {% if userID is not null %}
         {{ info.price }} € x <span id="differenceInDays"> 1</span><br><br>
 
-        <form action="/processReservation?id={{info.accommodationID}}" method="post">
+        <form action="/addReservation?id={{info.accommodationID}}" method="post">
             Date de début: <input type="date" name="startDate" id="startDate" required> <br>
             Date de fin: <input type="date" name="endDate" id="endDate" required> <br><br>
             <input type="hidden" name="price" value="{{ info.price }}">

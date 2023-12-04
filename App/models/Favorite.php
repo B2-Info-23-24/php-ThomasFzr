@@ -92,4 +92,32 @@ class Favorite
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    function addFavorite($userID, $accomodationID)
+    {
+        $rqt = "INSERT INTO Favorite (userID, accommodationID) VALUES (:userID, :accommodationID)";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':accommodationID', $accomodationID, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function deleteFavorite($favoriteID)
+    {
+        $rqt = "DELETE FROM Favorite WHERE favoriteID = :favoriteID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':favoriteID', $favoriteID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $_SESSION['successMsg'] = "Supprimé des favoris!";
+            return true;
+        } else {
+            $_SESSION['errorMsg'] = "Ajouté en favoris.";
+            return false;
+        }
+    }
 }
