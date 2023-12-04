@@ -63,7 +63,27 @@ RUN service apache2 restart
 ======================================
 - Lancer le serveur apache : `docker-compose up -d`
 - Donner les autorisations nécessaires au dossier src : `sudo chmod 777 -R src`
-- 
+
+
+# Accès à la base de données
+
+Pour accéder à la base de données, vous pouvez utiliser l’outil que vous voulez, cependant nous préconisons l’utilisation de beekeeper studio, un puissant éditeur de base de données 
+
+[https://github.com/beekeeper-studio/beekeeper-studio](https://github.com/beekeeper-studio/beekeeper-studio)
+
+Une fois sur l’application, is faut configurer une nouvelle connexion 
+
+![Untitled](https://i.imgur.com/RZ693Z2.png)
+
+Ici nous choisissons MySQL. 
+
+Vous pouvez ensuite remplir les informations de connexion avec celles fournies dans le fichier docker-compose.yml
+
+![Untitled](https://i.imgur.com/uxmEInv.png)
+
+Vous pouvez avez désormais accès à la base de données 
+
+
 - Installer Composer : `sudo apt install composer`
 - Installer Twig : `composer require twig/twig`
 - Installer Faker : `sudo docker run --rm --interactive --tty --volume %PWD:/app composer require fakerphp/faker`
@@ -130,7 +150,7 @@ L'administrateur peut:
   modifier leur nom, en créer de nouveaux et en supprimer
 - voir l'ensemble des avis, les modifier (date, note, commentaire)
   en créer de nouveaux et en supprimer
-- voir l'ensemble des réservations et des favoris
+- voir l'ensemble des réservations et des favoris, en ajouter et en supprimer
 - filter les logements par nom du logement
 
 
