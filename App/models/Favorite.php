@@ -93,17 +93,31 @@ class Favorite
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function addFavorite($userID, $accomodationID)
+    function addFavorite($userID, $accommodationID)
     {
-        $rqt = "INSERT INTO Favorite (userID, accommodationID) VALUES (:userID, :accommodationID)";
+        $rqt = "SELECT * from Favorite 
+                WHERE userID = :userID
+                AND accommodationID = :accommodationID";
         $stmt = $this->conn->prepare($rqt);
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':accommodationID', $accomodationID, PDO::PARAM_INT);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $_SESSION['errorMsg'] = "Ce logement est déjà en favoris pour cet utilisateur.";
             return false;
+        } else {
+
+            $rqt = "INSERT INTO Favorite (userID, accommodationID) VALUES (:userID, :accommodationID)";
+            $stmt = $this->conn->prepare($rqt);
+            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+            $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                $_SESSION['successMsg'] = "Logement ajouté en favoris";
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

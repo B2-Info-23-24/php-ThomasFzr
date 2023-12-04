@@ -25,11 +25,9 @@ class ProcessFavoriteController
         if (isset($_SESSION['isAdmin'])) {
             $process = new ProcessFavoriteController();
             if ($action == "add") {
-                $process->addFavorite($favoriteID);
-                $_SESSION['successMsg'] = "Logement ajouté en favoris";
+                $process->addFavorite();
             } elseif ($action == "delete") {
                 $process->deleteFavorite($favoriteID);
-                $_SESSION['successMsg'] = "Logement retiré des favoris";
             }
         } else {
             header('Location: /connection');
