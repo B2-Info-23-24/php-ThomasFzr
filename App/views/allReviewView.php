@@ -26,7 +26,7 @@
                 {%endfor%}
             </select><br><br>
             Note: <input type="number" name="grade" placeholder="/5" min="0" max="5" required> <br><br>
-            Commentaire: <input type="text" name="comment" placeholder="Ajouter un commentaire" required> <br><br>
+            Commentaire: <textarea name="comment" placeholder="Ajouter un commentaire" required></textarea> <br><br>
             Date: <input type="date" name="date" required><br><br>
             <input type="submit" value="Ajouter">
         </form>
@@ -61,7 +61,7 @@
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form>
         <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
-            Commentaire : <input type="text" value="{{ review.comment }}" name="comment" required>
+            Commentaire : <textarea name="comment" required>{{ review.comment }}</textarea>
             <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
         </form>
         <br>

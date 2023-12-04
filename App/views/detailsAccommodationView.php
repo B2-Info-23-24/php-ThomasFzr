@@ -142,7 +142,7 @@
         <div id="zone-laisser-avis">
             <form action="/addUniqueReview?id={{info.accommodationID}}" method="post">
                 <input type="number" name="grade" placeholder="Note" required min="0" max="5">
-                <input type="text" name="comment" placeholder="Laisser un commentaire" required>
+                <textarea name="comment" placeholder="Laisser un commentaire" required></textarea>
                 <input type="submit" value="ENVOYER L'AVIS">
             </form>
         </div>
