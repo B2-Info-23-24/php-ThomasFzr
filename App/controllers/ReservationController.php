@@ -18,7 +18,7 @@ class ReservationController
             $dateToday = $dateToday->format('Y-m-d');
 
             $tabAccommodationReservation = $reservation->getReservation($_SESSION['userID']);
-            echo $this->twig->render('reservationView.php', [
+            echo $this->twig->render('reservationView.twig', [
                 'accommodationReservation' => $tabAccommodationReservation,
                 'dateToday' => $dateToday
             ]);

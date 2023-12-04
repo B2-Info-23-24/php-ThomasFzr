@@ -23,7 +23,7 @@ class GetAllReviewController
             $accommodations = $accommodation->getAccommodation(''); 
 
             echo $this->twig->render(
-                'allReviewView.php',
+                'allReviewView.twig',
                 [
                     'reviews' => $reviews,
                     'users' => $users,

@@ -17,7 +17,7 @@ class GetAllUserController
             $users = $user->getAllUser();
 
             echo $this->twig->render(
-                'allUserView.php',
+                'allUserView.twig',
                 [
                     'users' => $users,
                 ]

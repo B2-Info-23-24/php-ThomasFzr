@@ -69,7 +69,7 @@ class HomeController
         $tabEquipment = $equipment->getEquipment();
 
         echo $this->twig->render(
-            'home.php',
+            'home.twig',
             [
                 'accommodations' => $tabAccommodation,
                 'accommodationTypes' => $tabAccommodationType,

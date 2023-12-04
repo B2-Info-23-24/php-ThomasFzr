@@ -26,7 +26,7 @@ class AddAccommodationController
             $allCities = $database->getCity();
 
             echo $this->twig->render(
-                'addAccommodationView.php',
+                'addAccommodationView.twig',
                 [
                     'accommodationTypes' => $accommodationTypes,
                     'equipments' => $equipments,

@@ -25,7 +25,7 @@ class GetAllEquipmentServiceAccommodationTypeController
             $typesLogement = $accoType->getAccommodationType();
 
             echo $this->twig->render(
-                'allEquipmentServiceAccommodationTypeView.php',
+                'allEquipmentServiceAccommodationTypeView.twig',
                 [
                     'equipments' => $equipements,
                     'services' => $services,
