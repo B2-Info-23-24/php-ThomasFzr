@@ -66,8 +66,8 @@
                 </ul>
             </nav> <br><br>
 
-            De <input type="number" name="min-price" min="0" placeholder="EUR">
-            à <input type="number" name="max-price" placeholder="EUR"> <br><br>
+            De <input type="number" name="min-price" min="0" max="1000000" placeholder="EUR">
+            à <input type="number" name="max-price" min="0" max="1000000" placeholder="EUR"> <br><br>
 
             <div class="search">
                 <input type="text" class="search__input" name="city" placeholder="Rechercher une ville">
@@ -109,16 +109,6 @@
     Aucune annonce ne répondant à vos filtres.
     {% endif%}
 </div>
-
-
-
-<!-- A SUPPRIMER -->
-<form id="gettable-form" action="/test" method="post">
-    <p>
-        <input type="submit" id="test" value="BTN FOR TESTS.">
-    </p>
-</form>
-<!-- A SUPPRIMER -->
 {% endblock %}
 
 {% block footer %}

@@ -129,12 +129,6 @@ switch ($route) {
         $controller->insertReservation($_GET['id']);
         break;
 
-        //TODO supprimer
-    case '/test':
-        $controller = new TestController($twig);
-        $controller->test();
-        break;
-
     case '/editInfoUser':
         $controller = new EditInfoUserController();
         $controller->processEditInfoUser();

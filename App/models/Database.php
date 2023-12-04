@@ -273,7 +273,7 @@ class Database
         $rqt = "INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (2, 1, 4, '2022-12-14', 'Vraiment agréable, conforme à la description! Je reviendrai :D');
                 INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (3, 3, 2, '2022-10-12', 'Moyen, les voisins étaient bruyant, le frigo fuyait et il faisait trop chaud.');
                 INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (4, 4, 5, '2023-05-27', 'Très calme, paysage magnifique, très bien équipée!');
-                INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (4, 5, 3, '2021-05-25', 'Génial, rien à dire, cétait juste super, lannée prochaine je serai le premier à réserver!!!');
+                INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (4, 5, 3, '2021-05-25', 'Génial, rien à dire, c\'était juste super, l\'année prochaine je serai le premier à réserver!!!');
                 INSERT INTO Review (userID, accommodationID, grade, date, comment) VALUES (6, 3, 4, '2023-11-14', 'Plutôt moyen, les jeunes du quartier font du bruit toute la nuit...');";
         $stmt = $this->conn->prepare($rqt);
         $stmt->execute();
