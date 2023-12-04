@@ -25,15 +25,8 @@ class ProcessReviewController
 
     public function deleteReview($reviewId)
     {
-        if (isset($_SESSION['isAdmin'])) {
-            require_once __DIR__ . '/../models/Review.php';
-            $review = new Review();
-            if ($review->deleteReview($reviewId)) {
-                header("Location: /allReviews");
-            }
-        } else {
-            header('Location: /');
-        }
+        $this->review->deleteReview($reviewId);
+        header("Location: /allReviews");
     }
 
     function modifyReview($reviewId)
@@ -63,9 +56,8 @@ class ProcessReviewController
             ) {
                 $_SESSION['successMsg'] = $successMsg . " changé avec succès";
             }
-
-            header("Location: /allReviews");
         }
+        header("Location: /allReviews");
     }
 
 

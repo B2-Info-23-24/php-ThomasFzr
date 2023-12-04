@@ -3,61 +3,136 @@
 {% block content %}
 
 <div class="flex-container-favoReser">
-
     <div class="flex-child-favoReser left">
         <h3> Tous les favoris: </h3>
-        {% if favorites is not empty %}
+
+        <a href="javascript:void(0)" id="btn-plus1">
+            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+        </a>
+
+
+
         <div class="zone-annonce">
+
+            <div id="add-user1" class="profil-card" style="display: none;">
+                <form action="/processFavorite?action=add" method="post">
+                    Utilisateur : <select name="userID" required>
+                        <option disabled> Choisir un utilisateur</option>
+                        {% for user in users%}
+                        <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
+                        {%endfor%}
+                    </select><br><br>
+                    Annonce: <select name="accommodationID" required>
+                        <option disabled> Choisir une annonce</option>
+                        {% for accommodation in accommodations%}
+                        <option value="{{accommodation.accommodationID}}">{{accommodation.title}}, Id: {{accommodation.accommodationID}}</option>
+                        {%endfor%}
+                    </select><br><br>
+                    <input type="submit" value="Ajouter">
+                </form>
+            </div>
+            {% if favorites is not empty %}
             {% for favorite in favorites %}
-            <a href="/accommodation/{{ favorite.accommodationID }}" id="lien-annonce">
-                <div class="annonce">
+            <div class="annonce">
+                <a href="/accommodation/{{ favorite.accommodationID }}" id="lien-annonce">
                     <img src="Public/assets/images/{{favorite.image}}" id="img-annonce-home" alt="image-{{ favorite.image }}">
                     <div class="zone-prix">{{favorite.price}} €/nuit</div>
                     <div class="description">
                         <h4>{{favorite.title}}</h4>
                         Mis en favoris par: {{favorite.surname }}, Id: {{favorite.userID}}
                     </div>
-                </div>
-            </a>
-            <!-- <div id="details-commentaires-notes">
-                <a href="/processReview?action=delete&id={{review.reviewID}}">
+                </a>
+                <a href="/processFavorite?action=delete&id={{favorite.favoriteID}}">
                     <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
                 </a>
-            </div> -->
+            </div>
             {% endfor %}
         </div>
-
         {% else %}
         <p>Aucun logement ajouté en favoris pour le moment.</p>
         {% endif %}
-
     </div>
 
     <div class="flex-child-favoReser right">
         <h3> Toutes les réservations: </h3>
-        {% for reservation in reservations %}
-        {% if accommodation.endDate >= dateToday %}
-        <a href="/accommodation/{{ reservation.accommodationID }}" id="lien-annonce">
-            <div class="annonce">
-                <img src="Public/assets/images/{{reservation.image}}" id="img-annonce-home" alt="image-{{ reservation.image }}">
-                <div class="zone-prix">{{reservation.price}} €/nuit</div>
-                <div class="description">
-                    <h4>{{reservation.title}}</h4>
-                    Réservé par: {{reservation.surname }}, Id: {{reservation.userID}}
-                    <br> Réservation du {{reservation.startDate|date("d/m/Y")}} au {{reservation.endDate|date("d/m/Y")}}
-                    <br> Prix total : {{reservation.totalPrice}} €
-                </div>
-            </div>
+        <a href="javascript:void(0)" id="btn-plus2">
+            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
         </a>
-        {% endif%}
-        {% endfor %}
+
+
+        <div class="zone-annonce">
+            <div id="add-user2" class="profil-card" style="display: none;">
+                <form action="/processReservation?action=add" method="post">
+                    Utilisateur : <select name="userID" required>
+                        <option disabled> Choisir un utilisateur</option>
+                        {% for user in users%}
+                        <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
+                        {%endfor%}
+                    </select><br><br>
+                    Annonce: <select name="accommodationID" required>
+                        <option disabled> Choisir une annonce</option>
+                        {% for accommodation in accommodations%}
+                        <option value="{{accommodation.accommodationID}}">{{accommodation.title}}, Id: {{accommodation.accommodationID}}</option>
+                        {%endfor%}
+                    </select><br><br>
+                    Date de début: <input type="date" name="startDate" id="startDate" required><br><br>
+                    Date de fin: <input type="date" name="endDate" id="endDate" required><br><br>
+                    <input type="submit" value="Ajouter">
+                </form>
+            </div>
+            {% if reservations is not empty %}
+            {% for reservation in reservations %}
+            <div class="annonce">
+                <a href="/accommodation/{{ reservation.accommodationID }}" id="lien-annonce">
+                    <img src="Public/assets/images/{{reservation.image}}" id="img-annonce-home" alt="image-{{ reservation.image }}">
+                    <div class="zone-prix">{{reservation.price}} €/nuit</div>
+                    <div class="description">
+                        <h4>{{reservation.title}}</h4>
+                        Réservé par: {{reservation.surname }}, Id: {{reservation.userID}}
+                        <br> Réservation du {{reservation.startDate|date("d/m/Y")}} au {{reservation.endDate|date("d/m/Y")}}
+                        <br> Prix total : {{reservation.totalPrice}} €
+                    </div>
+                </a>
+                <a href="/processReservation?action=delete&id={{reservation.reservationID}}">
+                    <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Aucun logement réservé pour le moment.</p>
+        {% endif %}
     </div>
-</div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnPlus = document.getElementById('btn-plus1');
+            var addUser = document.getElementById('add-user1');
 
+            btnPlus.addEventListener('click', function() {
+                if (addUser.style.display === 'none' || addUser.style.display === '') {
+                    addUser.style.display = 'block';
+                } else {
+                    addUser.style.display = 'none';
+                }
+            });
+        });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnPlus = document.getElementById('btn-plus2');
+            var addUser = document.getElementById('add-user2');
 
+            btnPlus.addEventListener('click', function() {
+                if (addUser.style.display === 'none' || addUser.style.display === '') {
+                    addUser.style.display = 'block';
+                } else {
+                    addUser.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    {% endblock %}
 
-
-
-{% endblock %}
+    {% block footer %}
+    <script src="updateDate.js"></script>
+    {% endblock %}

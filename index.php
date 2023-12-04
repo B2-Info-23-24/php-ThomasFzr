@@ -114,9 +114,9 @@ switch ($route) {
         $controller->processRegister();
         break;
 
-    case '/processFavorite':
-        $controller = new ProcessFavoriteController();
-        $controller->processFavorite($_GET['action'], $_GET['id']);
+    case '/actionFavorite':
+        $controller = new ActionFavoriteController();
+        $controller->actionFavorite($_GET['action'], $_GET['id']);
         break;
 
     case '/addUniqueReview':
@@ -124,8 +124,8 @@ switch ($route) {
         $controller->addReview($_GET['id']);
         break;
 
-    case '/processReservation':
-        $controller = new ProcessReservationController();
+    case '/addReservation':
+        $controller = new AddReservationController();
         $controller->insertReservation($_GET['id']);
         break;
 
@@ -176,6 +176,18 @@ switch ($route) {
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $controller = new ProcessReviewController();
         $controller->processReview($_GET['action'], $id);
+        break;
+
+    case '/processReservation':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessReservationController();
+        $controller->processReservation($_GET['action'], $id);
+        break;
+
+    case '/processFavorite':
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $controller = new ProcessFavoriteController();
+        $controller->processFavorite($_GET['action'], $id);
         break;
 
     case '/allEquipmentServiceAccommodationType':

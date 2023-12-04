@@ -54,7 +54,7 @@ class Accommodation
         $stmt->bindParam(':image', $image, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-          
+
             return true;
         } else {
             return false;
@@ -95,5 +95,17 @@ class Accommodation
         } else {
             return false;
         }
+    }
+
+
+    public function getPriceOfAccommodation($accommodationID)
+    {
+        $rqt = "SELECT price 
+                FROM Accommodation 
+                WHERE accommodationID =:accommodationID;";
+        $stmt = $this->conn->prepare($rqt);
+        $stmt->bindParam(':accommodationID', $accommodationID, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn();
     }
 }

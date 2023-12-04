@@ -1,7 +1,6 @@
 <?php
 class ProcessFavoriteController
 {
-
     private $favorite;
     function __construct()
     {
@@ -9,28 +8,27 @@ class ProcessFavoriteController
         $this->favorite = new Favorite();
     }
 
-    function addToFavorite($id)
+    function addFavorite()
     {
-        $this->favorite->addToFavorite($id);
-        header("Location: /accommodation/$id");
+        $this->favorite->addFavorite($_POST["userID"], $_POST["accommodationID"]);
+        header("Location: /allFavoritesReservations");
     }
 
-    function removeFromFavorite($id)
+    function deleteFavorite($favoriteID)
     {
-        $this->favorite->removeFromFavorite($id);
-        header("Location: /accommodation/$id");
+        $this->favorite->deleteFavorite($favoriteID);
+        header("Location: /allFavoritesReservations");
     }
 
-
-    function processFavorite($action, $id)
+    function processFavorite($action, $favoriteID)
     {
-        if (isset($_SESSION['userID'])) {
+        if (isset($_SESSION['isAdmin'])) {
             $process = new ProcessFavoriteController();
             if ($action == "add") {
-                $process->addToFavorite($id);
+                $process->addFavorite($favoriteID);
                 $_SESSION['successMsg'] = "Logement ajouté en favoris";
-            } elseif ($action == "remove") {
-                $process->removeFromFavorite($id);
+            } elseif ($action == "delete") {
+                $process->deleteFavorite($favoriteID);
                 $_SESSION['successMsg'] = "Logement retiré des favoris";
             }
         } else {
