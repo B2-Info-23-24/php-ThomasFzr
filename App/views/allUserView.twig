@@ -3,7 +3,26 @@
 {% block content %}
 
 <h3>Tous les utilisateurs: </h3>
+<a href="javascript:void(0)" id="btn-plus">
+    <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+</a>
+
 <div id="zone-users">
+
+    <div id="add-user" class="profil-card" style="display: none;">
+        <form action="/processUser?action=add" method="post">
+            Adresse mail: <input type="email" name="mail" placeholder="Mail" required> <br><br>
+            Mdp: <input type="text" name="pwd" placeholder="Mdp" required> <br><br>
+            Compte admin : <select name="isAdmin" required>
+                <option value="0">Non</option>
+                <option value="1">Oui</option>
+            </select><br><br>
+            Nom: <input type="text" name="name" placeholder="Nom"> <br><br>
+            Prénom: <input type="text" name="surname" placeholder="Prénom"> <br><br>
+            Numéro de tél: <input type="number" name="phoneNbr" placeholder="Numéro de tél"><br><br>
+            <input type="submit" value="Ajouter">
+        </form>
+    </div>
     {% for user in users %}
     <div id="details-users">
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
@@ -53,24 +72,7 @@
 </div>
 
 
-<a href="javascript:void(0)" id="btn-plus">
-    <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
-</a>
 
-<div id="add-user" class="profil-card" style="display: none;">
-    <form action="/processUser?action=add" method="post">
-        Adresse mail: <input type="email" name="mail" placeholder="Mail" required> <br><br>
-        Mdp: <input type="text" name="pwd" placeholder="Mdp" required> <br><br>
-        Compte admin : <select name="isAdmin" required>
-            <option value="0">Non</option>
-            <option value="1">Oui</option>
-        </select><br><br>
-        Nom: <input type="text" name="name" placeholder="Nom"> <br><br>
-        Prénom: <input type="text" name="surname" placeholder="Prénom"> <br><br>
-        Numéro de tél: <input type="number" name="phoneNbr" placeholder="Numéro de tél"><br><br>
-        <input type="submit" value="Ajouter">
-    </form>
-</div>
 
 
 <script>
