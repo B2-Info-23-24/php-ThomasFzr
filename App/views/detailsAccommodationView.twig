@@ -10,7 +10,7 @@
         <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
         {% if isAdmin %}
         <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
-            Modifier l'image: <select name="image" required>
+            Modifier l'image: <select name="image" onchange="updateImage()" id="imageSelector" required>
                 <option disabled>Actuel : {{ info.image }}</option>
                 {% for image in allImages%}
                 <option value="{{image.name}}">{{image.name}}</option>
@@ -217,6 +217,13 @@
         {% endif %}
     </div>
 </div>
+<script>
+    function updateImage() {
+        var selectedImage = document.getElementById("imageSelector").value;
+
+        document.getElementById("img-details-annonce").src = "Public/assets/images/" + selectedImage;
+    }
+</script>
 {% endblock %}
 
 {% block footer %}
