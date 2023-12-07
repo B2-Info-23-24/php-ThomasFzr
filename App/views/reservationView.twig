@@ -5,13 +5,13 @@
 
 <h3> Réservations en cours: </h3>
 
-<div class="zone-annonce">
+<div class="zone-accommodation">
     {% for accommodation in accommodationReservation %}
     {% if accommodation.endDate >= dateToday %}
-    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-annonce">
-        <div class="annonce">
-            <img src="Public/assets/images/{{accommodation.image}}" id="img-annonce-home" alt="image-{{ accommodation.image }}">
-            <div class="zone-prix">{{accommodation.price}} €/nuit</div>
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="link-accommodation">
+        <div class="accommodation">
+            <img src="Public/assets/images/{{accommodation.image}}" id="img-accommodation-home" alt="image-{{ accommodation.image }}">
+            <div class="zone-price">{{accommodation.price}} €/nuit</div>
             <div class="description">
                 <h4>{{accommodation.title}}</h4>
                 Réservation du {{accommodation.startDate|date("d/m/Y")}} au {{accommodation.endDate|date("d/m/Y")}}
@@ -25,13 +25,13 @@
 
 <h3> Réservations passées: </h3>
 
-<div class="zone-annonce">
+<div class="zone-accommodation">
     {% for accommodation in accommodationReservation %}
     {% if accommodation.endDate < dateToday %}
-    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-annonce">
-        <div class="annonce">
-            <img src="Public/assets/images/{{accommodation.image}}" id="img-annonce-home" alt="image-{{ accommodation.image }}">
-            <div class="zone-prix">{{accommodation.price}} €/nuit</div>
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="link-accommodation">
+        <div class="accommodation">
+            <img src="Public/assets/images/{{accommodation.image}}" id="img-accommodation-home" alt="image-{{ accommodation.image }}">
+            <div class="zone-price">{{accommodation.price}} €/nuit</div>
             <div class="description">
                 <h4>{{accommodation.name}}</h4>
                 Réservation du {{accommodation.startDate|date("d/m/Y")}} au {{accommodation.endDate|date("d/m/Y")}}

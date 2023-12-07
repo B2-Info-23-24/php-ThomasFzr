@@ -1,9 +1,9 @@
 {% extends "templates/template.twig" %}
 
 {% block content %}
-<div id="zone-filtre-container">
+<div id="zone-filter-container">
 
-    <div id="zone-filtre-container-top">
+    <div id="zone-filter-container-top">
         {% if isAdmin%}
         <form action="/" method="GET" class="search-form">
             <div class="search">
@@ -26,7 +26,7 @@
                 {% endfor %}
             </ul>
         </nav>
-        <div id="zone-filtre-rightcontainer">
+        <div id="zone-filter-rightcontainer">
             <form method="post" action="">
                 <button type="button" id="toggleFiltresButton" class="button--submit">FILTRES</button>
                 <input type="hidden" name="isVisible" value="{{ isVisible ? 'true' : 'false' }}">
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <div id="filtre-deroulant" class="hidden">
+    <div id="filter-drop-down" class="hidden">
         <form method="get" action="/">
             <input type="hidden" name="accommodationType" value="{{ accommodationType }}">
 
@@ -73,7 +73,7 @@
                 <input type="text" class="search__input" name="city" placeholder="Rechercher une ville">
             </div><br><br>
 
-            <button type="submit" class="btn-submit-filtre">APPLIQUER FILTRES</button>
+            <button type="submit" class="btn-submit-filter">APPLIQUER FILTRES</button>
         </form>
     </div>
 
@@ -81,12 +81,12 @@
 
 <br><br>
 
-<div class="zone-annonce">
+<div class="zone-accommodation">
     {% if isAdmin %}
-    <a href="/addAccommodation" id="lien-annonce">
-        <div class="annonce">
+    <a href="/addAccommodation" id="link-accommodation">
+        <div class="accommodation">
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-btn-add-accommodation">
-            <div class="zone-prix"> </div><br>
+            <div class="zone-price"> </div><br>
             <div class="description">
                 <h4>AJOUTER UNE ANNONCE</h4>
             </div>
@@ -95,10 +95,10 @@
     {% endif %}
     {% if accommodations is not empty %}
     {% for accommodation in accommodations %}
-    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-annonce">
-        <div class="annonce">
-            <img src="Public/assets/images/{{accommodation.image}}" id="img-annonce-home" alt="image-{{ info.image }}">
-            <div class="zone-prix">{{accommodation.price}} €/nuit</div>
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="link-accommodation">
+        <div class="accommodation">
+            <img src="Public/assets/images/{{accommodation.image}}" id="img-accommodation-home" alt="image-{{ info.image }}">
+            <div class="zone-price">{{accommodation.price}} €/nuit</div>
             <div class="description">
                 <h4>{{accommodation.title}}</h4>
             </div>
@@ -106,7 +106,7 @@
     </a>
     {% endfor %}
     {% else %}
-    Aucune annonce ne répondant à vos filtres.
+    Aucune accommodation ne répondant à vos filters.
     {% endif%}
 </div>
 {% endblock %}
@@ -114,9 +114,9 @@
 {% block footer %}
 <script>
     document.getElementById('toggleFiltresButton').addEventListener('click', function() {
-        var filtreDeroulant = document.getElementById('filtre-deroulant');
-        filtreDeroulant.classList.toggle('visible');
-        filtreDeroulant.classList.toggle('hidden');
+        var filter = document.getElementById('filter-drop-down');
+        filter.classList.toggle('visible');
+        filter.classList.toggle('hidden');
     });
 </script>
 {% endblock %}

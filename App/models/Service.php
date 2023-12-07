@@ -10,7 +10,7 @@ class Service
         $this->conn = $db->conn;
     }
 
-    //Récupérer les services
+    //get all the services
     public function getService()
     {
         $rqt = "SELECT * FROM Service";
@@ -19,7 +19,7 @@ class Service
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Récupérer les services d'une annonce avec leur nom
+    // get the services of an accommodation
     public function getServiceFromAccommodation($accommodationID)
     {
         $sql = "SELECT s.* FROM Service s
@@ -33,7 +33,7 @@ class Service
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //AJouter un service
+    //Add a service
     public function addService($value)
     {
         $rqt = "INSERT INTO Service (name) VALUES (:value)";
@@ -48,7 +48,7 @@ class Service
         }
     }
 
-    //Avoir les annoncesID qui ont tel service
+    //Get accommodationID from a serviceID
     public function getAccommodationIdFromServiceId($serviceID)
     {
         $rqt = "SELECT a.accommodationID
@@ -64,7 +64,7 @@ class Service
         return $stmt1->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //SUpprimer un service
+    //delete a service
     public function deleteService($serviceID)
     {
         $model = new Service();
@@ -90,7 +90,7 @@ class Service
         }
     }
 
-    //Modifier un service
+    //Update a service
     public function modifyService($value, $serviceID)
     {
         $rqt = "UPDATE Service SET name = :value WHERE serviceID=:serviceID";
@@ -106,7 +106,7 @@ class Service
         }
     }
 
-    //Ajouter un service a une annonce
+    //Add a service to an accommodation
     public function addServiceToAccommodation($accommodationID, $serviceID)
     {
         $rowExist = "SELECT * FROM ServiceAccommodation
@@ -149,7 +149,7 @@ class Service
         }
     }
 
-    //Supprimer un service d'une annonce
+    //Delete service from an accommodation
     public function deleteServiceOfAccommodation($accommodationID, $serviceID)
     {
         $rqt = "DELETE FROM ServiceAccommodation 

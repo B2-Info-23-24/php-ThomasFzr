@@ -10,7 +10,7 @@ class Accommodation
         $this->conn = $db->conn;
     }
 
-    //Récupérer toutes les annonces
+    //Get all accommodations
     public function getAccommodation($requete)
     {
         $rqt = "SELECT * FROM Accommodation $requete";
@@ -19,7 +19,7 @@ class Accommodation
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Récupérer détails d'une annonce
+    //Get details of an accommodation
     public function getDetailsAccommodation($accommodationID)
     {
         $rqt = "SELECT * FROM Accommodation WHERE accommodationID = :accommodationID";
@@ -29,6 +29,7 @@ class Accommodation
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //get the last accommodation inserted in the table
     public function getLastAccommodationId()
     {
         $rqt = "SELECT accommodationID 
@@ -40,7 +41,7 @@ class Accommodation
         return $stmt->fetchColumn();
     }
 
-    //===== ADD ANNONCE =====
+    //===== ADD accommodation =====
 
     function insertAccommodation($title, $city, $price, $accommodationType, $image)
     {
@@ -61,7 +62,7 @@ class Accommodation
         }
     }
 
-    //===== DELETE ANNONCE =====
+    //===== DELETE accommodation =====
 
     function deleteAccommodation($accommodationID)
     {
@@ -82,7 +83,7 @@ class Accommodation
         }
     }
 
-    //===== Modifier annonce =====
+    //===== Update accommodation =====
 
     function modifyAccommodation($column, $value, $accommodationID)
     {
@@ -97,7 +98,7 @@ class Accommodation
         }
     }
 
-
+    //Get the price of an accommodation
     public function getPriceOfAccommodation($accommodationID)
     {
         $rqt = "SELECT price 

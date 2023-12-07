@@ -17,12 +17,12 @@
                     <td>
                         <form action="/processAccommodationType?action=modify&id={{accommodationType.accommodationTypeID}}" method="post">
                             <input type="text" value="{{accommodationType.name}}" name="accoTypeName" required>
-                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
                         </form><br>
                     </td>
                     <td>
                         <a href="/processAccommodationType?action=delete&id={{accommodationType.accommodationTypeID}}">
-                            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
                         </a>
                     </td>
                 </tr>
@@ -30,13 +30,13 @@
                 <tr>
                     <td>
                         <a href="javascript:void(0)" id="btn-plus1">
-                            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+                            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconPlus">
                         </a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div id="add-user1" class="profil-card" style="display: none;">
+        <div id="add-user1" class="profile-card" style="display: none;">
             <form action="/processAccommodationType?action=add" method="post">
                 Type logement: <input type="text" name="accoTypeName" placeholder="Nom" required autofocus> <br><br>
                 <input type="submit" value="Ajouter">
@@ -58,12 +58,12 @@
                     <td>
                         <form action="/processService?action=modify&id={{service.serviceID}}" method="post">
                             <input type="text" value="{{ service.name }}" name="serviceName" required>
-                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
                         </form><br>
                     </td>
                     <td>
                         <a href="/processService?action=delete&id={{service.serviceID}}">
-                            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
                         </a>
                     </td>
                 </tr>
@@ -71,13 +71,13 @@
                 <tr>
                     <td>
                         <a href="javascript:void(0)" id="btn-plus2">
-                            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+                            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconPlus">
                         </a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div id="add-user2" class="profil-card" style="display: none;">
+        <div id="add-user2" class="profile-card" style="display: none;">
             <form action="/processService?action=add" method="post">
                 Service: <input type="text" name="serviceName" placeholder="Nom" required autofocus> <br><br>
                 <input type="submit" value="Ajouter">
@@ -98,12 +98,12 @@
                     <td>
                         <form action="/processEquipment?action=modify&id={{equipment.equipmentID}}" method="post">
                             <input type="text" value="{{ equipment.name }}" name="equipmentName" required>
-                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
                         </form><br>
                     </td>
                     <td>
                         <a href="/processEquipment?action=delete&id={{equipment.equipmentID}}">
-                            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
                         </a>
                     </td>
                 </tr>
@@ -111,13 +111,13 @@
                 <tr>
                     <td>
                         <a href="javascript:void(0)" id="btn-plus3">
-                            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+                            <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconPlus">
                         </a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div id="add-user3" class="profil-card" style="display: none;">
+        <div id="add-user3" class="profile-card" style="display: none;">
             <form action="/processEquipment?action=add" method="post">
                 Equipement : <input type="text" name="equipmentName" placeholder="Nom" required autofocus> <br><br>
                 <input type="submit" value="Ajouter">

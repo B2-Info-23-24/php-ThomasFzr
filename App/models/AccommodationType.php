@@ -10,7 +10,7 @@ class AccommodationType
         $this->conn = $db->conn;
     }
 
-    //Récupérer les types de logement
+    //Get the accommodation types
     public function getAccommodationType()
     {
         $rqt = "SELECT * FROM AccommodationType";
@@ -19,7 +19,7 @@ class AccommodationType
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //AJouter un type de logement
+    //Add an accommodation type
     public function addAccommodationType($value)
     {
         $rqt = "INSERT INTO AccommodationType (name) VALUES (:value)";
@@ -35,7 +35,7 @@ class AccommodationType
     }
 
 
-    //Avoir les annoncesID qui ont tel service
+    //Get accommodationID from accommodationTypeID
     public function getAccommodationIdFromAccommodationTypeId($accommodationTypeId)
     {
         $rqt1 = "SELECT a.accommodationID
@@ -51,7 +51,7 @@ class AccommodationType
     }
 
 
-    //SUpprimer un type de logement
+    //Delete an accommodation type
     public function deleteAccommodationType($id)
     {
         $model = new AccommodationType();
@@ -79,7 +79,7 @@ class AccommodationType
         }
     }
 
-    //Modifier un type de logement
+    //Update an accommodation type
     public function modifyAccommodationType($value, $accommodationTypeID)
     {
         $model = new AccommodationType();
