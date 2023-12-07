@@ -20,7 +20,7 @@ type de logement, équipements disponibles et services disponibles.
 # Mise en place du projet
 
 - Créer un dossier qui contiendra votre code.
-- Dans ce dossier, creer un fichier : `docker-compose.yml`
+- Dans ce dossier, creer un fichier : ```docker-compose.yml```
 - Coller dedans (attention aux espaces et aux tabulations):
 
 ```
@@ -50,7 +50,7 @@ volumes:
   db_data:
   ```
 
-- Creer un fichier : `Dockerfile`  
+- Creer un fichier : ```Dockerfile```  
 - Coller dedans:  
   
  ```
@@ -62,8 +62,8 @@ RUN service apache2 restart
 ```
 
   
-- Lancer le serveur apache : `docker-compose up -d`  
-- Donner les autorisations nécessaires au dossier src : `sudo chmod 777 -R src`  
+- Lancer le serveur apache : ```docker-compose up -d``` 
+- Donner les autorisations nécessaires au dossier src : ```sudo chmod 777 -R src```  
   
 
 # Accès à la base de données
@@ -85,22 +85,22 @@ Vous pouvez ensuite remplir les informations de connexion avec celles fournies d
 Vous pouvez avez désormais accès à la base de données 
 
 
-- Installer Composer : `sudo apt install composer`
-- Installer Twig : `composer require twig/twig`
-- Installer Faker : `sudo docker run --rm --interactive --tty --volume %PWD:/app composer require fakerphp/faker`
+- Installer Composer : ```sudo apt install composer```
+- Installer Twig : ```composer require twig/twig```
+- Installer Faker : ```sudo docker run --rm --interactive --tty --volume %PWD:/app composer require fakerphp/faker```
 
-- Arreter le serveur apache : `docker-compose down`
-- Relancer le serveur apache : `docker-compose up --build`
+- Arreter le serveur apache : ```docker-compose down```
+- Relancer le serveur apache : ```docker-compose up --build```
 
-- Cloner le repo github: `git clone https://github.com/B2-Info-23-24/php-ThomasFzr.git src`
+- Cloner le repo github: ```git clone https://github.com/B2-Info-23-24/php-ThomasFzr.git src```
 
-- Chercher son numéro de container: `docker ps`
+- Chercher son numéro de container: ```docker ps```
 - Copier coller le numéro en dessous de CONTAINER ID, qui correspond à l'image php-web (ex: b21268552815)
 
 - Creer la BDD avec cette commande, en remplaçant b21268552815 
-  avec votre CONTAINER ID: `docker exec b21268552815 php createDb.php`
+  avec votre CONTAINER ID: ```docker exec b21268552815 php createDb.php```
 
-- Aller sur internet et écrire l'url: `http://localhost:8080/`
+- Aller sur internet et écrire l'url: ```http://localhost:8080/```
 - Bienvenue sur mon site!
 
   
@@ -122,11 +122,11 @@ Mais nous ne devons pas réserver, ni ajouter en favoris le logement.
 
 Lors du lancement du projet, sont créé plusieurs comptes utilisateurs basiques:
 
-    Identifiant : `elise@elise.com`
-    Mdp: `elise`
+    Identifiant : ```elise@elise.com```
+    Mdp: ```elise```
 
-    Identifiant : `joe@joe.com`
-    Mdp: `joe`
+    Identifiant : ```joe@joe.com```
+    Mdp: ```joe```
 
 Les utilisateurs s'ils sont connectés peuvent :
 - mettre en favoris un logement
@@ -138,8 +138,8 @@ Les utilisateurs s'ils sont connectés peuvent :
 
 Un compte administrateur est également créé:
 
-    Identifiant : `admin@admin.com`
-    Mdp: `admin`
+    Identifiant : ```admin@admin.com```
+    Mdp: ```admin```
 
 L'administrateur peut:
 - voir l'ensemble des utilisateurs, modifier leur profil, en créer 
