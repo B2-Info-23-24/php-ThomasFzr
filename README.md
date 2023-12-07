@@ -122,11 +122,11 @@ Mais nous ne devons pas réserver, ni ajouter en favoris le logement.
 
 Lors du lancement du projet, sont créé plusieurs comptes utilisateurs basiques:
 
-    Identifiant : ```elise@elise.com```
-    Mdp: ```elise```
+    Identifiant : `elise@elise.com`
+    Mdp: `elise`
 
-    Identifiant : ```joe@joe.com```
-    Mdp: ```joe```
+    Identifiant : `joe@joe.com`
+    Mdp: `joe`
 
 Les utilisateurs s'ils sont connectés peuvent :
 - mettre en favoris un logement
@@ -138,8 +138,8 @@ Les utilisateurs s'ils sont connectés peuvent :
 
 Un compte administrateur est également créé:
 
-    Identifiant : ```admin@admin.com```
-    Mdp: ```admin```
+    Identifiant : `admin@admin.com`
+    Mdp: `admin`
 
 L'administrateur peut:
 - voir l'ensemble des utilisateurs, modifier leur profil, en créer 
