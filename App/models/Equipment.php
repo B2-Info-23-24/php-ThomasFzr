@@ -10,7 +10,7 @@ class Equipment
         $this->conn = $db->conn;
     }
 
-    //Récupérer les équipements
+    //Get equipments
     public function getEquipment()
     {
         $rqt = "SELECT * FROM Equipment";
@@ -19,7 +19,7 @@ class Equipment
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Récupérer les équipements d'une annonce avec leur nom
+    // Get equipments of an accommodation
     public function getEquipmentFromAccommodation($accommodationID)
     {
         $sql = "SELECT e.* FROM Equipment e
@@ -33,7 +33,7 @@ class Equipment
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //AJouter un equipement
+    //Add an equipment
     public function addEquipment($value)
     {
         $rqt = "INSERT INTO Equipment (name) VALUES (:value)";
@@ -48,7 +48,7 @@ class Equipment
         }
     }
 
-    //Avoir les annoncesID qui ont tel equipement
+    //Get the accommodationID that have a specific equipment
     public function getAccommodationIdFromEquipmentId($equipmentID)
     {
         $rqt = "SELECT a.accommodationID
@@ -64,7 +64,7 @@ class Equipment
         return $stmt1->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //SUpprimer un equipement
+    //Delete an equipment
     public function deleteEquipment($equipmentID)
     {
         $model = new Equipment();
@@ -90,7 +90,7 @@ class Equipment
         }
     }
 
-    //Modifier un equipement
+    //Update an equipment
     public function modifyEquipment($value, $equipmentID)
     {
         $rqt = "UPDATE Equipment SET name = :value WHERE equipmentID=:equipmentID";
@@ -106,7 +106,7 @@ class Equipment
         }
     }
 
-    //Ajouter un equipment a une annonce
+    //Add an equipment to an accommodation
     public function addEquipmentToAccommodation($accommodationID, $equipmentID)
     {
         $rowExist = "SELECT * FROM EquipmentAccommodation
@@ -135,6 +135,7 @@ class Equipment
         }
     }
 
+    //Add equipment while creating a new accommodation
     public function addEquipmentToNewAccommodation($accommodationID, $equipmentId)
     {
         $rqt = "INSERT INTO EquipmentAccommodation (equipmentID,  accommodationID)
@@ -149,7 +150,7 @@ class Equipment
         }
     }
 
-    //Ajouter un equipment a une annonce
+    //Add an equipment to an accommodation
     public function deleteEquipmentOfAccommodation($accommodationID, $equipmentID)
     {
         $rqt = "DELETE FROM EquipmentAccommodation 

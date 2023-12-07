@@ -10,7 +10,7 @@ class Favorite
         $this->conn = $db->conn;
     }
 
-    //Récupérer les annonces ajoutées en favoris par le user actuel
+    //Get accommodations that are in favorite for a specific user
     public function getFavorite($userID)
     {
         $rqt = "SELECT Accommodation.*
@@ -24,7 +24,7 @@ class Favorite
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Ajouter en favoris une annonce
+    //Add an accommodation to favorite
     public function addToFavorite($accommodationID)
     {
         $userID = $_SESSION['userID'];
@@ -41,7 +41,7 @@ class Favorite
         }
     }
 
-    //Retirer une annonce des favoris
+    //Remove an accommodation from favoritr
     public function removeFromFavorite($accommodationID)
     {
         $userID = $_SESSION['userID'];
@@ -57,7 +57,7 @@ class Favorite
         }
     }
 
-    //Tester si une annonce a été ajouté en favoris par le user actuel
+    //is the accommodation in favorite for the specific user
     public function isInFavorite($accommodationID)
     {
         $userID = $_SESSION['userID'];

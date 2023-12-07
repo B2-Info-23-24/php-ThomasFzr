@@ -49,7 +49,7 @@ class Reservation
     }
 
 
-    //Récupérer les annonces réservées par le user actuel
+    //Get accommodation reserved for a specific user
     public function getReservation($userID)
     {
         $rqt = "SELECT * FROM Reservation r

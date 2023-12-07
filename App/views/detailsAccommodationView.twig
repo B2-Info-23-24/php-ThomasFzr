@@ -7,7 +7,7 @@
 
     <div class="flex-child-details-logement left">
         {% for info in infoAccommodation %}
-        <img src="Public/assets/images/{{ info.image }}" id="img-details-annonce" alt="image-{{ info.image }}">
+        <img src="Public/assets/images/{{ info.image }}" id="img-details-accommodation" alt="image-{{ info.image }}">
         {% if isAdmin %}
         <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
             Modifier l'image: <select name="image" onchange="updateImage()" id="imageSelector" required>
@@ -34,7 +34,7 @@
         {% endif%}
 
 
-        <div class="description-annonce">
+        <div class="description-accommodation">
 
             {% if isAdmin %}
 
@@ -211,7 +211,7 @@
         {% for info in infoAccommodation %}
         <a href="/processAccommodation?action=deleteAccommodation&id={{ info.accommodationID }}">
             <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
-            Supprimer l'annonce
+            Supprimer l'accommodation
         </a>
         {% endfor %}
         {% endif %}
@@ -221,7 +221,7 @@
     function updateImage() {
         var selectedImage = document.getElementById("imageSelector").value;
 
-        document.getElementById("img-details-annonce").src = "Public/assets/images/" + selectedImage;
+        document.getElementById("img-details-accommodation").src = "Public/assets/images/" + selectedImage;
     }
 </script>
 {% endblock %}

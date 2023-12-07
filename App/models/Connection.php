@@ -10,7 +10,7 @@ class Connection
         $this->conn = $db->conn;
     }
 
-    //Authentification de connexion et récupération données user
+    //Login and get user info
     public function authenticateUser($mail, $password)
     {
         $stmt = $this->conn->prepare("SELECT * FROM User WHERE mail = :mail");

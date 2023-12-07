@@ -30,9 +30,9 @@ class Database
     }
 
 
-    //===== Appeler une seule fois au premier chargement de la page =====
+    //===== Call once in the script =====
 
-    //Creation de toutes les tables
+    //Create all the tables
     public function createTables()
     {
         try {
@@ -62,7 +62,7 @@ class Database
         }
     }
 
-    //Remplir la table ville
+    //Insert cities
     public function insertCity()
     {
         $sql = "INSERT INTO City (name) VALUES ('Nantes'),('Montpellier'),('Strasbourg'),('Angers'),('Lille'),('Rennes'),('Nice'),
@@ -74,7 +74,7 @@ class Database
         }
     }
 
-    //Recuper les villes
+    //Get cities
     public function getCity()
     {
         $rqt = "SELECT name FROM City";
@@ -83,7 +83,7 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Remplir les images
+    //Insert images
     public function insertImage()
     {
         $sql = "INSERT INTO Image (name) VALUES ('Appartement1.png'),('Appartement2.png'),('Appartement3.png'),('Cabane1.png'),('Cabane2.png'),('Cabane3.png'),('Car1.png'),
@@ -96,7 +96,7 @@ class Database
         }
     }
 
-    //Recuper les images
+    //Get the images
     public function getImage()
     {
         $rqt = "SELECT name FROM Image";
@@ -105,7 +105,7 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Remplir les tables de services type de logement et equipements
+    //Insert data in service, equipment, accommodation type
     public function insertDataAccommodationTypeEquipmentService()
     {
         try {
@@ -128,7 +128,7 @@ class Database
         }
     }
 
-    //Remplir les tables ServiceAccommodation et EquipmentAccommodation
+    //Insert data in accomodationEquipment accommodationService
 
     public function insertDataAccommodationEquipmentAccommodationService()
     {
@@ -174,7 +174,7 @@ class Database
 
     //===== FAKER =====
 
-    //Remplir les tables avec les données de Faker
+    //Insert data with faker
     public function insertFakerDatas()
     {
         $homeNames = [' calme', ' lumineux', ' spacieuse', ' moderne', ' rustique', ' industriel', ' de campagne', ' élégant', ' contemporain', ' charmant', ' en bord de mer', ' accueillante', ' majestueux', ' paisible', ' pittoresque', ' confortable', ' de luxe', ' chaleureuse', ' montagnard'];
@@ -279,9 +279,9 @@ class Database
         $stmt->execute();
     }
 
-    //===== GENERALES =====
+    //===== GENERAL =====
 
-    //Update d'une table
+    //Update a table
     public function updateTable($table, $column, $value, $email)
     {
         $rqt = "UPDATE $table SET $column = :value WHERE mail = :email";

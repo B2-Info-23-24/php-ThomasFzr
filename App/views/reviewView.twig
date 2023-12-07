@@ -6,12 +6,12 @@
 <h3> Mes avis: </h3>
 
 {% if tabReviewAccommodations is not empty %}
-<div class="zone-annonce">
+<div class="zone-accommodation">
     {% for tabReviewAccommodation in tabReviewAccommodations %}
-    <a href="/accommodation/{{ tabReviewAccommodation.accommodationID }}" id="lien-annonce">
-        <div class="annonce">
-            <img src="Public/assets/images/{{tabReviewAccommodation.image}}" id="img-annonce-home" alt="image-{{ tabReviewAccommodation.image }}">
-            <div class="zone-prix">{{ tabReviewAccommodation.price }} €/nuit</div>
+    <a href="/accommodation/{{ tabReviewAccommodation.accommodationID }}" id="lien-accommodation">
+        <div class="accommodation">
+            <img src="Public/assets/images/{{tabReviewAccommodation.image}}" id="img-accommodation-home" alt="image-{{ tabReviewAccommodation.image }}">
+            <div class="zone-price">{{ tabReviewAccommodation.price }} €/nuit</div>
             <div class="description">
                 <h4>{{ tabReviewAccommodation.title }}</h4>
             </div>

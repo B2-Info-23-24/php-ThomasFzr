@@ -9,9 +9,9 @@
 
 
 
-<div class="zone-annonce">
+<div class="zone-accommodation">
 
-    <div id="add-user" class="profil-card" style="display: none;">
+    <div id="add-user" class="profile-card" style="display: none;">
         <form action="/processReview?action=add" method="post">
             Utilisateur : <select name="userID" required>
                 <option disabled> Choisir un utilisateur</option>
@@ -20,7 +20,7 @@
                 {%endfor%}
             </select><br><br>
             Annonce: <select name="accommodationID" required>
-                <option disabled> Choisir une annonce</option>
+                <option disabled> Choisir une accommodation</option>
                 {% for accommodation in accommodations%}
                 <option value="{{accommodation.accommodationID}}">{{accommodation.title}}, Id: {{accommodation.accommodationID}}</option>
                 {%endfor%}
@@ -33,10 +33,10 @@
     </div>
     {% for review in reviews %}
 
-    <a href="/accommodation/{{ review.accommodationID }}" id="lien-annonce">
-        <div class="annonce">
-            <img src="Public/assets/images/{{review.image}}" id="img-annonce-home" alt="image-{{ review.image }}">
-            <div class="zone-prix">{{ review.price }} €/nuit</div>
+    <a href="/accommodation/{{ review.accommodationID }}" id="lien-accommodation">
+        <div class="accommodation">
+            <img src="Public/assets/images/{{review.image}}" id="img-accommodation-home" alt="image-{{ review.image }}">
+            <div class="zone-price">{{ review.price }} €/nuit</div>
             <div class="description">
                 <h4>{{ review.title }}</h4>
             </div>

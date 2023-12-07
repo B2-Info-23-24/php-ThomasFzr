@@ -7,9 +7,9 @@
     <div class="flex-child-details-logement left">
 
         <form action="/processAccommodation?action=addAccommodation" method="post">
-            <img src="Public/assets/images/Appartement1.png" id="img-details-annonce">
+            <img src="Public/assets/images/Appartement1.png" id="img-details-accommodation">
             <br>
-            <div class="description-annonce">
+            <div class="description-accommodation">
                 Image: <select name="image" onchange="updateImage()" id="imageSelector" required>
                     <option disabled>Choisir une image</option>
                     {% for image in allImages%}
@@ -55,7 +55,7 @@
     function updateImage() {
         var selectedImage = document.getElementById("imageSelector").value;
 
-        document.getElementById("img-details-annonce").src = "Public/assets/images/" + selectedImage;
+        document.getElementById("img-details-accommodation").src = "Public/assets/images/" + selectedImage;
     }
 </script>
 

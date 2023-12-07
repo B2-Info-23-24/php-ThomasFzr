@@ -12,9 +12,9 @@
 
 
 
-        <div class="zone-annonce">
+        <div class="zone-accommodation">
 
-            <div id="add-user1" class="profil-card" style="display: none;">
+            <div id="add-user1" class="profile-card" style="display: none;">
                 <form action="/processFavorite?action=add" method="post">
                     Utilisateur : <select name="userID" required>
                         <option disabled> Choisir un utilisateur</option>
@@ -23,7 +23,7 @@
                         {%endfor%}
                     </select><br><br>
                     Annonce: <select name="accommodationID" required>
-                        <option disabled> Choisir une annonce</option>
+                        <option disabled> Choisir une accommodation</option>
                         {% for accommodation in accommodations%}
                         <option value="{{accommodation.accommodationID}}">{{accommodation.title}}, Id: {{accommodation.accommodationID}}</option>
                         {%endfor%}
@@ -33,10 +33,10 @@
             </div>
             {% if favorites is not empty %}
             {% for favorite in favorites %}
-            <div class="annonce">
-                <a href="/accommodation/{{ favorite.accommodationID }}" id="lien-annonce">
-                    <img src="Public/assets/images/{{favorite.image}}" id="img-annonce-home" alt="image-{{ favorite.image }}">
-                    <div class="zone-prix">{{favorite.price}} €/nuit</div>
+            <div class="accommodation">
+                <a href="/accommodation/{{ favorite.accommodationID }}" id="lien-accommodation">
+                    <img src="Public/assets/images/{{favorite.image}}" id="img-accommodation-home" alt="image-{{ favorite.image }}">
+                    <div class="zone-price">{{favorite.price}} €/nuit</div>
                     <div class="description">
                         <h4>{{favorite.title}}</h4>
                         Mis en favoris par: {{favorite.surname }}, Id: {{favorite.userID}}
@@ -60,8 +60,8 @@
         </a>
 
 
-        <div class="zone-annonce">
-            <div id="add-user2" class="profil-card" style="display: none;">
+        <div class="zone-accommodation">
+            <div id="add-user2" class="profile-card" style="display: none;">
                 <form action="/processReservation?action=add" method="post">
                     Utilisateur : <select name="userID" required>
                         <option disabled> Choisir un utilisateur</option>
@@ -70,7 +70,7 @@
                         {%endfor%}
                     </select><br><br>
                     Annonce: <select name="accommodationID" required>
-                        <option disabled> Choisir une annonce</option>
+                        <option disabled> Choisir une accommodation</option>
                         {% for accommodation in accommodations%}
                         <option value="{{accommodation.accommodationID}}">{{accommodation.title}}, Id: {{accommodation.accommodationID}}</option>
                         {%endfor%}
@@ -82,10 +82,10 @@
             </div>
             {% if reservations is not empty %}
             {% for reservation in reservations %}
-            <div class="annonce">
-                <a href="/accommodation/{{ reservation.accommodationID }}" id="lien-annonce">
-                    <img src="Public/assets/images/{{reservation.image}}" id="img-annonce-home" alt="image-{{ reservation.image }}">
-                    <div class="zone-prix">{{reservation.price}} €/nuit</div>
+            <div class="accommodation">
+                <a href="/accommodation/{{ reservation.accommodationID }}" id="lien-accommodation">
+                    <img src="Public/assets/images/{{reservation.image}}" id="img-accommodation-home" alt="image-{{ reservation.image }}">
+                    <div class="zone-price">{{reservation.price}} €/nuit</div>
                     <div class="description">
                         <h4>{{reservation.title}}</h4>
                         Réservé par: {{reservation.surname }}, Id: {{reservation.userID}}

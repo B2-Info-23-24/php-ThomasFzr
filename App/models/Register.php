@@ -13,7 +13,7 @@ class Register
         $this->user = new User();
     }
 
-    //Insert inscription et récupération données user
+    //Insert inscription and get user info
     function insertIntoTableRegister($mail, $pwd)
     {
         $rqt = "SELECT * from User where mail = :mail";

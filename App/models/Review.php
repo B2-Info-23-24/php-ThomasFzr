@@ -105,7 +105,6 @@ class Review
 
     //===== ADMIN =====
 
-    //Recuperer tous les avis
     function getAllReview()
     {
         $rqt = "SELECT r.*, a.*, u.*
@@ -119,7 +118,7 @@ class Review
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Ajouter un avis
+    //add a review
     function addReview($userID, $accommodationID, $grade, $comment, $date)
     {
         $rqt = "INSERT INTO Review (userID, accommodationID, grade, comment, date) VALUES (:userID, :accommodationID, :grade, :comment, :date);";
@@ -139,7 +138,7 @@ class Review
         }
     }
 
-    //Supprimer un avis
+    //delete a review
     function deleteReview($reviewID)
     {
         $rqt = "DELETE FROM Review WHERE reviewID = :reviewID;";
@@ -154,7 +153,7 @@ class Review
         }
     }
 
-    //Modifier un avis
+    //Update a review
     function modifyReview($column, $value, $reviewId)
     {
         $rqt = "UPDATE Review SET $column = :value WHERE reviewId=:reviewId";
