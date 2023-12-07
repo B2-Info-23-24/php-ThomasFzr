@@ -24,7 +24,7 @@ type de logement, équipements disponibles et services disponibles.
 - Coller dedans (attention aux espaces et aux tabulations):
 
 
-
+```
 version: '3'  
   
 services:  
@@ -49,7 +49,7 @@ services:
   
 volumes:  
   db_data:  
-  
+  ```
   
   
 
@@ -58,12 +58,12 @@ volumes:
 
 
   
-  
+ ```
 FROM php:8.2-apache  
 RUN docker-php-ext-install pdo pdo_mysql  
 RUN a2enmod rewrite  
 RUN service apache2 restart  
-
+```
 
 
   
