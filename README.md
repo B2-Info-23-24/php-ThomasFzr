@@ -1,27 +1,19 @@
 # Troc Mon Toit, Thomas FOLTZER B2A #
 
-# Présentation du projet
+# Project Presentation
+As part of the PHP module, we had to create a website for a rental agency (Troc Mon Toit) that aims to digitize its services and make various properties available to generate income. This application should display all available accommodations, each represented by a photo, and should be searchable by city. Additionally, the display should allow filtering accommodations by nightly price, type of accommodation, available amenities, and services.
 
-Dans le cadre du module PHP, nous avons dû réalisé un site web pour
-une agence de location (Troc mon Toit) qui souhaite numériser ses services
-et mettre à disposition différents logements qu’elle possède afin d’en tirer des revenus.
-Cette application doit permettre un affichage de l’ensemble des logements disponibles. Ces
-logements, imagés par une photo, doivent pouvoir être recherchables par ville.
-Par ailleurs cet affichage doit permettre de filtrer les logements par prix à la nuit, 
-type de logement, équipements disponibles et services disponibles.
-
-# Guide d'installation
+# Installation Guide
 
 
-# Installation de docker desktop
+# Installing Docker Desktop
 
 [Download Docker Desktop | Docker](https://www.docker.com/products/docker-desktop/)
 
-# Mise en place du projet
-
-- Créer un dossier qui contiendra votre code.
-- Dans ce dossier, creer un fichier : ```docker-compose.yml```
-- Coller dedans (attention aux espaces et aux tabulations):
+# Project Setup
+- Create a folder to contain your code.
+- In this folder, create a file: `docker-compose.yml`
+- Paste the following content (be mindful of spaces and tabs):
 
 ```
 version: '3'
@@ -50,8 +42,8 @@ volumes:
   db_data:
   ```
 
-- Creer un fichier : ```Dockerfile```  
-- Coller dedans:  
+- Create a file : ```Dockerfile```  
+- Paste the following content :  
   
  ```
 FROM php:8.2-apache
@@ -62,93 +54,80 @@ RUN service apache2 restart
 ```
 
   
-- Lancer le serveur apache : ```docker-compose up -d``` 
-- Donner les autorisations nécessaires au dossier src : ```sudo chmod 777 -R src```  
+- Launch the Apache server: ```docker-compose up -d``` 
+- Provide necessary permissions to the src folder : ```sudo chmod 777 -R src```  
   
 
-# Accès à la base de données
+# Database Access
 
-Pour accéder à la base de données, vous pouvez utiliser l’outil que vous voulez, cependant nous préconisons l’utilisation de beekeeper studio, un puissant éditeur de base de données 
+To access the database, you can use any tool, but we recommend using Beekeeper Studio, a powerful database editor.
 
 [https://github.com/beekeeper-studio/beekeeper-studio](https://github.com/beekeeper-studio/beekeeper-studio)
 
-Une fois sur l’application, is faut configurer une nouvelle connexion 
+Once in the application, configure a new connection. 
 
 ![Untitled](https://i.imgur.com/RZ693Z2.png)
 
-Ici nous choisissons MySQL. 
+Here, we choose MySQL. 
 
-Vous pouvez ensuite remplir les informations de connexion avec celles fournies dans le fichier docker-compose.yml
+Fill in the connection information with the details provided in the docker-compose.yml file.
 
 ![Untitled](https://i.imgur.com/uxmEInv.png)
 
-Vous pouvez avez désormais accès à la base de données 
+Now, you have access to the database.
 
 
-- Cloner le repo github: ```git clone https://github.com/B2-Info-23-24/php-ThomasFzr.git src``` depuis votre dossier
-- Aller dans le dossier src : ```cd src```
-- Installer les dépendances : ```composer install```
+- Clone the github repo: ```git clone https://github.com/B2-Info-23-24/php-ThomasFzr.git src``` from your folder
+- Navigate to the src folder: ```cd src```
+- Install dependencies : ```composer install```
 
-- Chercher son numéro de container: ```docker ps```
-- Copier coller le numéro en dessous de CONTAINER ID, qui correspond à l'image php-web (ex: b21268552815)
+- Find your container number ```docker ps```
+- Copy the number below CONTAINER ID, corresponding to the php-web image (e.g., b21268552815)
 
-- Creer la BDD avec cette commande, en remplaçant b21268552815 
-  avec votre CONTAINER ID: ```docker exec b21268552815 php createDb.php```
+- Create the database with this command, replacing b21268552815 with your CONTAINER ID:  ```docker exec b21268552815 php createDb.php```
 
-- Aller sur internet et écrire l'url: ```http://localhost:8080/```
-- Bienvenue sur mon site!
+- Go to the internet and enter the URL: `http://localhost:8080/`
+
+Welcome to my site!
 
   
-# Guide d'utilisation
+# User Guide
+Once on the site, you can either log in if you already have an account or register.
 
-Une fois sur le site, nous pouvons soit nous connecté si nous avons déjà 
-un compte, soit nous inscrire.
+Without being logged in, you can view all accommodations, see details by clicking on them (amenities/services, city, price, etc.), and filter accommodations by:
+- Price
+- City
+- Amenities
+- Services
+- Type of accommodation
+  
+However, you cannot book or add accommodations to favorites without being logged in.
 
-Sans être connecté nous pouvons voir l'ensemble des logements, voir
-le détails du logement en cliquant dessus (équipements/services, ville, prix, etc.),
-nous pouvons également filtrer les logements par:
-- prix
-- ville
-- équipements
-- services
-- type de logement
+Upon project launch, several basic user accounts are created:
 
-Mais nous ne pouvons pas réserver, ni ajouter en favoris le logement.
-
-Lors du lancement du projet, sont créé plusieurs comptes utilisateurs basiques:
-
-    Identifiant : `elise@elise.com`
-    Mdp: `elise`
-
-    Identifiant : `joe@joe.com`
-    Mdp: `joe`
-
-Les utilisateurs s'ils sont connectés peuvent :
-- mettre en favoris un logement
-- réserver un logement si les dates sont disponnibles
-- laisser un unique avis sur sa réservation une fois celle-ci terminée
-- modifier son profil (nom, prénom, num de tél, mail, mdp)
-- voir l'ensemble de ses logements favoris, sont historiques de 
-  réservations et d'avis
-
-Un compte administrateur est également créé:
-
-    Identifiant : `admin@admin.com`
-    Mdp: `admin`
-
-L'administrateur peut:
-- voir l'ensemble des utilisateurs, modifier leur profil, en créer 
-  de nouveaux et en supprimer
-- voir l'ensemble des logements, modifier leur description 
-  (titre, prix, équipements/services dispo, type de logement, etc.), 
-  en créer de nouveaux et un supprimer
-- voir l'ensemble des types de logement, des services et des équipements
-  modifier leur nom, en créer de nouveaux et en supprimer
-- voir l'ensemble des avis, les modifier (date, note, commentaire)
-  en créer de nouveaux et en supprimer
-- voir l'ensemble des réservations et des favoris, en ajouter et en supprimer
-- filter les logements par nom du logement
+Username: elise@elise.com, Password: elise
+Username: joe@joe.com, Password: joe
 
 
+Logged-in users can:
+
+Add accommodations to favorites
+Reserve accommodations if dates are available
+Leave a single review for their completed reservation
+Modify their profile (name, surname, phone number, email, password)
+View their favorites, reservation history, and reviews
 
 
+An administrator account is also created:
+
+Username: admin@admin.com, Password: admin
+
+
+The administrator can:
+
+View all users, modify their profiles, create new ones, and delete them
+View all accommodations, modify their descriptions (title, price, available amenities/services, type of accommodation, etc.), create new ones, and delete them
+View all types of accommodations, services, and amenities, modify their names, create new ones, and delete them
+View all reviews, modify them (date, rating, comment), create new ones, and delete them
+View all reservations and favorites, add and delete them
+Filter accommodations by accommodation name
