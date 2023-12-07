@@ -113,7 +113,7 @@ nous pouvons également filtrer les logements par:
 - services
 - type de logement
 
-Mais nous ne devons pas réserver, ni ajouter en favoris le logement.
+Mais nous ne pouvons pas réserver, ni ajouter en favoris le logement.
 
 Lors du lancement du projet, sont créé plusieurs comptes utilisateurs basiques:
 
