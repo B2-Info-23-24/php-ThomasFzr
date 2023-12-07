@@ -23,48 +23,43 @@ type de logement, équipements disponibles et services disponibles.
 - Dans ce dossier, creer un fichier : `docker-compose.yml`
 - Coller dedans (attention aux espaces et aux tabulations):
 
-
 ```
-version: '3'  
-  
-services:  
-  web:  
-    build: .  
-    ports:  
-      - "8080:80" # Expose port 8080 on WSL to port 80 in the container  
-    volumes:  
-      - ./src:/var/www/html  
-  
-  mysql:  
-    image: mysql:5.7  
-    environment:  
-      MYSQL_ROOT_PASSWORD: my-secret-pw  
-      MYSQL_DATABASE: my_database  
-      MYSQL_USER: my_user  
-      MYSQL_PASSWORD: my_password  
-    volumes:  
-      - db_data:/var/lib/mysql  
-    ports:  
-      - "3306:3306" # Expose port 3306 on the host to port 3306 in the container  
-  
-volumes:  
-  db_data:  
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80" # Expose port 8080 on WSL to port 80 in the container
+    volumes:
+      - ./src:/var/www/html
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_password
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306" # Expose port 3306 on the host to port 3306 in the container
+
+volumes:
+  db_data:
   ```
-  
-  
 
 - Creer un fichier : `Dockerfile`  
 - Coller dedans:  
-
-
   
  ```
-FROM php:8.2-apache  
-RUN docker-php-ext-install pdo pdo_mysql  
-RUN a2enmod rewrite  
-RUN service apache2 restart  
+FROM php:8.2-apache
+# Install additional PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql
+RUN a2enmod rewrite
+RUN service apache2 restart 
 ```
-
 
   
 - Lancer le serveur apache : `docker-compose up -d`  
