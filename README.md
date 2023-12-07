@@ -22,7 +22,8 @@ type de logement, équipements disponibles et services disponibles.
 - Créer un dossier qui contiendra votre code.
 - Dans ce dossier, creer un fichier : `docker-compose.yml`
 - Coller dedans (attention aux espaces et aux tabulations):
-======================================
+
+
 
 version: '3'
 
@@ -49,18 +50,23 @@ services:
 volumes:
   db_data:
 
-======================================
+
+
+
 - Creer un fichier : `Dockerfile`
 - Coller dedans:
-======================================
+
+
+
   
 FROM php:8.2-apache
-# Install additional PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
 RUN service apache2 restart
 
-======================================
+
+
+
 - Lancer le serveur apache : `docker-compose up -d`
 - Donner les autorisations nécessaires au dossier src : `sudo chmod 777 -R src`
 
