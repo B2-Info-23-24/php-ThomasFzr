@@ -85,14 +85,9 @@ Vous pouvez ensuite remplir les informations de connexion avec celles fournies d
 Vous pouvez avez désormais accès à la base de données 
 
 
-- Installer Composer : ```sudo apt install composer```
-- Installer Twig : ```composer require twig/twig```
-- Installer Faker : ```sudo docker run --rm --interactive --tty --volume %PWD:/app composer require fakerphp/faker```
-
-- Arreter le serveur apache : ```docker-compose down```
-- Relancer le serveur apache : ```docker-compose up --build```
-
-- Cloner le repo github: ```git clone https://github.com/B2-Info-23-24/php-ThomasFzr.git src```
+- Cloner le repo github: ```git clone https://github.com/B2-Info-23-24/php-ThomasFzr.git src``` depuis votre dossier
+- Aller dans le dossier src : ```cd src```
+- Installer les dépendances : ```composer install```
 
 - Chercher son numéro de container: ```docker ps```
 - Copier coller le numéro en dessous de CONTAINER ID, qui correspond à l'image php-web (ex: b21268552815)
