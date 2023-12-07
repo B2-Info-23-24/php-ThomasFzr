@@ -83,7 +83,7 @@
 
 <div class="zone-accommodation">
     {% if isAdmin %}
-    <a href="/addAccommodation" id="lien-accommodation">
+    <a href="/addAccommodation" id="link-accommodation">
         <div class="accommodation">
             <img src="Public/assets/images/iconePlusBlanc.png" id="img-btn-add-accommodation">
             <div class="zone-price"> </div><br>
@@ -95,7 +95,7 @@
     {% endif %}
     {% if accommodations is not empty %}
     {% for accommodation in accommodations %}
-    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-accommodation">
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="link-accommodation">
         <div class="accommodation">
             <img src="Public/assets/images/{{accommodation.image}}" id="img-accommodation-home" alt="image-{{ info.image }}">
             <div class="zone-price">{{accommodation.price}} €/nuit</div>
@@ -114,9 +114,9 @@
 {% block footer %}
 <script>
     document.getElementById('toggleFiltresButton').addEventListener('click', function() {
-        var filterDropDown = document.getElementById('filter-drop-down');
-        filterDropDown.classList.toggle('visible');
-        filterDeroulant.classList.toggle('hidden');
+        var filter = document.getElementById('filter-drop-down');
+        filter.classList.toggle('visible');
+        filter.classList.toggle('hidden');
     });
 </script>
 {% endblock %}

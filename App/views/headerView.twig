@@ -1,7 +1,7 @@
 <div id="container-allheader">
     <div id="container-header">
         <div id="container-leftheader">
-            <a href="/" id="lien-logo-tmt">
+            <a href="/" id="link-logo-tmt">
                 <h1>TROC MON TOIT</h1>
             </a>
         </div>
@@ -21,7 +21,7 @@
                 </div>
                 <div id="container-rightheader-topright">
                     <a href="javascript:void(0)" id="btn-profile">
-                        <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
+                        <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconAccount">
                     </a>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div id="container-rightheader-topright">
                     <a href="/connection">
-                        <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconeCompte">
+                        <img src="Public/assets/images/iconeCompte.png" alt="img icone compte" id="imgIconAccount">
                     </a>
                 </div>
             </div>
@@ -44,17 +44,17 @@
                 <div id="btn-profile-deroulant" class="profile-card" style="display: none;">
                     <div class="profile-card">
                         {% if isAdmin %}
-                        <a href="/allUsers" id="liens-profile-card">UTILISATEURS</a><br>
-                        <a href="/allReviews" id="liens-profile-card">AVIS</a><br>
-                        <a href="/allFavoritesReservations" id="liens-profile-card">FAVORIS/RESERVATIONS</a><br>
-                        <a href="/allEquipmentServiceAccommodationType" id="liens-profile-card">TYPE/SERVICE/EQUIPEMENT</a><br>
+                        <a href="/allUsers" id="link-profile-card">UTILISATEURS</a><br>
+                        <a href="/allReviews" id="link-profile-card">AVIS</a><br>
+                        <a href="/allFavoritesReservations" id="link-profile-card">FAVORIS/RESERVATIONS</a><br>
+                        <a href="/allEquipmentServiceAccommodationType" id="link-profile-card">TYPE/SERVICE/EQUIPEMENT</a><br>
                         {%else%}
-                        <a href="/myAccount" id="liens-profile-card">MON COMPTE</a><br>
-                        <a href="/myReservations" id="liens-profile-card">MES RESERVATIONS</a><br>
-                        <a href="/myReviews" id="liens-profile-card">MES AVIS</a><br>
-                        <a href="/myFavorites" id="liens-profile-card">MES FAVORIS</a><br>
+                        <a href="/myAccount" id="link-profile-card">MON COMPTE</a><br>
+                        <a href="/myReservations" id="link-profile-card">MES RESERVATIONS</a><br>
+                        <a href="/myReviews" id="link-profile-card">MES AVIS</a><br>
+                        <a href="/myFavorites" id="link-profile-card">MES FAVORIS</a><br>
                         {%endif%}
-                        <a href="/deconnection" id="liens-profile-card">DECONNEXION</a>
+                        <a href="/deconnection" id="link-profile-card">DECONNEXION</a>
                     </div>
                 </div>
             </div>

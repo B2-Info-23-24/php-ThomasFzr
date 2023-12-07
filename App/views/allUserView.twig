@@ -4,7 +4,7 @@
 
 <h3>Tous les utilisateurs: </h3>
 <a href="javascript:void(0)" id="btn-plus">
-    <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+    <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconPlus">
 </a>
 
 <div id="zone-users">
@@ -28,27 +28,27 @@
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Adresse mail :
             <input type="email" value="{{user.mail}}" name="mail" required>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Mdp :
             <input type="text" value="{{user.pwd}}" name="pwd" required>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Nom :
             <input type="text" value="{% if user.name != null %} {{user.name}} {%else%} Pas défini {%endif%}" name="name" required>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Prénom :
             <input type="text" value="{% if user.surname != null %} {{user.surname}} {%else%} Pas défini {%endif%}" name="surname" required>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Numéro de tél :
             <input type="text" pattern="^0\d{9}$" value="{% if user.phoneNbr != null %} {{user.phoneNbr}} {%else%} Pas défini {%endif%}" name="phoneNbr" required>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
         <form action="/processUser?action=modify&id={{user.userID}}" method="post">
             Compte admin :
@@ -61,11 +61,11 @@
                 <option value="0">Non</option>
                 {%endif%}
             </select>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
 
         <a href="/processUser?action=delete&id={{user.userID}}">
-            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
         </a>
     </div>
     {%endfor%}

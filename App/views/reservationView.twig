@@ -8,7 +8,7 @@
 <div class="zone-accommodation">
     {% for accommodation in accommodationReservation %}
     {% if accommodation.endDate >= dateToday %}
-    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-accommodation">
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="link-accommodation">
         <div class="accommodation">
             <img src="Public/assets/images/{{accommodation.image}}" id="img-accommodation-home" alt="image-{{ accommodation.image }}">
             <div class="zone-price">{{accommodation.price}} €/nuit</div>
@@ -28,7 +28,7 @@
 <div class="zone-accommodation">
     {% for accommodation in accommodationReservation %}
     {% if accommodation.endDate < dateToday %}
-    <a href="/accommodation/{{ accommodation.accommodationID }}" id="lien-accommodation">
+    <a href="/accommodation/{{ accommodation.accommodationID }}" id="link-accommodation">
         <div class="accommodation">
             <img src="Public/assets/images/{{accommodation.image}}" id="img-accommodation-home" alt="image-{{ accommodation.image }}">
             <div class="zone-price">{{accommodation.price}} €/nuit</div>

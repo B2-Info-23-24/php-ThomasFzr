@@ -4,7 +4,7 @@
 <h3> Tous les avis: </h3>
 
 <a href="javascript:void(0)" id="btn-plus">
-    <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconePlus">
+    <img src="Public/assets/images/iconePlusBlanc.png" alt="iconePlusBlanc" id="imgIconPlus">
 </a>
 
 
@@ -33,7 +33,7 @@
     </div>
     {% for review in reviews %}
 
-    <a href="/accommodation/{{ review.accommodationID }}" id="lien-accommodation">
+    <a href="/accommodation/{{ review.accommodationID }}" id="link-accommodation">
         <div class="accommodation">
             <img src="Public/assets/images/{{review.image}}" id="img-accommodation-home" alt="image-{{ review.image }}">
             <div class="zone-price">{{ review.price }} €/nuit</div>
@@ -45,7 +45,7 @@
     <div id="details-all-reviews">
         <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
             Note : <input type="number" value="{{review.grade}}" name="grade" min="0" max="5" required>/5⭐
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form>
         <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
             Utilisateur : <select name="userID" required>
@@ -54,20 +54,20 @@
                 <option value="{{user.userID}}">{{user.surname}}, Id: {{user.userID}}</option>
                 {%endfor%}
             </select>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form>
         <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
             Date : <input type="date" value="{{review.date}}" name="date" required>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form>
         <form action="/processReview?action=modify&id={{review.reviewID}}" method="post">
             Commentaire : <textarea name="comment" required>{{ review.comment }}</textarea>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form>
         <br>
 
         <a href="/processReview?action=delete&id={{review.reviewID}}">
-            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
         </a>
     </div>
 </div>

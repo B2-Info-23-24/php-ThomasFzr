@@ -16,7 +16,7 @@
                 <option value="{{image.name}}">{{image.name}}</option>
                 {% endfor %}
             </select>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form>
         {% endif%}
 
@@ -25,11 +25,11 @@
         {% if isAdmin %}
         <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
             Titre: <input type="text" value="{{info.title}}" name="title" required>
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
         <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
             Prix: <input type="number" value="{{info.price}}" name="price" min="0" max="1000000" required> €/nuit
-            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+            <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
         </form><br>
         {% endif%}
 
@@ -45,7 +45,7 @@
                     <option value="{{accommodationType.name}}">{{accommodationType.name}}</option>
                     {% endfor %}
                 </select>
-                <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
             </form><br>
             <form action="/processAccommodation?action=modifyAccommodation&id={{info.accommodationID}}" method="post">
                 Ville: <select name="city" required>
@@ -54,7 +54,7 @@
                 <option value="{{city.name}}">{{city.name}}</option>
                 {% endfor %}
             </select>
-                <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icone-poubelle-rouge">
+                <input type="image" src="Public/assets/images/iconeStyloBleu.png" alt="iconeStyloBleu" id="icon-red-bin">
             </form><br>
             {%else%}
             Type de logement : {{ info.accommodationType }}<br><br>
@@ -70,7 +70,7 @@
                     {% if isAdmin %}
                     {% for info in infoAccommodation %}
                     <a href="/processAccommodation?action=deleteEquipment&id={{info.accommodationID}}&equipmentID={{equipment.equipmentID}}">
-                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
                     </a>
                     {% endfor%}
                     {% endif%}
@@ -103,7 +103,7 @@
                     {% if isAdmin %}
                     {% for info in infoAccommodation %}
                     <a href="/processAccommodation?action=deleteService&id={{info.accommodationID}}&serviceID={{service.serviceID}}">
-                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+                        <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
                     </a>
                     {% endfor%}
                     {% endif%}
@@ -210,7 +210,7 @@
         <br><br>
         {% for info in infoAccommodation %}
         <a href="/processAccommodation?action=deleteAccommodation&id={{ info.accommodationID }}">
-            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icone-poubelle-rouge">
+            <img src="Public/assets/images/iconePoubelleRouge.png" alt="iconePoubelleRouge" id="icon-red-bin">
             Supprimer l'accommodation
         </a>
         {% endfor %}
